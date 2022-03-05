@@ -1,4 +1,4 @@
-﻿namespace MySpace.Api.Domain;
+﻿namespace MySpace.Api.Domain.Models;
 
 public class ArticleId : ValueType
 {
@@ -18,6 +18,11 @@ public class ArticleId : ValueType
     {
         var otherArticleId = (ArticleId?) obj;
         return otherArticleId != null && Value.Equals(otherArticleId.Value);
+    }
+
+    public override string ToString()
+    {
+        return Value.ToString();
     }
 
     public override int GetHashCode()

@@ -1,4 +1,4 @@
-﻿namespace MySpace.Api.Domain;
+﻿namespace MySpace.Api.Domain.Models;
 
 public class Article : ReactableDocument
 {
@@ -17,13 +17,14 @@ public class Article : ReactableDocument
         {
             throw new ArgumentException("Must pass an instance of type Article");
         }
-
+        
         var article = (Article) document;
         UpdateArticle(article);
     }
     
     private void UpdateArticle(Article article)
     {
+        base.Update(article);
         Title = article.Title ?? Title;
         EstimatedMinutesToRead = article.EstimatedMinutesToRead ?? EstimatedMinutesToRead;
         Content = article.Content?? Content;

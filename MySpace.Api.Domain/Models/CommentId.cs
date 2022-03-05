@@ -1,4 +1,4 @@
-﻿namespace MySpace.Api.Domain;
+﻿namespace MySpace.Api.Domain.Models;
 
 public class CommentId : ValueType
 {
@@ -12,6 +12,11 @@ public class CommentId : ValueType
     public static CommentId GetNewId()
     {
         return new CommentId(Guid.NewGuid());
+    }
+
+    public override string ToString()
+    {
+        return Value.ToString();
     }
 
     public override bool Equals(object? obj)

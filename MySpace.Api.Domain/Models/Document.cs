@@ -1,4 +1,4 @@
-﻿namespace MySpace.Api.Domain;
+﻿namespace MySpace.Api.Domain.Models;
 
 public abstract class Document
 {

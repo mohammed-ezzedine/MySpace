@@ -1,5 +1,5 @@
 ﻿
-namespace MySpace.Api.Domain;
+namespace MySpace.Api.Domain.Models;
 
 public class Comment : ReactableDocument
 {
