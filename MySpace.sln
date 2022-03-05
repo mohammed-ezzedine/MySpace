@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySpace.Api", "MySpace.Api", "{D9505DE6-4113-4DB1-B4C9-30A33651655D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Domain", "MySpace.Api.Domain\MySpace.Api.Domain.csproj", "{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionAssets", "SolutionAssets", "{1910A959-5013-4A42-8BBA-ACE17B8C13BB}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
+	EndGlobalSection
+EndGlobal
