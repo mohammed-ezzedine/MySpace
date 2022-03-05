@@ -3,7 +3,7 @@ namespace MySpace.Api.Domain.Models;
 
 public class Comment : ReactableDocument
 {
-    public CommentId Id { get; set; } = null!;
+    public CommentId Id { get; set; }
     
     public override void Update(Document document)
     {

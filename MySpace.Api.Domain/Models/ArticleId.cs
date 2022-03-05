@@ -1,10 +1,10 @@
 ﻿namespace MySpace.Api.Domain.Models;
 
-public class ArticleId : ValueType
+public readonly struct ArticleId
 {
     public Guid Value { get; }
 
-    private ArticleId(Guid id)
+    public ArticleId(Guid id)
     {
         Value = id;
     }
@@ -17,7 +17,7 @@ public class ArticleId : ValueType
     public override bool Equals(object? obj)
     {
         var otherArticleId = (ArticleId?) obj;
-        return otherArticleId != null && Value.Equals(otherArticleId.Value);
+        return otherArticleId != null && Value == otherArticleId.Value.Value;
     }
 
     public override string ToString()

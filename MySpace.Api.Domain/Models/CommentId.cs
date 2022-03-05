@@ -1,6 +1,6 @@
 ﻿namespace MySpace.Api.Domain.Models;
 
-public class CommentId : ValueType
+public readonly struct CommentId
 {
     public Guid Value { get; }
 
@@ -22,7 +22,7 @@ public class CommentId : ValueType
     public override bool Equals(object? obj)
     {
         var otherCommentId = (CommentId?) obj;
-        return otherCommentId != null && Value.Equals(otherCommentId.Value);
+        return otherCommentId != null && Value == otherCommentId.Value.Value;
     }
 
     public override int GetHashCode()

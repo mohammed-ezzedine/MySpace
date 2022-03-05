@@ -14,6 +14,11 @@ public class Tag
         Name = tag.Name;
     }
 
+    public override string ToString()
+    {
+        return Name;
+    }
+
     public override bool Equals(object? obj)
     {
         var tag = (Tag?) obj;

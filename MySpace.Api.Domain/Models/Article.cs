@@ -2,7 +2,7 @@
 
 public class Article : ReactableDocument
 {
-    public ArticleId Id { get; set; } = null!;
+    public ArticleId Id { get; set; }
     
     public string? Title { get; set; }
     

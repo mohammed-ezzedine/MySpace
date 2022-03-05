@@ -1,4 +1,5 @@
-﻿using MySpace.Api.Domain.Models;
+﻿using MySpace.Api.Domain.Exceptions;
+using MySpace.Api.Domain.Models;
 using MySpace.Api.Domain.Persistence;
 
 namespace MySpace.Api.Application.Services;
@@ -22,13 +23,22 @@ public class TagService : ITagService
         return TagExists(tag) ? tag : _tagRepository.AddTag(tag);
     }
 
-    public Tag UpdateTag(Tag tag)
+    public void DeleteTag(Tag tag)
     {
-        return _tagRepository.UpdateTag(tag);
+        ThrowExceptionIfTagNotFound(tag);
+        _tagRepository.DeleteTag(tag);
     }
 
     public bool TagExists(Tag tag)
     {
         return _tagRepository.TagExists(tag);
+    }
+
+    private void ThrowExceptionIfTagNotFound(Tag tag)
+    {
+        if (!TagExists(tag))
+        {
+            throw new TagNotFoundException(tag.ToString());
+        }
     }
 }
