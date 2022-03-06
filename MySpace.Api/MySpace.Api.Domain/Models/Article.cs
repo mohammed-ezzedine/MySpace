@@ -5,8 +5,12 @@ public class Article : ReactableDocument
     public ArticleId Id { get; set; }
     
     public string? Title { get; set; }
+
+    public string? Description { get; set; }
     
     public int? EstimatedMinutesToRead { get; set; }
+
+    public string? ImageUrl { get; set; }
 
     public List<Tag>? Tags { get; set; }
 
@@ -26,9 +30,11 @@ public class Article : ReactableDocument
     {
         base.Update(article);
         Title = article.Title ?? Title;
+        Description = article.Description ?? Description;
         EstimatedMinutesToRead = article.EstimatedMinutesToRead ?? EstimatedMinutesToRead;
         Content = article.Content?? Content;
         Tags = article.Tags ?? Tags;
+        ImageUrl = article.ImageUrl ?? ImageUrl;
         UpdateModifiedDate();
     }
 }

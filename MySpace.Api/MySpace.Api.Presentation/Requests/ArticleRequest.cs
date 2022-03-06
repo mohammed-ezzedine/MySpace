@@ -4,7 +4,11 @@ public class ArticleRequest
 {
     public string Title { get; set; } = null!;
 
+    public string Description { get; set; } = null!;
+
     public int EstimatedMinutesToRead { get; set; }
+
+    public string? ImageUrl { get; set; }
 
     public List<TagRequest>? Tags { get; set; }
     

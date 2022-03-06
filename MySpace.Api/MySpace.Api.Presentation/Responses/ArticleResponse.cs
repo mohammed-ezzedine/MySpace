@@ -6,10 +6,14 @@ public class ArticleResponse
 
     public string Title { get; set; } = null!;
 
+    public string Description { get; set; } = null!;
+    
     public int EstimatedMinutesToRead { get; set; }
 
     public List<TagResponse>? Tags { get; set; }
     
+    public string? ImageUrl { get; set; }
+
     public int ThumbsUp { get; set; }
     
     public int ThumbsDown { get; set; }

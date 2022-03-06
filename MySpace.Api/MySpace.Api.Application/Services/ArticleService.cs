@@ -22,8 +22,7 @@ public class ArticleService : IArticleService
 
     public List<Article> GetArticlesByTag(Tag tag)
     {
-        return _articleRepository.GetArticles()
-            .Where(a => a.Tags != null && a.Tags.Contains(tag)).ToList();
+        return _articleRepository.GetArticlesByTag(tag);
     }
 
     public Article GetArticle(ArticleId id)

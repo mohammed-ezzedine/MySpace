@@ -12,7 +12,11 @@ public class ArticleEntity
 
     public string Title { get; set; } = null!;
 
+    public string Description { get; set; } = null!;
+
     public int EstimatedMinutesToRead { get; set; }
+
+    public string? ImageUrl { get; set; }
 
     public List<Tag>? Tags { get; set; }
     
