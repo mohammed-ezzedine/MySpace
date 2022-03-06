@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using MySpace.Api.Domain.Configurations;
 using MySpace.Api.Domain.Persistence;
@@ -13,9 +14,9 @@ public class MongoDbTagRepository : TagRepository
     private readonly IMongoCollection<TagEntity> _tagCollection;
     private readonly IMapper _mapper;
 
-    public MongoDbTagRepository(PersistenceConfiguration configuration, IMapper mapper)
+    public MongoDbTagRepository(PersistenceConfiguration configuration, IMapper mapper, ILogger<PersistenceFactory> logger)
     {
-        _tagCollection = new PersistenceFactory(configuration).GetCollection<TagEntity>("tags");
+        _tagCollection = new PersistenceFactory(configuration, logger).GetCollection<TagEntity>("tags");
         _mapper = mapper;
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using MySpace.Api.Domain.Configurations;
 using MySpace.Api.Domain.Exceptions;
@@ -16,9 +17,9 @@ public class MongoDbArticleRepository : ArticleRepository
     private readonly IMongoCollection<ArticleEntity> _articleCollection;
     private readonly IMapper _mapper;
 
-    public MongoDbArticleRepository(PersistenceConfiguration configuration, IMapper mapper)
+    public MongoDbArticleRepository(PersistenceConfiguration configuration, IMapper mapper, ILogger<PersistenceFactory> logger)
     {
-        _articleCollection = new PersistenceFactory(configuration).GetCollection<ArticleEntity>("articles");
+        _articleCollection = new PersistenceFactory(configuration, logger).GetCollection<ArticleEntity>("articles");
         _mapper = mapper;
     }
 

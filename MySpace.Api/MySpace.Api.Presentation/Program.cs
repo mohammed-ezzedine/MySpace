@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var persistenceConfiguration = configuration.GetSection(nameof(PersistenceConfiguration)).Get<PersistenceConfiguration>();
-builder.Services.AddSingleton(persistenceConfiguration);
+builder.Services.AddSingleton<PersistenceConfiguration>(persistenceConfiguration);
 
 builder.Services.AddSingleton<TagRepository, MongoDbTagRepository>();
 builder.Services.AddSingleton<ArticleRepository, MongoDbArticleRepository>();

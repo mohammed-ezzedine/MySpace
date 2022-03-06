@@ -5,6 +5,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+COPY ["MySpace.Api.Application/MySpace.Api.Application.csproj", "MySpace.Api.Application/"]
+COPY ["MySpace.Api.Domain/MySpace.Api.Domain.csproj", "MySpace.Api.Domain/"]
+COPY ["MySpace.Api.Persistence/MySpace.Api.Persistence.csproj", "MySpace.Api.Persistence/"]
 COPY ["MySpace.Api.Presentation/MySpace.Api.Presentation.csproj", "MySpace.Api.Presentation/"]
 RUN dotnet restore "MySpace.Api.Presentation/MySpace.Api.Presentation.csproj"
 COPY . .

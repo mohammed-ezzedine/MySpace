@@ -1,8 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySpace.Api", "MySpace.Api", "{D9505DE6-4113-4DB1-B4C9-30A33651655D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Domain", "MySpace.Api.Domain\MySpace.Api.Domain.csproj", "{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}"
+	ProjectSection(SolutionItems) = preProject
+		MySpace.Api\Dockerfile = MySpace.Api\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionAssets", "SolutionAssets", "{1910A959-5013-4A42-8BBA-ACE17B8C13BB}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,11 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionAssets", "SolutionA
 		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Application", "MySpace.Api.Application\MySpace.Api.Application.csproj", "{BEFA2747-AB8A-4F5E-A7F9-55ABE210B934}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Application", "MySpace.Api\MySpace.Api.Application\MySpace.Api.Application.csproj", "{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Persistence", "MySpace.Api.Persistence\MySpace.Api.Persistence.csproj", "{120E3ABD-8BAE-448F-A86A-093ECD6F7256}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Domain", "MySpace.Api\MySpace.Api.Domain\MySpace.Api.Domain.csproj", "{8F0AA0C1-584D-4482-8215-5F9292395C01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Presentation", "MySpace.Api.Presentation\MySpace.Api.Presentation.csproj", "{BF0D7151-5F91-46E1-A178-F1810D64AFA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Persistence", "MySpace.Api\MySpace.Api.Persistence\MySpace.Api.Persistence.csproj", "{99B30E5B-BE81-44DD-A953-BBFBF60726D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Presentation", "MySpace.Api\MySpace.Api.Presentation\MySpace.Api.Presentation.csproj", "{371EC0AD-1ADB-4250-9395-365094F552E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,27 +25,27 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BEFA2747-AB8A-4F5E-A7F9-55ABE210B934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BEFA2747-AB8A-4F5E-A7F9-55ABE210B934}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BEFA2747-AB8A-4F5E-A7F9-55ABE210B934}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEFA2747-AB8A-4F5E-A7F9-55ABE210B934}.Release|Any CPU.Build.0 = Release|Any CPU
-		{120E3ABD-8BAE-448F-A86A-093ECD6F7256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{120E3ABD-8BAE-448F-A86A-093ECD6F7256}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{120E3ABD-8BAE-448F-A86A-093ECD6F7256}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{120E3ABD-8BAE-448F-A86A-093ECD6F7256}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF0D7151-5F91-46E1-A178-F1810D64AFA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF0D7151-5F91-46E1-A178-F1810D64AFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF0D7151-5F91-46E1-A178-F1810D64AFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF0D7151-5F91-46E1-A178-F1810D64AFA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F0AA0C1-584D-4482-8215-5F9292395C01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F0AA0C1-584D-4482-8215-5F9292395C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F0AA0C1-584D-4482-8215-5F9292395C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F0AA0C1-584D-4482-8215-5F9292395C01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99B30E5B-BE81-44DD-A953-BBFBF60726D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99B30E5B-BE81-44DD-A953-BBFBF60726D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99B30E5B-BE81-44DD-A953-BBFBF60726D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99B30E5B-BE81-44DD-A953-BBFBF60726D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{371EC0AD-1ADB-4250-9395-365094F552E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{371EC0AD-1ADB-4250-9395-365094F552E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{371EC0AD-1ADB-4250-9395-365094F552E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{371EC0AD-1ADB-4250-9395-365094F552E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4C7F2ED5-A19B-4D97-9955-5D9B78E3DA6E} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
-		{BEFA2747-AB8A-4F5E-A7F9-55ABE210B934} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
-		{120E3ABD-8BAE-448F-A86A-093ECD6F7256} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
-		{BF0D7151-5F91-46E1-A178-F1810D64AFA2} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
+		{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
+		{8F0AA0C1-584D-4482-8215-5F9292395C01} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
+		{99B30E5B-BE81-44DD-A953-BBFBF60726D3} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
+		{371EC0AD-1ADB-4250-9395-365094F552E5} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
 	EndGlobalSection
 EndGlobal
