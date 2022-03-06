@@ -85,7 +85,7 @@ public abstract class ReactableDocument : Document
 
     public override void Update(Document document)
     {
-        if (document.GetType() != typeof(ReactableDocument))
+        if (document is not ReactableDocument)
         {
             throw new ArgumentException("Must pass an instance of a ReactableDocument");
         }

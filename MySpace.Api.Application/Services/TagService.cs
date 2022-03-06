@@ -13,7 +13,7 @@ public class TagService : ITagService
         _tagRepository = tagRepository;
     }
 
-    public List<Tag> GetTags()
+    public IEnumerable<Tag> GetTags()
     {
         return _tagRepository.GetTags();
     }

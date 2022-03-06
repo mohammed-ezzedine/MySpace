@@ -12,28 +12,40 @@ public class CommentService : ICommentService
         _articleService = articleService;
     }
 
-    public Article AddCommentToArticle(ArticleId articleId, Comment comment)
+    public Comment GetComment(ArticleId articleId, CommentId commentId)
     {
         var article = _articleService.GetArticle(articleId);
-        article.AddComment(comment);
-        return _articleService.UpdateArticle(articleId, article);
+        var comment = GetArticleComment(commentId, article);
+        return comment;
     }
 
-    public Article AddReplyToComment(ArticleId articleId, CommentId parentCommentId, Comment comment)
+    public Comment AddCommentToArticle(ArticleId articleId, Comment comment)
     {
         var article = _articleService.GetArticle(articleId);
+        comment.Id = CommentId.GetNewId();
+        article.AddComment(comment);
+        _articleService.UpdateArticle(articleId, article);
+        return comment;
+    }
+
+    public Comment AddReplyToComment(ArticleId articleId, CommentId parentCommentId, Comment comment)
+    {
+        var article = _articleService.GetArticle(articleId);
+        comment.Id = CommentId.GetNewId();
         var parentComment = GetArticleComment(parentCommentId, article);
         parentComment.Comments ??= new List<Comment>();
         parentComment.Comments.Add(comment);
-        return _articleService.UpdateArticle(articleId, article);
+        _articleService.UpdateArticle(articleId, article);
+        return comment;
     }
 
-    public Article EditComment(ArticleId articleId, CommentId id, Comment comment)
+    public Comment EditComment(ArticleId articleId, CommentId id, Comment comment)
     {
         var article = _articleService.GetArticle(articleId);
         var originalComment = GetArticleComment(id, article);
         originalComment.Update(comment);
-        return _articleService.UpdateArticle(articleId, article);
+        _articleService.UpdateArticle(articleId, article);
+        return originalComment;
     }
 
     public void DeleteComment(ArticleId articleId, CommentId id)
@@ -41,6 +53,7 @@ public class CommentService : ICommentService
         var article = _articleService.GetArticle(articleId);
         GetArticleComment(id, article);
         article.RemoveComment(id);
+        _articleService.UpdateArticle(articleId, article);
     }
 
     private static Comment GetArticleComment(CommentId commentId, Article article)

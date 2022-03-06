@@ -4,19 +4,10 @@ namespace MySpace.Api.Domain.Exceptions;
 
 public class CommentNotFoundException : Exception
 {
-    public CommentNotFoundException()
-    {
-    }
+    public string CommentId { get; private set; }
 
-    protected CommentNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
+    public CommentNotFoundException(string commentId)
     {
-    }
-
-    public CommentNotFoundException(string? message) : base(message)
-    {
-    }
-
-    public CommentNotFoundException(string? message, Exception? innerException) : base(message, innerException)
-    {
+        CommentId = commentId;
     }
 }

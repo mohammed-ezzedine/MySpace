@@ -1,0 +1,12 @@
+﻿namespace MySpace.Api.Presentation.Requests;
+
+public class ArticleRequest
+{
+    public string Title { get; set; } = null!;
+
+    public int EstimatedMinutesToRead { get; set; }
+
+    public List<TagRequest>? Tags { get; set; }
+    
+    public string Content { get; set; } = null!;
+}

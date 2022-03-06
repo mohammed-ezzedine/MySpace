@@ -4,7 +4,7 @@ public readonly struct CommentId
 {
     public Guid Value { get; }
 
-    private CommentId(Guid id)
+    public CommentId(Guid id)
     {
         Value = id;
     }
