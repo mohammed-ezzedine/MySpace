@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Persistence", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Presentation", "MySpace.Api\MySpace.Api.Presentation\MySpace.Api.Presentation.csproj", "{371EC0AD-1ADB-4250-9395-365094F552E5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySpace.Authentication", "MySpace.Authentication", "{12FCF80E-52C2-4052-BD64-3C7B94AEE51C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Authentication.Domain", "MySpace.Authentication\MySpace.Authentication.Domain\MySpace.Authentication.Domain.csproj", "{30EFDB72-AE27-480C-B23F-3F018CD28149}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,11 +45,16 @@ Global
 		{371EC0AD-1ADB-4250-9395-365094F552E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{371EC0AD-1ADB-4250-9395-365094F552E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{371EC0AD-1ADB-4250-9395-365094F552E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30EFDB72-AE27-480C-B23F-3F018CD28149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30EFDB72-AE27-480C-B23F-3F018CD28149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30EFDB72-AE27-480C-B23F-3F018CD28149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30EFDB72-AE27-480C-B23F-3F018CD28149}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
 		{8F0AA0C1-584D-4482-8215-5F9292395C01} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
 		{99B30E5B-BE81-44DD-A953-BBFBF60726D3} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
 		{371EC0AD-1ADB-4250-9395-365094F552E5} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
+		{30EFDB72-AE27-480C-B23F-3F018CD28149} = {12FCF80E-52C2-4052-BD64-3C7B94AEE51C}
 	EndGlobalSection
 EndGlobal
