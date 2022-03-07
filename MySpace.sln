@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySpace.Api", "MySpace.Api", "{D9505DE6-4113-4DB1-B4C9-30A33651655D}"
 	ProjectSection(SolutionItems) = preProject
 		MySpace.Api\Dockerfile = MySpace.Api\Dockerfile
@@ -11,24 +14,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionAssets", "SolutionA
 		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Application", "MySpace.Api\MySpace.Api.Application\MySpace.Api.Application.csproj", "{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySpace.Api.Application", "MySpace.Api\MySpace.Api.Application\MySpace.Api.Application.csproj", "{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Domain", "MySpace.Api\MySpace.Api.Domain\MySpace.Api.Domain.csproj", "{8F0AA0C1-584D-4482-8215-5F9292395C01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySpace.Api.Domain", "MySpace.Api\MySpace.Api.Domain\MySpace.Api.Domain.csproj", "{8F0AA0C1-584D-4482-8215-5F9292395C01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Persistence", "MySpace.Api\MySpace.Api.Persistence\MySpace.Api.Persistence.csproj", "{99B30E5B-BE81-44DD-A953-BBFBF60726D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySpace.Api.Persistence", "MySpace.Api\MySpace.Api.Persistence\MySpace.Api.Persistence.csproj", "{99B30E5B-BE81-44DD-A953-BBFBF60726D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Api.Presentation", "MySpace.Api\MySpace.Api.Presentation\MySpace.Api.Presentation.csproj", "{371EC0AD-1ADB-4250-9395-365094F552E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySpace.Api.Presentation", "MySpace.Api\MySpace.Api.Presentation\MySpace.Api.Presentation.csproj", "{371EC0AD-1ADB-4250-9395-365094F552E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySpace.Authentication", "MySpace.Authentication", "{12FCF80E-52C2-4052-BD64-3C7B94AEE51C}"
 	ProjectSection(SolutionItems) = preProject
 		MySpace.Authentication\Dockerfile = MySpace.Authentication\Dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Authentication.Domain", "MySpace.Authentication\MySpace.Authentication.Domain\MySpace.Authentication.Domain.csproj", "{30EFDB72-AE27-480C-B23F-3F018CD28149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySpace.Authentication.Domain", "MySpace.Authentication\MySpace.Authentication.Domain\MySpace.Authentication.Domain.csproj", "{30EFDB72-AE27-480C-B23F-3F018CD28149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Authentication.Application", "MySpace.Authentication\MySpace.Authentication.Application\MySpace.Authentication.Application.csproj", "{86DA2C07-7877-4F72-A8AE-005559EA4926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySpace.Authentication.Application", "MySpace.Authentication\MySpace.Authentication.Application\MySpace.Authentication.Application.csproj", "{86DA2C07-7877-4F72-A8AE-005559EA4926}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpace.Authentication.Presentation", "MySpace.Authentication\MySpace.Authentication.Presentation\MySpace.Authentication.Presentation.csproj", "{0F313359-881F-4108-B879-289CA56FF0AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySpace.Authentication.Presentation", "MySpace.Authentication\MySpace.Authentication.Presentation\MySpace.Authentication.Presentation.csproj", "{0F313359-881F-4108-B879-289CA56FF0AF}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MySpace", "MySpace\", "{E336914A-E06F-44D9-A9B6-0EE084B8E211}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_64933"
+		Debug.AspNetCompiler.PhysicalPath = "MySpace\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64933\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_64933"
+		Release.AspNetCompiler.PhysicalPath = "MySpace\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64933\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "64933"
+		SlnRelativePath = "MySpace\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +88,13 @@ Global
 		{0F313359-881F-4108-B879-289CA56FF0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F313359-881F-4108-B879-289CA56FF0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F313359-881F-4108-B879-289CA56FF0AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E336914A-E06F-44D9-A9B6-0EE084B8E211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E336914A-E06F-44D9-A9B6-0EE084B8E211}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E336914A-E06F-44D9-A9B6-0EE084B8E211}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{E336914A-E06F-44D9-A9B6-0EE084B8E211}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927} = {D9505DE6-4113-4DB1-B4C9-30A33651655D}
@@ -73,5 +104,8 @@ Global
 		{30EFDB72-AE27-480C-B23F-3F018CD28149} = {12FCF80E-52C2-4052-BD64-3C7B94AEE51C}
 		{86DA2C07-7877-4F72-A8AE-005559EA4926} = {12FCF80E-52C2-4052-BD64-3C7B94AEE51C}
 		{0F313359-881F-4108-B879-289CA56FF0AF} = {12FCF80E-52C2-4052-BD64-3C7B94AEE51C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B59F91BD-6861-4D54-9D15-8C597CF8FE1B}
 	EndGlobalSection
 EndGlobal
