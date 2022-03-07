@@ -2,10 +2,10 @@
 
 public class UserNotFoundException : Exception
 {
-    public string Id { get; private set; }
+    public string Username { get; private set; }
 
-    public UserNotFoundException(string id)
+    public UserNotFoundException(string username) : base($"User '{username}' does not exist.")
     {
-        Id = id;
+        Username = username;
     }
 }
