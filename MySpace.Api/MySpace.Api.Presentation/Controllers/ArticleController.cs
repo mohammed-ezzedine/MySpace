@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySpace.Api.Application.Services;
 using MySpace.Api.Domain.Models;
@@ -41,6 +42,7 @@ public class ArticleController : ControllerBase
         return Ok(_mapper.Map<ArticleResponse>(article));
     }
 
+    [Authorize]
     [HttpPost]
     [ProducesResponseType((int) HttpStatusCode.Created, Type = typeof(ArticleResponse))]
     public ActionResult<ArticleResponse> AddArticle(ArticleRequest article)
@@ -49,6 +51,7 @@ public class ArticleController : ControllerBase
         return Created(result.Id.ToString(), _mapper.Map<ArticleResponse>(result));
     }
 
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ArticleResponse))]
     public ActionResult<ArticleResponse> UpdateArticle(Guid id, ArticleRequest article)
@@ -57,6 +60,7 @@ public class ArticleController : ControllerBase
         return Ok(_mapper.Map<ArticleResponse>(result));
     }
 
+    [Authorize]
     [HttpDelete("{id:guid}")]
     [ArticleNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]

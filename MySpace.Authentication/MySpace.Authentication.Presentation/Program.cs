@@ -1,11 +1,14 @@
+using System.Security.Authentication;
 using System.Text;
+using AspNetCore.Identity.Mongo;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using MySpace.Api.Application.Services;
-using MySpace.Api.Domain.Configurations;
-using MySpace.Api.Domain.Persistence;
-using MySpace.Api.Persistence.Repositories;
-using MySpace.Api.Presentation.Configurations;
+using MongoDB.Driver;
+using MySpace.Authentication.Application.Services;
+using MySpace.Authentication.Domain.Configurations;
+using MySpace.Authentication.Domain.Models;
+using MySpace.Authentication.Presentation.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -17,17 +20,18 @@ builder.Services.AddSwaggerGen();
 var persistenceConfiguration = configuration.GetSection(nameof(PersistenceConfiguration)).Get<PersistenceConfiguration>();
 builder.Services.AddSingleton(persistenceConfiguration);
 
-builder.Services.AddSingleton<TagRepository, MongoDbTagRepository>();
-builder.Services.AddSingleton<ArticleRepository, MongoDbArticleRepository>();
-builder.Services.AddSingleton<ITagService, TagService>();
-builder.Services.AddSingleton<IArticleService, ArticleService>();
-builder.Services.AddSingleton<ICommentService, CommentService>();
-
-builder.Services.AddAutoMapper(
-    typeof(Program).Assembly, 
-    typeof(MongoDbArticleRepository).Assembly);
-
 var identityConfiguration = configuration.GetSection(nameof(IdentityConfiguration)).Get<IdentityConfiguration>();
+builder.Services.AddSingleton(identityConfiguration);
+
+var adminConfiguration = configuration.GetSection(nameof(AdminConfiguration)).Get<AdminConfiguration>();
+builder.Services.AddSingleton(adminConfiguration);
+
+builder.Services.AddIdentityMongoDbProvider<User>(_ => { }, mongo =>
+    {
+        mongo.ConnectionString = persistenceConfiguration.ConnectionString + "/" +persistenceConfiguration.DatabaseName;
+    })
+    .AddDefaultTokenProviders();
+
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -47,6 +51,10 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -61,5 +69,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.SeedUsers();
 
 app.Run();

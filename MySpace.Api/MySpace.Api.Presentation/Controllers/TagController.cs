@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySpace.Api.Application.Services;
 using MySpace.Api.Domain.Models;
@@ -31,6 +32,7 @@ public class TagController : ControllerBase
         return Ok(tagResponses);
     }
 
+    [Authorize]
     [HttpDelete("{name}")]
     [TagNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
