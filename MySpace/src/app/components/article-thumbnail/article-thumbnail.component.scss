@@ -1,0 +1,44 @@
+@import "/src/app/styles/variables.scss";
+@import "/src/app/styles/mixins.scss";
+
+.article {
+  margin: 40px 0;
+  font-family: Arial, sans-serif;
+
+  .title {
+    font-weight: bold;
+  }
+
+  .date {
+    color: grey;
+  }
+
+  .content {
+    @include row();
+    justify-content: space-between;
+
+    .description {
+      margin-bottom: 30px;
+      margin-right: 50px;
+      text-align: justify;
+    }
+
+    img {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  }
+
+  .footer {
+    @include row();
+
+    .tag {
+      margin-right: 10px;
+    }
+
+    .minutesToRead {
+      @include justified-col();
+      color: grey;
+    }
+  }
+}

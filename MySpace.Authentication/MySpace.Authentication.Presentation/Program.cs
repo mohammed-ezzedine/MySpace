@@ -55,13 +55,22 @@ builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+builder.Services.AddCors(options =>
+    options.AddDefaultPolicy(corsPolicyBuilder =>
+        corsPolicyBuilder
+            .WithOrigins(configuration["CorsConfiguration:AllowedOrigins"])
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
+
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 

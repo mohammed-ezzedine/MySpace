@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import "src/app/styles/mixins";
+@import "src/app/styles/variables";
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+//@import "~ng-zorro-antd/ng-zorro-antd.less";
+
+html {
+  height: 100% !important;
+
+  body {
+    height: 100% !important;
+    margin: 0;
+  }
+}

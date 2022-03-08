@@ -1,0 +1,19 @@
+<div class="article">
+  <small class="date">{{getDateString(article.createdDate)}}</small>
+
+  <div class="content">
+    <div>
+      <h2 class="title">{{article.title}}</h2>
+      <div class="description">{{getDescription()}}</div>
+    </div>
+    <img *ngIf="article.imageUrl" nz-image [nzSrc]="article.imageUrl" [nzPlaceholder]="fallback" />
+  </div>
+
+  <div class="footer">
+    <nz-tag *ngFor="let tag of article.tags" class="tag">{{tag.name}}</nz-tag>
+
+    <small class="minutesToRead">{{article.estimatedMinutesToRead}} min read</small>
+  </div>
+
+</div>
+<nz-divider></nz-divider>

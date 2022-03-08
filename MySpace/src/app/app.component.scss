@@ -1,0 +1,24 @@
+@import "src/app/styles/_mixins.scss";
+
+.app {
+  @include row();
+  justify-content: space-around;
+  height: 100%;
+  max-width: 1700px;
+  margin: auto;
+
+  .side-navbar {
+    flex: 1 !important;
+    max-width: 200px;
+  }
+
+  .main-window {
+    flex: 2 !important;
+    max-width: 1000px !important;
+  }
+
+  .side-bar {
+    flex: 1 !important;
+    max-width: 300px;
+  }
+}

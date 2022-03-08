@@ -1,0 +1,7 @@
+<div *ngIf="articles; else articlesUndefined">
+  <app-article-thumbnail *ngFor="let article of articles" [article]="article"></app-article-thumbnail>
+</div>
+
+<ng-template #articlesUndefined>
+  <nz-skeleton></nz-skeleton>
+</ng-template>
