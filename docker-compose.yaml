@@ -1,28 +1,26 @@
 version: '3.9'
 
 services:
+  gateway:
+    build: MySpace.Gateway
+    hostname: gateway
+    container_name: gateway
+    ports:
+      - "8000:80"
+
   mongo:
     image: mongo:5.0
     hostname: mongo
     container_name: mongo
-    ports:
-      - "27017:27017"
     volumes:
       - ~/apps/mongo:/data/db
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=admin
-#      - MONGO_INITDB_ROOT_PASSWORD=admin
-  
+
   api:
     build: MySpace.Api
     hostname: api
     container_name: api
-    ports:
-      - "8001:80"
         
   authentication-service:
     build: MySpace.Authentication
     hostname: authentication-service
     container_name: authentication-service
-    ports:
-      - "8002:80"
