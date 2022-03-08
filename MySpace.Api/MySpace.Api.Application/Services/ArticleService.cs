@@ -1,6 +1,6 @@
-﻿using MySpace.Api.Domain.Exceptions;
+﻿using MySpace.Api.Application.Exceptions;
+using MySpace.Api.Application.Persistence;
 using MySpace.Api.Domain.Models;
-using MySpace.Api.Domain.Persistence;
 
 namespace MySpace.Api.Application.Services;
 

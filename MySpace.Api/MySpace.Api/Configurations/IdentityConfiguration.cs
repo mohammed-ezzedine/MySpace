@@ -1,4 +1,4 @@
-﻿namespace MySpace.Api.Presentation.Configurations;
+﻿namespace MySpace.Api.Configurations;
 
 public class IdentityConfiguration
 {

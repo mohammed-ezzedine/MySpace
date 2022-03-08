@@ -1,4 +1,4 @@
-﻿using MySpace.Api.Domain.Exceptions;
+﻿using MySpace.Api.Application.Exceptions;
 using MySpace.Api.Domain.Models;
 
 namespace MySpace.Api.Application.Services;

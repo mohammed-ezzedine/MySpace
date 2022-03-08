@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
-using MySpace.Api.Domain.Configurations;
+using MySpace.Api.Application.Configurations;
 
 namespace MySpace.Api.Persistence.Configuration;
 

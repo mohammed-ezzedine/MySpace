@@ -1,6 +1,6 @@
 ﻿using MySpace.Api.Domain.Models;
 
-namespace MySpace.Api.Domain.Persistence;
+namespace MySpace.Api.Application.Persistence;
 
 public interface ArticleRepository
 {

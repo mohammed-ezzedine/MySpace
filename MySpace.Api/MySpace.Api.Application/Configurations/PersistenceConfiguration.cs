@@ -1,4 +1,4 @@
-﻿namespace MySpace.Api.Domain.Configurations;
+﻿namespace MySpace.Api.Application.Configurations;
 
 public class PersistenceConfiguration
 {

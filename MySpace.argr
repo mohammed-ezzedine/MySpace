@@ -1,0 +1,23 @@
+<ArchitectureGraph>
+  <Module Identifier="0F313359-881F-4108-B879-289CA56FF0AF" Name="MySpace.Authentication.Presentation" />
+  <Module Identifier="86DA2C07-7877-4F72-A8AE-005559EA4926" Name="MySpace.Authentication.Application" />
+  <Module Identifier="30EFDB72-AE27-480C-B23F-3F018CD28149" Name="MySpace.Authentication.Domain" />
+  <Module Identifier="8E623BE2-5656-4297-AE98-C993AAA78E4E" Name="MySpace.Api.Presentation" />
+  <Module Identifier="E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927" Name="MySpace.Api.Application" />
+  <Module Identifier="8F0AA0C1-584D-4482-8215-5F9292395C01" Name="MySpace.Api.Domain" />
+  <Module Identifier="371EC0AD-1ADB-4250-9395-365094F552E5" Name="MySpace.Api" />
+  <Module Identifier="99B30E5B-BE81-44DD-A953-BBFBF60726D3" Name="MySpace.Api.Persistence" />
+  <Module Identifier="E336914A-E06F-44D9-A9B6-0EE084B8E211" Name="MySpace" />
+  <Reference Identifier="86DA2C07-7877-4F72-A8AE-005559EA4926/r:MySpace.Authentication.Domain" SourceId="86DA2C07-7877-4F72-A8AE-005559EA4926" Name="MySpace.Authentication.Domain" TargetId="30EFDB72-AE27-480C-B23F-3F018CD28149" />
+  <Reference Identifier="0F313359-881F-4108-B879-289CA56FF0AF/r:MySpace.Authentication.Application" SourceId="0F313359-881F-4108-B879-289CA56FF0AF" Name="MySpace.Authentication.Application" TargetId="86DA2C07-7877-4F72-A8AE-005559EA4926" />
+  <Reference Identifier="0F313359-881F-4108-B879-289CA56FF0AF/r:MySpace.Authentication.Domain" SourceId="0F313359-881F-4108-B879-289CA56FF0AF" Name="MySpace.Authentication.Domain" TargetId="30EFDB72-AE27-480C-B23F-3F018CD28149" />
+  <Reference Identifier="E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927/r:MySpace.Api.Domain" SourceId="E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927" Name="MySpace.Api.Domain" TargetId="8F0AA0C1-584D-4482-8215-5F9292395C01" />
+  <Reference Identifier="8E623BE2-5656-4297-AE98-C993AAA78E4E/r:MySpace.Api.Application" SourceId="8E623BE2-5656-4297-AE98-C993AAA78E4E" Name="MySpace.Api.Application" TargetId="E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927" />
+  <Reference Identifier="8E623BE2-5656-4297-AE98-C993AAA78E4E/r:MySpace.Api.Domain" SourceId="8E623BE2-5656-4297-AE98-C993AAA78E4E" Name="MySpace.Api.Domain" TargetId="8F0AA0C1-584D-4482-8215-5F9292395C01" />
+  <Reference Identifier="371EC0AD-1ADB-4250-9395-365094F552E5/r:MySpace.Api.Application" SourceId="371EC0AD-1ADB-4250-9395-365094F552E5" Name="MySpace.Api.Application" TargetId="E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927" />
+  <Reference Identifier="371EC0AD-1ADB-4250-9395-365094F552E5/r:MySpace.Api.Domain" SourceId="371EC0AD-1ADB-4250-9395-365094F552E5" Name="MySpace.Api.Domain" TargetId="8F0AA0C1-584D-4482-8215-5F9292395C01" />
+  <Reference Identifier="99B30E5B-BE81-44DD-A953-BBFBF60726D3/r:MySpace.Api.Application" SourceId="99B30E5B-BE81-44DD-A953-BBFBF60726D3" Name="MySpace.Api.Application" TargetId="E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927" />
+  <Reference Identifier="99B30E5B-BE81-44DD-A953-BBFBF60726D3/r:MySpace.Api.Domain" SourceId="99B30E5B-BE81-44DD-A953-BBFBF60726D3" Name="MySpace.Api.Domain" TargetId="8F0AA0C1-584D-4482-8215-5F9292395C01" />
+  <Reference Identifier="371EC0AD-1ADB-4250-9395-365094F552E5/r:MySpace.Api.Persistence" SourceId="371EC0AD-1ADB-4250-9395-365094F552E5" Name="MySpace.Api.Persistence" TargetId="99B30E5B-BE81-44DD-A953-BBFBF60726D3" />
+  <Reference Identifier="371EC0AD-1ADB-4250-9395-365094F552E5/r:MySpace.Api.Presentation" SourceId="371EC0AD-1ADB-4250-9395-365094F552E5" Name="MySpace.Api.Presentation" TargetId="8E623BE2-5656-4297-AE98-C993AAA78E4E" />
+</ArchitectureGraph>

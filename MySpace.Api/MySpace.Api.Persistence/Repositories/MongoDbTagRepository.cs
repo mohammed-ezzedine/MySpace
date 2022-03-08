@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
-using MySpace.Api.Domain.Configurations;
-using MySpace.Api.Domain.Persistence;
+using MySpace.Api.Application.Configurations;
+using MySpace.Api.Application.Persistence;
 using MySpace.Api.Persistence.Configuration;
 using MySpace.Api.Persistence.Entities;
 using Tag = MySpace.Api.Domain.Models.Tag;

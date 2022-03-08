@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MySpace.Api.Domain\MySpace.Api.Domain.csproj" />
+      <ProjectReference Include="..\MySpace.Api.Application\MySpace.Api.Application.csproj" />
     </ItemGroup>
 
 </Project>

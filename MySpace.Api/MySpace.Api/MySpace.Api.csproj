@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <RootNamespace>MySpace.Api</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MySpace.Api.Application\MySpace.Api.Application.csproj" />
+      <ProjectReference Include="..\MySpace.Api.Domain\MySpace.Api.Domain.csproj" />
+      <ProjectReference Include="..\MySpace.Api.Persistence\MySpace.Api.Persistence.csproj" />
+      <ProjectReference Include="..\MySpace.Api.Presentation\MySpace.Api.Presentation.csproj" />
+    </ItemGroup>
+
+</Project>

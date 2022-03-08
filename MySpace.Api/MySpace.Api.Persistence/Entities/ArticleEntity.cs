@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using MongoDB.Bson.Serialization.Attributes;
-using MySpace.Api.Domain.Configurations;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using MySpace.Api.Domain.Models;
 
 namespace MySpace.Api.Persistence.Entities;

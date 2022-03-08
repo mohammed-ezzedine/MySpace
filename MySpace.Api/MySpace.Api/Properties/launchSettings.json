@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "MySpace.Api.Presentation": {
+    "MySpace.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

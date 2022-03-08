@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace MySpace.Api.Domain.Exceptions;
+﻿namespace MySpace.Api.Application.Exceptions;
 
 public class TagNotFoundException : Exception
 {

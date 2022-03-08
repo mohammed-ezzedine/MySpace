@@ -1,16 +1,17 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MySpace.Api.Application.Configurations;
+using MySpace.Api.Application.Persistence;
 using MySpace.Api.Application.Services;
-using MySpace.Api.Domain.Configurations;
-using MySpace.Api.Domain.Persistence;
+using MySpace.Api.Configurations;
 using MySpace.Api.Persistence.Repositories;
-using MySpace.Api.Presentation.Configurations;
+using MySpace.Api.Presentation.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddApplicationPart(typeof(ArticleController).Assembly);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -24,7 +25,7 @@ builder.Services.AddSingleton<IArticleService, ArticleService>();
 builder.Services.AddSingleton<ICommentService, CommentService>();
 
 builder.Services.AddAutoMapper(
-    typeof(Program).Assembly, 
+    typeof(ArticleController).Assembly, 
     typeof(MongoDbArticleRepository).Assembly);
 
 var identityConfiguration = configuration.GetSection(nameof(IdentityConfiguration)).Get<IdentityConfiguration>();
