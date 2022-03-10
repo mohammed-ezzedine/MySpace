@@ -23,10 +23,4 @@ export class ArticleThumbnailComponent implements OnInit {
     return new Date(date).toDateString();
   }
 
-  getDescription() : string {
-    let maximumLengthAllowed = 350;
-    let lengthyDescription = this.article.description.length > maximumLengthAllowed;
-    return lengthyDescription? this.article.description.substring(0, maximumLengthAllowed) + "..." : this.article.description;
-  }
-
 }

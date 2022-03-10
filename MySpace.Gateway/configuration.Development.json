@@ -23,6 +23,18 @@
       ],
       "UpstreamPathTemplate": "/api/{endpoint}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/{endpoint}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 4200
+        }
+      ],
+      "UpstreamPathTemplate": "/{endpoint}",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ],
   "GlobalConfiguration": {

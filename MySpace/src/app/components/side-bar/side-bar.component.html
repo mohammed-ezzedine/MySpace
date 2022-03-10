@@ -1,4 +1,32 @@
 <div class="app-side-bar">
-  <div>side-bar works!</div>
+  <nz-input-group [nzPrefix]="inputClearTpl" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input [(ngModel)]="searchText" placeholder="search"/>
+  </nz-input-group>
+
+  <div class="tags">
+    <h4>Recommended Topics</h4>
+    <div *ngIf="tags else tagsUndefined">
+      <nz-tag *ngFor="let tag of tags" class="tag">{{tag.name}}</nz-tag>
+    </div>
+  </div>
 
 </div>
+
+<ng-template #suffixIconSearch>
+  <i nz-icon nzType="search"></i>
+</ng-template>
+
+<ng-template #inputClearTpl>
+  <i
+    nz-icon
+    class="ant-input-clear-icon"
+    nzTheme="fill"
+    nzType="close-circle"
+    *ngIf="searchText"
+    (click)="searchText = null"
+  ></i>
+</ng-template>
+
+<ng-template #tagsUndefined>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

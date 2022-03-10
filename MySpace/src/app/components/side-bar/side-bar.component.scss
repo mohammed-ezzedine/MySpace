@@ -2,5 +2,15 @@
 
 .app-side-bar {
   height: 100%;
+  padding: 30px;
   border-left: 1px solid $border-color;
+
+  .tags {
+    margin-top: 50px;
+
+
+    .tag {
+      margin-bottom: 10px;
+    }
+  }
 }

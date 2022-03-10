@@ -20,6 +20,9 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import {ArticleThumbnailComponent} from "./components/article-thumbnail/article-thumbnail.component";
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 registerLocaleData(en);
 
@@ -43,7 +46,10 @@ registerLocaleData(en);
     NzTagModule,
     NzImageModule,
     NzSkeletonModule,
-    NzDividerModule
+    NzDividerModule,
+    NzInputModule,
+    NzIconModule,
+    NzTypographyModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

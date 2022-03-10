@@ -10,5 +10,7 @@ builder.Configuration.AddJsonFile($"configuration.{builder.Environment.Environme
 var app = builder.Build();
 app.MapGet("/", () => "This is the gateway home.");
 
+app.UseDeveloperExceptionPage();
+
 app.UseOcelot().Wait();
 app.Run();

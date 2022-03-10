@@ -7,6 +7,9 @@ services:
     container_name: gateway
     ports:
       - "8000:80"
+    networks:
+      - gateway-internal
+      - client-gateway
 
   mongo:
     image: mongo:5.0
@@ -14,13 +17,43 @@ services:
     container_name: mongo
     volumes:
       - ~/apps/mongo:/data/db
+    networks:
+      - db-service
 
   api:
     build: MySpace.Api
     hostname: api
     container_name: api
+    depends_on:
+      - mongo
+    networks:
+      - gateway-internal
+      - db-service
         
   authentication-service:
     build: MySpace.Authentication
     hostname: authentication-service
     container_name: authentication-service
+    depends_on:
+      - mongo
+    networks:
+      - gateway-internal
+      - db-service
+    
+  ui:
+    build: MySpace
+    hostname: ui
+    container_name: ui
+    volumes:
+      - ./MySpace:/app
+      - /MySpace/node_modules
+    networks:
+      - client-gateway
+        
+networks:
+  client-gateway:
+    name: client-gateway-network
+  gateway-internal:
+    name: gateway-internal-network
+  db-service:
+    name: db-service-network
