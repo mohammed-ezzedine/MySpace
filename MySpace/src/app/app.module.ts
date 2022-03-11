@@ -23,6 +23,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { ArticleComponent } from './pages/article/article.component';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 registerLocaleData(en);
 
@@ -36,6 +38,7 @@ registerLocaleData(en);
     ArticleThumbnailComponent,
     ArticlesComponent,
     ArticleThumbnailComponent,
+    ArticleComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ registerLocaleData(en);
     NzDividerModule,
     NzInputModule,
     NzIconModule,
-    NzTypographyModule
+    NzTypographyModule,
+    NzAlertModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

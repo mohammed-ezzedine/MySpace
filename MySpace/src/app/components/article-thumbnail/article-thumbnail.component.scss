@@ -7,6 +7,14 @@
 
   .title {
     font-weight: bold;
+
+    a {
+      color: unset;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .date {

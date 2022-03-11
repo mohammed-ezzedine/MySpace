@@ -1,0 +1,25 @@
+<nz-alert
+  *ngIf="errorMessage"
+  nzType="error"
+  nzShowIcon
+  nzCloseable
+  [nzMessage]="errorMessage"
+></nz-alert>
+
+<div class="article" *ngIf="article else articleUndefined">
+  <div class="metadata">
+    <span>{{getDateString(article.createdDate)}}</span>
+    <span class="dot">·</span>
+    <span>{{article.estimatedMinutesToRead}} min read</span>
+  </div>
+  <h1 class="title">{{article.title}}</h1>
+
+  <p class="description">{{article.description}}</p>
+  <img *ngIf="article.imageUrl" nz-image [nzSrc]="article.imageUrl" [nzPlaceholder]="fallback" />
+
+  <p class="content">{{article.content}}</p>
+</div>
+
+<ng-template #articleUndefined>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

@@ -13,4 +13,8 @@ export class ArticleService {
   getArticles() : Observable<Article[]> {
     return this.http.get<Article[]>("http://localhost:8000" + "/api/Article");
   }
+
+  getArticle(id: string) : Observable<Article> {
+    return this.http.get<Article>("http://localhost:8000" + "/api/Article/" + id);
+  }
 }

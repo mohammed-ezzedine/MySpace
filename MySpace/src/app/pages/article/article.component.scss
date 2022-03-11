@@ -1,0 +1,25 @@
+@import "src/app/styles/mixins";
+
+.article {
+  @include col();
+  margin-top: 50px;
+
+  .metadata {
+    font-size: small;
+    color: grey;
+
+    .dot {
+      margin: 0 5px;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  img {
+    margin: 20px auto;
+    max-width: 500px;
+    max-height: 500px;
+  }
+}
