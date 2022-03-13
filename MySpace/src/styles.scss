@@ -1,7 +1,11 @@
 @import "src/app/styles/mixins";
 @import "src/app/styles/variables";
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
-//@import "~ng-zorro-antd/ng-zorro-antd.less";
+@import "~prismjs/themes/prism.css";
+
+
+@import '~medium-editor/dist/css/medium-editor.min.css';
+@import '~medium-editor/dist/css/themes/default.min.css';
 
 html {
   height: 100% !important;

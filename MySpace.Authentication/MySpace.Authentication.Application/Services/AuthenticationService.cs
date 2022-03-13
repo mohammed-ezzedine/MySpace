@@ -74,7 +74,7 @@ public class AuthenticationService : IAuthenticationService
         }
     }
 
-    public async Task<Token> Login(string username, string password)
+    public async Task<string> Login(string username, string password)
     {
         var user = await GetUserOrThrowExceptionIfNotExisting(username);
         await CheckCredentialsAndThrowExceptionIfInvalid(user, password);
@@ -83,8 +83,7 @@ public class AuthenticationService : IAuthenticationService
         var authSigningKey = GetAuthSigningKey();
 
         var token = GenerateJwtSecurityToken(authClaims, authSigningKey);
-        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-        return new Token {TokenString = tokenString, ExpiresIn = token.ValidTo};
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     private JwtSecurityToken GenerateJwtSecurityToken(List<Claim> authClaims, SymmetricSecurityKey authSigningKey)

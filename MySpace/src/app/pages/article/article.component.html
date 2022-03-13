@@ -15,9 +15,16 @@
   <h1 class="title">{{article.title}}</h1>
 
   <p class="description">{{article.description}}</p>
-  <img *ngIf="article.imageUrl" nz-image [nzSrc]="article.imageUrl" [nzPlaceholder]="fallback" />
+  <app-image *ngIf="article.imageUrl" [src]="article.imageUrl"></app-image>
 
-  <p class="content">{{article.content}}</p>
+  <div *ngFor="let section of article.content" class="content">
+    <app-code-snippet *ngIf="section.type == 'code'" [code]="section.content" [language]="section.language"></app-code-snippet>
+    <app-image *ngIf="section.type == 'image'" [src]="section.imageUrl"></app-image>
+    <p [innerHTML]="section.content" *ngIf="section.type == 'paragraph'"></p>
+  </div>
+
+  <app-tags class="tags" [tags]="article.tags"></app-tags>
+
 </div>
 
 <ng-template #articleUndefined>

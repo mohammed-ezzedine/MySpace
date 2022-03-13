@@ -1,4 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MySpace.Api.Domain.Models;
 
 namespace MySpace.Api.Persistence.Entities;
@@ -26,7 +29,7 @@ public class ArticleEntity
     
     public string Author { get; set; } = null!;
 
-    public string Content { get; set; } = null!;
+    public BsonArray Content { get; set; }
 
     public DateTime CreatedDate { get; set; }
     

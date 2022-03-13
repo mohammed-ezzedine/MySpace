@@ -5,9 +5,7 @@
 
   <div class="tags">
     <h4>Recommended Topics</h4>
-    <div *ngIf="tags else tagsUndefined">
-      <nz-tag *ngFor="let tag of tags" class="tag">{{tag.name}}</nz-tag>
-    </div>
+    <app-tags [tags]="tags" [skeleton]="true"></app-tags>
   </div>
 
 </div>
@@ -25,8 +23,4 @@
     *ngIf="searchText"
     (click)="searchText = null"
   ></i>
-</ng-template>
-
-<ng-template #tagsUndefined>
-  <nz-skeleton></nz-skeleton>
 </ng-template>

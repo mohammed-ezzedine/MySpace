@@ -70,9 +70,14 @@ var app = builder.Build();
     app.UseSwaggerUI();
 // }
 
-app.UseCors();
-
 app.UseHttpsRedirection();
+
+app.UseCors(corsPolicyBuilder => 
+    corsPolicyBuilder
+        .WithOrigins(configuration["CorsConfiguration:AllowedOrigins"])
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials());
 
 app.UseAuthentication();
 app.UseAuthorization();

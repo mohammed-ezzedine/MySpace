@@ -1,0 +1,4 @@
+<input nzBorderless [formControl]="imageUrlControl" nz-input [id]="id" (ngModelChange)="updateUrl()"/>
+<label [for]="id" *ngIf="imageUrlControl.value">
+  <app-image [src]="imageUrlControl.value"></app-image>
+</label>

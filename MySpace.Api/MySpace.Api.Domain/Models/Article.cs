@@ -1,4 +1,7 @@
-﻿namespace MySpace.Api.Domain.Models;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+
+namespace MySpace.Api.Domain.Models;
 
 public class Article : ReactableDocument
 {
@@ -13,6 +16,8 @@ public class Article : ReactableDocument
     public string? ImageUrl { get; set; }
 
     public List<Tag>? Tags { get; set; }
+
+    public new JsonNode? Content { get; set; }
 
 
     public override void Update(Document document)

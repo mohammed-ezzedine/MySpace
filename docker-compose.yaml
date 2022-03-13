@@ -17,6 +17,8 @@ services:
     container_name: mongo
     volumes:
       - ~/apps/mongo:/data/db
+    ports:
+      - "27017:27017"
     networks:
       - db-service
 

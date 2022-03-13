@@ -1,9 +1,9 @@
 <div class="article">
   <small class="date">{{getDateString(article.createdDate)}}</small>
 
-  <div class="content">
+  <a class="content" routerLink="/article/{{article.id}}">
     <div>
-      <h2 class="title"><a routerLink="/article/{{article.id}}">{{article.title}}</a></h2>
+      <h2 class="title">{{article.title}}</h2>
       <div
         class="description"
         nz-typography
@@ -14,11 +14,11 @@
         {{ article.description }}
       </div>
     </div>
-    <img *ngIf="article.imageUrl" nz-image [nzSrc]="article.imageUrl" [nzPlaceholder]="fallback" />
-  </div>
+    <app-image class="img" *ngIf="article.imageUrl" [src]="article.imageUrl"></app-image>
+  </a>
 
   <div class="footer">
-    <nz-tag *ngFor="let tag of article.tags" class="tag">{{tag.name}}</nz-tag>
+    <nz-tag *ngFor="let tag of article.tags" class="tag">{{tag}}</nz-tag>
 
     <small class="minutesToRead">{{article.estimatedMinutesToRead}} min read</small>
   </div>

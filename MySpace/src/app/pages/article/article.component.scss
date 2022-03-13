@@ -17,9 +17,21 @@
     font-weight: bold;
   }
 
-  img {
+  app-image {
     margin: 20px auto;
     max-width: 500px;
     max-height: 500px;
+  }
+
+  .tags {
+    margin-top: 10px;
+  }
+
+  .content {
+    display: flex;
+
+    p, app-code-snippet {
+      width: 100%;
+    }
   }
 }

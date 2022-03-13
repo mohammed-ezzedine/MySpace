@@ -49,11 +49,13 @@ builder.Services.AddAuthentication(options =>
     });
 
 builder.Services.AddCors(options =>
-    options.AddDefaultPolicy(corsPolicyBuilder =>
-        corsPolicyBuilder
-            .WithOrigins(configuration["CorsConfiguration:AllowedOrigins"])
-            .AllowAnyHeader()
-            .AllowAnyMethod()));
+    options.AddPolicy("CorsPolicy",
+        corsPolicyBuilder =>
+            corsPolicyBuilder
+                // .WithOrigins(configuration["CorsConfiguration:AllowedOrigins"])
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()));
 
 var app = builder.Build();
 
@@ -65,7 +67,9 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseRouting();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

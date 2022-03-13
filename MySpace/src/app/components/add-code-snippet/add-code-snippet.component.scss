@@ -1,0 +1,19 @@
+.add-code-snippet {
+
+  pre {
+    padding-top: 1em;
+    background-color: lighten(lightgrey, 15);
+    margin-bottom: 0;
+
+    textarea {
+      padding: 0;
+      resize: none;
+      width: calc(100% - 50px);
+      position: relative;
+    }
+  }
+
+  nz-select {
+    width: 200px;
+  }
+}

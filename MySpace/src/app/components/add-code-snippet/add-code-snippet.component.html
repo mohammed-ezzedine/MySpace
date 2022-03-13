@@ -1,0 +1,8 @@
+<div class="add-code-snippet">
+  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a language" [(ngModel)]="languageSelect" (ngModelChange)="updateLanguage()">
+    <nz-option *ngFor="let l of languages" [nzLabel]="l.language" [nzValue]="l.code"></nz-option>
+  </nz-select>
+  <pre>
+    <textarea nzAutosize nzBorderless [formControl]="codeControl" nz-input (ngModelChange)="updateCode()"></textarea>
+  </pre>
+</div>

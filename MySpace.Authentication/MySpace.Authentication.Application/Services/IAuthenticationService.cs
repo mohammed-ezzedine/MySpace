@@ -9,5 +9,5 @@ public interface IAuthenticationService
     Task RegisterUser(string username, string password);
     Task ChangePassword(string username, string oldPassword, string newPassword);
     Task DeleteUser(string username);
-    Task<Token> Login(string username, string password);
+    Task<string> Login(string username, string password);
 }

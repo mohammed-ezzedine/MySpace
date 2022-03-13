@@ -1,0 +1,28 @@
+.code-snippet {
+  border-radius: 2px;
+  width: 100% !important;
+  counter-reset: line;
+  margin: 0 1em 1em 1em;
+  border: 1px solid lightgray;
+  background-color: lighten(lightgrey, 16);
+  padding: .5em 1em;
+
+  code {
+    counter-increment: line;
+
+    &:before{
+      content: counter(line);
+      padding-right: 10px;
+      color: lightgray;
+    }
+
+    .token {
+      background: none;
+    }
+  }
+}
+
+.copy-btn {
+  float: right;
+  transform: translateY(130%);
+}

@@ -1,4 +1,7 @@
-﻿namespace MySpace.Api.Presentation.Responses;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+
+namespace MySpace.Api.Presentation.Responses;
 
 public class ArticleResponse
 {
@@ -10,7 +13,7 @@ public class ArticleResponse
     
     public int EstimatedMinutesToRead { get; set; }
 
-    public List<TagResponse>? Tags { get; set; }
+    public List<string>? Tags { get; set; }
     
     public string? ImageUrl { get; set; }
 
@@ -22,7 +25,7 @@ public class ArticleResponse
     
     public string Author { get; set; } = null!;
 
-    public string Content { get; set; } = null!;
+    public JsonNode Content { get; set; }
 
     public DateTime CreatedDate { get; set; }
     

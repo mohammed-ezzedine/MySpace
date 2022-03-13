@@ -31,7 +31,8 @@
       text-align: justify;
     }
 
-    img {
+    app-image {
+      @include justified-col();
       max-width: 200px;
       max-height: 200px;
     }

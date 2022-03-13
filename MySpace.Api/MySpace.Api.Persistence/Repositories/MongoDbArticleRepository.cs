@@ -1,6 +1,8 @@
 ﻿using System.Linq.Expressions;
+using System.Text.Json.Nodes;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MySpace.Api.Application.Configurations;
 using MySpace.Api.Application.Exceptions;
@@ -25,7 +27,7 @@ public class MongoDbArticleRepository : ArticleRepository
 
     public List<Article> GetArticles()
     {
-        return _articleCollection.AsQueryable().Select(_mapper.Map<Article>).ToList();
+        return _articleCollection.AsQueryable().AsEnumerable().Select(_mapper.Map<Article>).ToList();
     }
 
     public List<Article> GetArticlesByTag(Tag tag)
@@ -43,7 +45,8 @@ public class MongoDbArticleRepository : ArticleRepository
 
     public Article AddArticle(Article article)
     {
-        _articleCollection.InsertOne(_mapper.Map<ArticleEntity>(article));
+        var articleEntity = _mapper.Map<ArticleEntity>(article);
+        _articleCollection.InsertOne(articleEntity);
         return article;
     }
 

@@ -1,0 +1,62 @@
+<nz-alert *ngIf="successMessage" nzType="success" [nzDescription]="successMessage" nzShowIcon nzCloseable></nz-alert>
+<nz-alert *ngIf="errorMessage" nzType="error" [nzDescription]="errorMessage" nzShowIcon nzCloseable></nz-alert>
+
+<form nz-form [formGroup]="articleForm" (ngSubmit)="submitForm()">
+  <div class="meta">
+    <h1 class="page-title">New Article</h1>
+    <button class="submit" nz-button nzShape="round" [nzType]="'primary'" nzSize="large">Submit</button>
+  </div>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Title field is required">
+      <input nz-input nzSize="large" nzBorderless formControlName="title" type="text" id="title" placeholder="Title">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Description field is required">
+      <textarea nzAutosize nzBorderless formControlName="description" nz-input id="description" placeholder="Description"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Image URL field is invalid">
+      <input nz-input nzBorderless formControlName="imageUrl" type="imageUrl" id="imageUrl" placeholder="Image URL">
+      <label for="imageUrl" *ngIf="articleForm.controls['imageUrl'].value" class="image">
+        <app-image [src]="articleForm.controls['imageUrl'].value"></app-image>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngFor="let element of contentControls; let i = index">
+    <nz-form-control nzErrorTip="Text is required" *ngIf="getElementType(element) != 'codelanguage'">
+      <app-add-code-snippet *ngIf="getElementType(element) == 'code'" [id]="element.id" (language)="updateArticleControl($event)" (code)="updateArticleControl($event)"></app-add-code-snippet>
+      <app-editor *ngIf="getElementType(element) == 'paragraph'" (content)="updateArticleControl($event)" [id]="element.id"></app-editor>
+      <app-add-image *ngIf="getElementType(element) == 'image'" [id]="element.id" (imageUrl)="updateArticleControl($event)"></app-add-image>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-button-group nzSize="default">
+    <button nz-button nzType="dashed" class="add-button" (click)="addParagraph($event)">
+      <i nz-icon nzType="plus"></i>
+      Add paragraph
+    </button>
+    <button nz-button nzType="dashed" class="add-button" (click)="addCode($event)">
+      <i nz-icon nzType="plus"></i>
+      Add code
+    </button>
+    <button nz-button nzType="dashed" class="add-button" (click)="addImage($event)">
+      <i nz-icon nzType="plus"></i>
+      Add image
+    </button>
+  </nz-button-group>
+
+  <nz-form-item class="tags">
+    <nz-form-control>
+      <nz-select nzMode="tags" nzPlaceHolder="Tags" formControlName="tags" nzBorderless >
+        <nz-option *ngFor="let tag of availableTags" [nzLabel]="tag" [nzValue]="tag"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>

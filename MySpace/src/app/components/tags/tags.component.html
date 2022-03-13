@@ -1,0 +1,7 @@
+<div *ngIf="tags else tagsUndefined">
+  <nz-tag *ngFor="let tag of tags" class="tag">{{tag}}</nz-tag>
+</div>
+
+<ng-template #tagsUndefined>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

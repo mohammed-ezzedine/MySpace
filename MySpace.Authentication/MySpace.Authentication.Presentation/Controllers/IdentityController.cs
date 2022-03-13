@@ -51,11 +51,11 @@ public class IdentityController : ControllerBase
     [InvalidCredentialExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(TokenResponse))]
-    public async Task<ActionResult<TokenResponse>> Login(LoginRequest request)
+    [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(string))]
+    public async Task<ActionResult<string>> Login(LoginRequest request)
     {
         var token = await _authenticationService.Login(request.Username, request.Password);
-        return Ok(_mapper.Map<TokenResponse>(token));
+        return Ok(token);
     }
 
     [Authorize]

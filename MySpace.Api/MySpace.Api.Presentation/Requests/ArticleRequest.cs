@@ -1,4 +1,7 @@
-﻿namespace MySpace.Api.Presentation.Requests;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+
+namespace MySpace.Api.Presentation.Requests;
 
 public class ArticleRequest
 {
@@ -10,7 +13,7 @@ public class ArticleRequest
 
     public string? ImageUrl { get; set; }
 
-    public List<TagRequest>? Tags { get; set; }
+    public List<string>? Tags { get; set; }
     
-    public string Content { get; set; } = null!;
+    public JsonNode Content { get; set; }
 }

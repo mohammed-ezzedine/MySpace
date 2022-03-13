@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {TagService} from "../../services/tag.service";
-import {Tag} from "../../models/tag";
 
 @Component({
   selector: 'app-side-bar',
@@ -12,7 +11,7 @@ export class SideBarComponent implements OnInit {
   constructor(private tagService: TagService) { }
 
   searchText = null;
-  tags: Tag[] | undefined;
+  tags: string[] | undefined;
   errorMessage : string | undefined;
 
   ngOnInit(): void {
@@ -20,10 +19,13 @@ export class SideBarComponent implements OnInit {
   }
 
   private getRecommendedTags() {
-    this.tagService.getRecommendedTags().subscribe(tags => {
-      this.tags = tags;
-    }, error => {
-      this.errorMessage = error;
+    this.tagService.getRecommendedTags().subscribe({
+      next: tags => {
+        this.tags = tags;
+      },
+      error: error => {
+        this.errorMessage = error;
+      }
     })
   }
 }

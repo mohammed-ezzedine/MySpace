@@ -23,11 +23,11 @@ public class TagController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(List<TagResponse>))]
-    public ActionResult<List<TagResponse>> GetTags()
+    [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(List<string>))]
+    public ActionResult<List<string>> GetTags()
     {
         var tagResponses = _tagService.GetTags()
-            .Select(_mapper.Map<TagResponse>)
+            .Select(t => t.Name)
             .ToList();
         return Ok(tagResponses);
     }

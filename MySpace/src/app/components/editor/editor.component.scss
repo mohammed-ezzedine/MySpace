@@ -1,0 +1,7 @@
+.editor {
+  border-left: 1px solid lightgrey;
+
+  &:focus-within {
+    border-left: 2px solid lightgrey;
+  }
+}
