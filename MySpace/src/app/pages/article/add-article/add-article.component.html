@@ -34,6 +34,9 @@
       <app-editor *ngIf="getElementType(element) == 'paragraph'" (content)="updateArticleControl($event)" [id]="element.id"></app-editor>
       <app-add-image *ngIf="getElementType(element) == 'image'" [id]="element.id" (imageUrl)="updateArticleControl($event)"></app-add-image>
     </nz-form-control>
+    <button nz-button nzType="default" class="delete-button" (click)="deleteSection(element)">
+      <i nz-icon nzType="delete" nzTheme="twotone"></i>
+    </button>
   </nz-form-item>
 
   <nz-button-group nzSize="default">

@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ArticleAdditionEvent} from "../../../events/article-addition.event";
 import {TagService} from "../../../services/tag.service";
 import {ArticleService} from "../../../services/article.service";
+import {ArticleUtils} from "../../../utils/article.utils";
 
 @Component({
   selector: 'app-add-article',
@@ -29,10 +30,10 @@ export class AddArticleComponent implements OnInit {
 
   private initializeForm() {
     this.articleForm = this.fb.group({
-      title: ["this is title", [Validators.required]],
-      description: ["this is description", [Validators.required]],
-      imageUrl: ["https://www.red-gate.com/simple-talk/wp-content/uploads/2020/12/image-2.png", [Validators.pattern("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)")]],
-      tags: [["s1", "s2"], []]
+      title: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      imageUrl: [null, [Validators.pattern("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#*?&//=]*)")]],
+      tags: [[], []]
     })
   }
 
@@ -51,7 +52,7 @@ export class AddArticleComponent implements OnInit {
         description: this.articleForm.controls['description'].value,
         imageUrl: this.articleForm.controls['imageUrl'].value,
         tags: this.articleForm.controls['tags'].value,
-        content: this.getArticleContent()
+        content: ArticleUtils.getArticleContent(this.contentControls, this.articleForm)
       };
       this.articleService.addArticle(form).subscribe({
         next: _ => this.successMessage = 'Article created successfully!',
@@ -135,6 +136,11 @@ export class AddArticleComponent implements OnInit {
     );
   }
 
+  deleteSection(element: any) {
+    this.contentControls = this.contentControls.filter(c => c.id != element.id);
+    this.articleForm.removeControl(element.controlInstance)
+  }
+
   getElementType(element: any) : string{
     return element.controlInstance.split('-')[0];
   }
@@ -143,47 +149,5 @@ export class AddArticleComponent implements OnInit {
     this.articleForm.controls[languageEvent.id].setValue(languageEvent.content);
   }
 
-  getArticleContent() {
-    let result = [];
-    for (let control of this.contentControls) {
-      result.push(this.getControlItem(control));
-    }
-    return result
-  }
 
-  private getControlItem(control: { id: number; controlInstance: string }) {
-    switch (this.getElementType(control)) {
-      case 'code': return this.getCodeItem(control);
-      case 'image': return this.getImageItem(control);
-      case 'paragraph': return this.getParagraphItem(control);
-      default: return null;
-    }
-  }
-
-  private getParagraphItem(control: { id: number; controlInstance: string }) {
-    let paragraph = this.articleForm.controls[`paragraph-${control.id}`].value;
-    return {
-      type: 'paragraph',
-      content: paragraph,
-    };
-  }
-
-  private getImageItem(control: { id: number; controlInstance: string }) {
-    let imageUrl = this.articleForm.controls[`image-${control.id}`].value;
-    return {
-      type: 'image',
-      imageUrl: imageUrl,
-    };
-  }
-
-  private getCodeItem(control: { id: number; controlInstance: string }) {
-    let codeLanguage = this.articleForm.controls[`codelanguage-${control.id}`].value;
-    let code = this.articleForm.controls[`code-${control.id}`].value;
-
-    return {
-      type: 'code',
-      language: codeLanguage,
-      content: code
-    };
-  }
 }

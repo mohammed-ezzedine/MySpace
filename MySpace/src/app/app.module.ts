@@ -73,6 +73,9 @@ import { AddCodeSnippetComponent } from './components/add-code-snippet/add-code-
 import { AddImageComponent } from './components/add-image/add-image.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { TagsComponent } from './components/tags/tags.component';
+import { EditArticleComponent } from './pages/article/edit-article/edit-article.component';
+import { SectionComponent } from './components/section/section.component';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 
 registerLocaleData(en);
@@ -95,7 +98,9 @@ registerLocaleData(en);
     AddCodeSnippetComponent,
     AddImageComponent,
     EditorComponent,
-    TagsComponent,],
+    TagsComponent,
+    EditArticleComponent,
+    SectionComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -115,6 +120,7 @@ registerLocaleData(en);
     NzButtonModule,
     NzMessageModule,
     NzSelectModule,
+    NzPopconfirmModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -17,7 +17,7 @@ public class ArticleService : IArticleService
 
     public List<Article> GetArticles()
     {
-        return _articleRepository.GetArticles();
+        return _articleRepository.GetArticles().OrderByDescending(a => a.CreatedDate).ToList();
     }
 
     public List<Article> GetArticlesByTag(Tag tag)

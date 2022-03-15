@@ -2,7 +2,7 @@
 
 .article {
   @include col();
-  margin-top: 50px;
+  margin: 50px 0;
 
   .metadata {
     font-size: small;
@@ -11,6 +11,14 @@
     .dot {
       margin: 0 5px;
     }
+
+    a, button {
+      float: right;
+      border: 1px solid;
+      margin-left: 10px;
+    }
+
+
   }
 
   .title {

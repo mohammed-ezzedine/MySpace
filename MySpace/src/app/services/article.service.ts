@@ -31,4 +31,12 @@ export class ArticleService {
   addArticle(form: any) : Observable<Article> {
     return this.http.post<Article>(ArticleService.ENDPOINT, JSON.stringify(form), ArticleService.HTTP_OPTIONS);
   }
+
+  updateArticle(id: string, form: any) : Observable<Article> {
+    return this.http.put<Article>(ArticleService.ENDPOINT + "/" + id, JSON.stringify(form), ArticleService.HTTP_OPTIONS);
+  }
+
+  deleteArticle(id: string) : Observable<Article> {
+    return this.http.delete<Article>(ArticleService.ENDPOINT + "/" + id);
+  }
 }

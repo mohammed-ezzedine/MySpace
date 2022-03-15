@@ -14,13 +14,16 @@ export class AddImageComponent implements OnInit {
   @Input("id")
   id! : number;
 
+  @Input("imageUrl")
+  originalImageUrl : string | undefined;
+
   @Output()
   imageUrl = new EventEmitter<ArticleAdditionEvent>();
 
   imageUrlControl!: FormControl;
 
   ngOnInit(): void {
-    this.imageUrlControl = this.fb.control('');
+    this.imageUrlControl = this.fb.control(this.originalImageUrl?? '');
   }
 
   updateUrl() {

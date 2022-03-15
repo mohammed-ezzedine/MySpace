@@ -14,6 +14,12 @@ export class AddCodeSnippetComponent implements OnInit {
   @Input("id")
   id! : number;
 
+  @Input("language")
+  originalLanguage: string | undefined;
+
+  @Input("code")
+  originalCode: string | undefined;
+
   @Output()
   code = new EventEmitter<ArticleAdditionEvent>();
 
@@ -21,7 +27,7 @@ export class AddCodeSnippetComponent implements OnInit {
   language = new EventEmitter<ArticleAdditionEvent>();
 
   codeControl!: FormControl;
-  languageSelect = '';
+  languageSelect =  '';
 
   languages = [
     { 'language': '.NET',             'code': 'aspnet'},
@@ -62,7 +68,8 @@ export class AddCodeSnippetComponent implements OnInit {
   ]
 
   ngOnInit(): void {
-    this.codeControl = this.fb.control("");
+    this.codeControl = this.fb.control(this.originalCode?? "");
+    this.languageSelect = this.originalLanguage?? '';
   }
 
   updateLanguage() {

@@ -20,6 +20,9 @@ export class EditorComponent implements AfterViewInit, OnInit  {
   @Input("id")
   id! : number;
 
+  @Input("content")
+  originalContent: string | undefined;
+
   @Output()
   content = new EventEmitter<ArticleAdditionEvent>()
 
@@ -88,7 +91,7 @@ export class EditorComponent implements AfterViewInit, OnInit  {
   }
 
   ngOnInit(): void {
-    this.contentControl = this.fb.control('');
+    this.contentControl = this.fb.control(this.originalContent ?? '');
   }
 
 }

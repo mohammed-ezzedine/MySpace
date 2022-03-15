@@ -4,4 +4,8 @@
   &:focus-within {
     border-left: 2px solid lightgrey;
   }
+
+  .medium-editor-element {
+    height: unset !important;
+  }
 }

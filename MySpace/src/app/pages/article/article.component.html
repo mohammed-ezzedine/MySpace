@@ -11,6 +11,13 @@
     <span>{{getDateString(article.createdDate)}}</span>
     <span class="dot">·</span>
     <span>{{article.estimatedMinutesToRead}} min read</span>
+    <a routerLink="/admin/article/edit-article/{{article.id}}" nz-button nzType="link" nzShape="round">Edit</a>
+    <button nz-button nzType="default" nzShape="round"
+            nz-popconfirm="true" nzDanger
+            nzPopconfirmTitle="Are you sure delete this article?"
+            nzOkText="Delete" [nzOkDanger]="true"
+            (nzOnConfirm)="deleteArticle()"
+            nzPopconfirmPlacement="topLeft">Delete</button>
   </div>
   <h1 class="title">{{article.title}}</h1>
 
@@ -20,7 +27,7 @@
   <div *ngFor="let section of article.content" class="content">
     <app-code-snippet *ngIf="section.type == 'code'" [code]="section.content" [language]="section.language"></app-code-snippet>
     <app-image *ngIf="section.type == 'image'" [src]="section.imageUrl"></app-image>
-    <p [innerHTML]="section.content" *ngIf="section.type == 'paragraph'"></p>
+    <app-section [html]="section.content!" *ngIf="section.type == 'paragraph'"></app-section>
   </div>
 
   <app-tags class="tags" [tags]="article.tags"></app-tags>
