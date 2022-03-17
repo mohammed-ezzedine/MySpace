@@ -76,6 +76,7 @@ import { TagsComponent } from './components/tags/tags.component';
 import { EditArticleComponent } from './pages/article/edit-article/edit-article.component';
 import { SectionComponent } from './components/section/section.component';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 registerLocaleData(en);
@@ -120,7 +121,8 @@ registerLocaleData(en);
     NzButtonModule,
     NzMessageModule,
     NzSelectModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzToolTipModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

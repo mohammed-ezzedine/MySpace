@@ -18,7 +18,7 @@
   </a>
 
   <div class="footer">
-    <nz-tag *ngFor="let tag of article.tags" class="tag">{{tag}}</nz-tag>
+    <app-tags [tags]="article.tags"></app-tags>
 
     <small class="minutesToRead">{{article.estimatedMinutesToRead}} min read</small>
   </div>

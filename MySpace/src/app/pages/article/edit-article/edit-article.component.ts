@@ -169,9 +169,13 @@ export class EditArticleComponent implements OnInit {
     this.articleForm!.controls[languageEvent.id].setValue(languageEvent.content);
   }
 
-  deleteSection(element: any) {
-    this.contentControls = this.contentControls.filter(c => c.id != element.id);
-    this.articleForm!.removeControl(element.controlInstance)
+  // deleteSection(element: any) {
+  //   this.contentControls = this.contentControls.filter(c => c.id != element.id);
+  //   this.articleForm!.removeControl(element.controlInstance)
+  // }
+
+  deleteSection(element: { id: number; controlInstance: string }) {
+    ArticleUtils.deleteSection(this.articleForm!, this.contentControls, element);
   }
 
   getElementType(element: any) : string{
@@ -180,5 +184,17 @@ export class EditArticleComponent implements OnInit {
 
   getControlValue(controlInstance: string) : string {
     return this.articleForm?.controls[controlInstance].value;
+  }
+
+  addParagraph($event: MouseEvent) {
+    ArticleUtils.addParagraph(this.articleForm!, this.contentControls, $event);
+  }
+
+  addCode($event: MouseEvent) {
+    ArticleUtils.addCode(this.articleForm!, this.contentControls, $event);
+  }
+
+  addImage($event: MouseEvent) {
+    ArticleUtils.addCode(this.articleForm!, this.contentControls, $event);
   }
 }

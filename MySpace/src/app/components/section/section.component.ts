@@ -16,7 +16,6 @@ export class SectionComponent implements AfterViewInit {
   content!: ElementRef;
 
   ngAfterViewInit(): void {
-    console.log(this.content.nativeElement)
     this.content.nativeElement.innerHTML = this.html;
   }
 

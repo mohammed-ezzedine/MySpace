@@ -32,8 +32,8 @@ public class MongoDbArticleRepository : ArticleRepository
 
     public List<Article> GetArticlesByTag(Tag tag)
     {
-        return _articleCollection.AsQueryable()
-            .Where(a => a.Tags != null && a.Tags.Contains(tag))
+        return  _articleCollection.AsQueryable()
+            .Where(a => a.Tags != null && a.Tags.Any(t => t.Name == tag.Name))
             .AsEnumerable()
             .Select(_mapper.Map<Article>).ToList();
     }

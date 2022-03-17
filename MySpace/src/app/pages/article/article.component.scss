@@ -17,12 +17,14 @@
       border: 1px solid;
       margin-left: 10px;
     }
-
-
   }
 
   .title {
     font-weight: bold;
+  }
+
+  .description {
+    font-size: large;
   }
 
   app-image {
@@ -38,8 +40,18 @@
   .content {
     display: flex;
 
-    p, app-code-snippet {
+    p, app-code-snippet, app-section {
       width: 100%;
+    }
+
+    app-section {
+
+      p {
+        img {
+          display: block;
+          margin: auto;
+        }
+      }
     }
   }
 }

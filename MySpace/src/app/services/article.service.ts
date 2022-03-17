@@ -20,8 +20,9 @@ export class ArticleService {
   constructor(private http: HttpClient) {
   }
 
-  getArticles() : Observable<Article[]> {
-    return this.http.get<Article[]>(ArticleService.ENDPOINT);
+  getArticles(tag? : string) : Observable<Article[]> {
+    let query = tag != undefined ? "?tag=" + tag : ''
+    return this.http.get<Article[]>(ArticleService.ENDPOINT + query);
   }
 
   getArticle(id: string) : Observable<Article> {

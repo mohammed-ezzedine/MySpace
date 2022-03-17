@@ -70,84 +70,27 @@ export class AddArticleComponent implements OnInit {
     }
   }
 
-  addParagraph(e?: MouseEvent) {
-    if (e) {
-      e.preventDefault();
-    }
-    const id = this.contentControls.length > 0 ? this.contentControls[this.contentControls.length - 1].id + 1 : 0;
-
-    const control = {
-      id,
-      controlInstance: `paragraph-${id}`
-    };
-
-    const index = this.contentControls.push(control);
-    this.articleForm.addControl(
-      this.contentControls[index - 1].controlInstance,
-      new FormControl(null, Validators.required)
-    );
-
-  }
-
-  addImage(e?: MouseEvent) {
-    if (e) {
-      e.preventDefault();
-    }
-    const id = this.contentControls.length > 0 ? this.contentControls[this.contentControls.length - 1].id + 1 : 0;
-
-    const control = {
-      id,
-      controlInstance: `image-${id}`
-    };
-
-    const index = this.contentControls.push(control);
-    this.articleForm.addControl(
-      this.contentControls[index - 1].controlInstance,
-      new FormControl(null, Validators.required)
-    );
-  }
-
-  addCode(e?: MouseEvent) {
-    if (e) {
-      e.preventDefault();
-    }
-    const id = this.contentControls.length > 0 ? this.contentControls[this.contentControls.length - 1].id + 1 : 0;
-
-    const codeControl = {
-      id: id,
-      controlInstance: `code-${id}`
-    };
-
-    const languageControl = {
-      id: id,
-      controlInstance: `codelanguage-${id}`
-    };
-
-    this.contentControls.push(codeControl);
-
-    this.articleForm.addControl(
-      codeControl.controlInstance,
-      new FormControl(null, Validators.required)
-    );
-
-    this.articleForm.addControl(
-      languageControl.controlInstance,
-      new FormControl(null, Validators.required)
-    );
-  }
-
-  deleteSection(element: any) {
-    this.contentControls = this.contentControls.filter(c => c.id != element.id);
-    this.articleForm.removeControl(element.controlInstance)
-  }
-
   getElementType(element: any) : string{
-    return element.controlInstance.split('-')[0];
+    return ArticleUtils.getElementType(element);
   }
 
   updateArticleControl(languageEvent: ArticleAdditionEvent) {
     this.articleForm.controls[languageEvent.id].setValue(languageEvent.content);
   }
 
+  addParagraph($event: MouseEvent) {
+    ArticleUtils.addParagraph(this.articleForm, this.contentControls, $event);
+  }
 
+  addCode($event: MouseEvent) {
+    ArticleUtils.addCode(this.articleForm, this.contentControls, $event);
+  }
+
+  addImage($event: MouseEvent) {
+    ArticleUtils.addCode(this.articleForm, this.contentControls, $event);
+  }
+
+  deleteSection(element: { id: number; controlInstance: string }) {
+    ArticleUtils.deleteSection(this.articleForm, this.contentControls, element);
+  }
 }

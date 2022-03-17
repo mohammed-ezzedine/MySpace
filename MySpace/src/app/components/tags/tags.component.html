@@ -1,5 +1,9 @@
 <div *ngIf="tags else tagsUndefined">
-  <nz-tag *ngFor="let tag of tags" class="tag">{{tag}}</nz-tag>
+  <a *ngFor="let tag of tags" class="tag"
+     nz-button nzType="link" nzShape="round" nzSize="small"
+     routerLink="/home"
+     [queryParams]="{ tag: tag }"
+  >{{tag}}</a>
 </div>
 
 <ng-template #tagsUndefined>
