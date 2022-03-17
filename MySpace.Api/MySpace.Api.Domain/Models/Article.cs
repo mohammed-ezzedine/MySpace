@@ -11,7 +11,7 @@ public class Article : ReactableDocument
 
     public string? Description { get; set; }
     
-    public int? EstimatedMinutesToRead { get; set; }
+    public string? EstimatedReadingTime { get; set; }
 
     public string? ImageUrl { get; set; }
 
@@ -36,7 +36,7 @@ public class Article : ReactableDocument
         base.Update(article);
         Title = article.Title ?? Title;
         Description = article.Description ?? Description;
-        EstimatedMinutesToRead = article.EstimatedMinutesToRead ?? EstimatedMinutesToRead;
+        EstimatedReadingTime = article.EstimatedReadingTime ?? EstimatedReadingTime;
         Content = article.Content?? Content;
         Tags = article.Tags ?? Tags;
         ImageUrl = article.ImageUrl ?? ImageUrl;

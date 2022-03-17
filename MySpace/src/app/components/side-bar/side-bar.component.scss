@@ -1,9 +1,23 @@
 @import "/src/app/styles/variables.scss";
+@import "/src/app/styles/mixins.scss";
 
 .app-side-bar {
+  @include col();
+
   height: 100%;
   padding: 30px;
   border-left: 1px solid $border-color;
+
+  form {
+    nz-form-control {
+      margin: 0;
+      width: max-content;
+
+      div {
+        width: max-content!important;
+      }
+    }
+  }
 
   .tags {
     margin-top: 50px;

@@ -26,13 +26,17 @@ public class ArticleController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(List<ArticleResponse>))]
-    public ActionResult<List<ArticleResponse>> GetArticles(string? tag)
+    public ActionResult<List<ArticleResponse>> GetArticles(string? q, string? tag)
     {
-        var articles = tag == null ? _articleService.GetArticles() : _articleService.GetArticlesByTag(new Tag(tag));
+        var articles = q != null
+            ? _articleService.QueryArticles(q)
+            : tag != null 
+                ? _articleService.GetArticlesByTag(new Tag(tag))
+                : _articleService.GetArticles();
         var articleResponses = articles.Select(_mapper.Map<ArticleResponse>).ToList();
         return Ok(articleResponses);
     }
-
+    
     [HttpGet("{id:guid}")]
     [ArticleNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ArticleResponse))]

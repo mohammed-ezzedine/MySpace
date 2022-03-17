@@ -17,12 +17,17 @@ public class ArticleService : IArticleService
 
     public List<Article> GetArticles()
     {
-        return _articleRepository.GetArticles().OrderByDescending(a => a.CreatedDate).ToList();
+        return _articleRepository.GetArticles();
     }
 
     public List<Article> GetArticlesByTag(Tag tag)
     {
         return _articleRepository.GetArticlesByTag(tag);
+    }
+
+    public List<Article> QueryArticles(string q)
+    {
+        return _articleRepository.QueryArticles(q);
     }
 
     public Article GetArticle(ArticleId id)

@@ -9,7 +9,7 @@ public class ArticleRequest
 
     public string Description { get; set; } = null!;
 
-    public int EstimatedMinutesToRead { get; set; }
+    public string EstimatedReadingTime { get; set; } = null!;
 
     public string? ImageUrl { get; set; }
 

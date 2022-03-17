@@ -1,7 +1,12 @@
 <div class="app-side-bar">
-  <nz-input-group [nzPrefix]="inputClearTpl" [nzSuffix]="suffixIconSearch">
-    <input type="text" nz-input [(ngModel)]="searchText" placeholder="search"/>
-  </nz-input-group>
+
+  <form nz-form [formControl]="searchText" (ngSubmit)="searchArticles()">
+    <nz-form-control [nzSpan]="14">
+      <nz-input-group [nzPrefix]="inputClearTpl" [nzSuffix]="suffixIconSearch" style="width: max-content">
+        <input type="text" nz-input [formControl]="searchText" placeholder="search"/>
+      </nz-input-group>
+    </nz-form-control>
+  </form>
 
   <div class="tags">
     <h4>Recommended Topics</h4>
@@ -20,7 +25,7 @@
     class="ant-input-clear-icon"
     nzTheme="fill"
     nzType="close-circle"
-    *ngIf="searchText"
-    (click)="searchText = null"
+    *ngIf="searchText.value != ''"
+    (click)="searchText.setValue('')"
   ></i>
 </ng-template>

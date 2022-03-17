@@ -14,6 +14,7 @@ export class ArticlesComponent implements OnInit {
   errorMessage: string = '';
 
   tag : string | undefined;
+  q : string | undefined;
 
   constructor(private route: ActivatedRoute,
               private articleService: ArticleService) { }
@@ -26,13 +27,14 @@ export class ArticlesComponent implements OnInit {
     this.route.queryParams.subscribe({
       next: params => {
         this.tag = params['tag']
+        this.q = params['q']
         this.getArticles();
       }
     })
   }
 
   private getArticles() {
-    this.articleService.getArticles(this.tag).subscribe({
+    this.articleService.getArticles(this.q, this.tag).subscribe({
       next: articles => {
         this.articles = articles;
       },
