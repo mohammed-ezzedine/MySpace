@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ArticleAdditionEvent} from "../../../events/article-addition.event";
 import {ArticleUtils} from "../../../utils/article.utils";
+import {readingTime} from "reading-time-estimator";
 
 @Component({
   selector: 'app-edit-article',
@@ -38,7 +39,8 @@ export class EditArticleComponent implements OnInit {
         description: this.articleForm!.controls['description'].value,
         imageUrl: this.articleForm!.controls['imageUrl'].value,
         tags: this.articleForm!.controls['tags'].value,
-        content: ArticleUtils.getArticleContent(this.contentControls, this.articleForm!)
+        content: ArticleUtils.getArticleContent(this.contentControls, this.articleForm!),
+        estimatedReadingTime: ArticleUtils.getArticleEstimatedReadingTime(this.contentControls, this.articleForm!)
       };
       this.articleService.updateArticle(this.id!, form).subscribe({
         next: _ => this.successMessage = 'Article updated successfully!',
@@ -64,7 +66,6 @@ export class EditArticleComponent implements OnInit {
       tags: [this.article?.tags?? [], []]
     })
 
-    console.log(this.articleForm)
     this.initializeContentControls();
   }
 
@@ -169,6 +170,7 @@ export class EditArticleComponent implements OnInit {
     this.articleForm!.controls[languageEvent.id].setValue(languageEvent.content);
   }
 
+  // TODO
   // deleteSection(element: any) {
   //   this.contentControls = this.contentControls.filter(c => c.id != element.id);
   //   this.articleForm!.removeControl(element.controlInstance)

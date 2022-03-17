@@ -4,6 +4,7 @@ import {ArticleAdditionEvent} from "../../../events/article-addition.event";
 import {TagService} from "../../../services/tag.service";
 import {ArticleService} from "../../../services/article.service";
 import {ArticleUtils} from "../../../utils/article.utils";
+import {readingTime} from "reading-time-estimator";
 
 @Component({
   selector: 'app-add-article',
@@ -33,7 +34,7 @@ export class AddArticleComponent implements OnInit {
       title: [null, [Validators.required]],
       description: [null, [Validators.required]],
       imageUrl: [null, [Validators.pattern("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#*?&//=]*)")]],
-      tags: [[], []]
+      tags: [[], []],
     })
   }
 
@@ -52,7 +53,8 @@ export class AddArticleComponent implements OnInit {
         description: this.articleForm.controls['description'].value,
         imageUrl: this.articleForm.controls['imageUrl'].value,
         tags: this.articleForm.controls['tags'].value,
-        content: ArticleUtils.getArticleContent(this.contentControls, this.articleForm)
+        content: ArticleUtils.getArticleContent(this.contentControls, this.articleForm),
+        estimatedReadingTime: ArticleUtils.getArticleEstimatedReadingTime(this.contentControls, this.articleForm!)
       };
       this.articleService.addArticle(form).subscribe({
         next: _ => this.successMessage = 'Article created successfully!',

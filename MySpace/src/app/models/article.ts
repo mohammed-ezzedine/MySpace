@@ -4,7 +4,7 @@ export interface Article {
   id: string;
   title: string;
   description: string;
-  estimatedMinutesToRead: string;
+  estimatedReadingTime: string;
   tags: string[];
   imageUrl: string | undefined;
   thumbsUp: number;

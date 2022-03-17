@@ -1,4 +1,5 @@
 ﻿import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {readingTime} from "reading-time-estimator";
 
 export class ArticleUtils {
   static getArticleContent(contentControls: any, articleForm: FormGroup) {
@@ -7,6 +8,22 @@ export class ArticleUtils {
       result.push(this.getControlItem(control, articleForm));
     }
     return result
+  }
+
+  static getArticleContentString(contentControls: any, articleForm: FormGroup) : string {
+    let result = '';
+    for (let control of contentControls) {
+      let section = this.getControlItem(control, articleForm);
+      if (section.type == 'code' || section.type == 'paragraph') {
+        result += section.content;
+      }
+    }
+    return this.strip(result)
+  }
+
+  static getArticleEstimatedReadingTime(contentControls: any, articleForm: FormGroup) : string {
+    let data = ArticleUtils.getArticleContentString(contentControls, articleForm);
+    return readingTime(data, 180, 'en').text
   }
 
   static getElementType(element: { id: number; controlInstance: string }) : string{
@@ -83,7 +100,11 @@ export class ArticleUtils {
     articleForm.removeControl(element.controlInstance)
   }
 
-  private static getControlItem(control: { id: number; controlInstance: string }, articleForm: FormGroup) {
+  private static strip(text: string) : string {
+    return new DOMParser()?.parseFromString(text,"text/html")?.body?.textContent?? ''
+  }
+
+  private static getControlItem(control: { id: number; controlInstance: string }, articleForm: FormGroup) : any {
     switch (this.getElementType(control)) {
       case 'code': return this.getCodeItem(control, articleForm);
       case 'image': return this.getImageItem(control, articleForm);

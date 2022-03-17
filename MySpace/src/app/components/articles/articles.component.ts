@@ -26,7 +26,6 @@ export class ArticlesComponent implements OnInit {
     this.route.queryParams.subscribe({
       next: params => {
         this.tag = params['tag']
-        console.log(this.tag)
         this.getArticles();
       }
     })

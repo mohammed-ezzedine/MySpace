@@ -17,8 +17,18 @@
     }
   }
 
-  .date {
+  .metadata {
     color: grey;
+
+    .dot {
+      margin: 0 5px;
+    }
+
+    a, button {
+      float: right;
+      border: 1px solid;
+      margin-left: 10px;
+    }
   }
 
   .content {

@@ -1,5 +1,9 @@
 <div class="article">
-  <small class="date">{{getDateString(article.createdDate)}}</small>
+  <div class="metadata">
+    <small class="date">{{getDateString(article.createdDate)}}</small>
+    <span class="dot">·</span>
+    <small>{{article.estimatedReadingTime}}</small>
+  </div>
 
   <a class="content" routerLink="/article/{{article.id}}">
     <div>
@@ -19,8 +23,6 @@
 
   <div class="footer">
     <app-tags [tags]="article.tags"></app-tags>
-
-    <small class="minutesToRead">{{article.estimatedMinutesToRead}} min read</small>
   </div>
 
 </div>
