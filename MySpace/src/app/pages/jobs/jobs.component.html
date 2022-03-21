@@ -1,0 +1,17 @@
+<div class="meta-data">
+  <h1>Experience</h1>
+  <!-- TODO add authorization-->
+  <a class="button-link" routerLink="/admin/jobs/add-job/" nz-button nzType="link" nzShape="round">Add Job</a>
+</div>
+
+<nz-alert *ngIf="errorMessage" nzType="error" nzShowIcon nzCloseable [nzMessage]="errorMessage"></nz-alert>
+<nz-alert *ngIf="successMessage" nzType="success" nzShowIcon nzCloseable [nzMessage]="successMessage"></nz-alert>
+
+
+<div *ngIf="jobs; else jobsUndefined">
+  <app-job-thumbnail *ngFor="let job of jobs" [job]="job" (jobDeletion)="jobDeletion($event)"></app-job-thumbnail>
+</div>
+
+<ng-template #jobsUndefined>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

@@ -20,9 +20,14 @@ builder.Services.AddSingleton(persistenceConfiguration);
 
 builder.Services.AddSingleton<TagRepository, MongoDbTagRepository>();
 builder.Services.AddSingleton<ArticleRepository, MongoDbArticleRepository>();
+builder.Services.AddSingleton<ProjectRepository, MongoDbProjectRepository>();
+builder.Services.AddSingleton<JobRepository, MongoDbJobRepository>();
+
 builder.Services.AddSingleton<ITagService, TagService>();
 builder.Services.AddSingleton<IArticleService, ArticleService>();
 builder.Services.AddSingleton<ICommentService, CommentService>();
+builder.Services.AddSingleton<IProjectService, ProjectService>();
+builder.Services.AddSingleton<IJobService, JobService>();
 
 builder.Services.AddAutoMapper(
     typeof(ArticleController).Assembly, 

@@ -33,6 +33,8 @@ import { ImageComponent } from './components/image/image.component';
 import { CodeSnippetComponent } from './components/code-snippet/code-snippet.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 import 'prismjs/components/prism-aspnet';
 import 'prismjs/components/prism-bash';
@@ -77,6 +79,11 @@ import { EditArticleComponent } from './pages/article/edit-article/edit-article.
 import { SectionComponent } from './components/section/section.component';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { ProjectsComponent } from './pages/projects/projects.component';
+import { JobsComponent } from './pages/jobs/jobs.component';
+import { JobThumbnailComponent } from './components/job-thumbnail/job-thumbnail.component';
+import { AddJobComponent } from './pages/jobs/add-job/add-job.component';
+import { EditJobComponent } from './pages/jobs/edit-job/edit-job.component';
 
 
 registerLocaleData(en);
@@ -101,7 +108,12 @@ registerLocaleData(en);
     EditorComponent,
     TagsComponent,
     EditArticleComponent,
-    SectionComponent,],
+    SectionComponent,
+    ProjectsComponent,
+    JobsComponent,
+    JobThumbnailComponent,
+    AddJobComponent,
+    EditJobComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -122,7 +134,9 @@ registerLocaleData(en);
     NzMessageModule,
     NzSelectModule,
     NzPopconfirmModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzCheckboxModule,
+    NzDatePickerModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

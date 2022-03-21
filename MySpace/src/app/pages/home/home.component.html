@@ -1,6 +1,6 @@
 <div class="home">
   <h1 class="name">Mohammed EZZEDINE</h1>
-  <div class="job-title">Software Engineer at MUREX S.A.L.</div>
+  <div *ngIf="currentJob" class="job-title">{{getPosition()}}</div>
   <div class="articles">
 
     <app-articles></app-articles>

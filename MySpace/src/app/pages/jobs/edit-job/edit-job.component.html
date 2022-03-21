@@ -1,0 +1,55 @@
+<nz-alert *ngIf="successMessage" nzType="success" [nzDescription]="successMessage" nzShowIcon nzCloseable></nz-alert>
+<nz-alert *ngIf="errorMessage" nzType="error" [nzDescription]="errorMessage" nzShowIcon nzCloseable></nz-alert>
+
+<form *ngIf="jobForm" nz-form [formGroup]="jobForm" (ngSubmit)="submitForm()">
+  <div class="meta">
+    <h1 class="page-title">New Job</h1>
+    <button class="submit" nz-button nzShape="round" [nzType]="'primary'" nzSize="large">Submit</button>
+  </div>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Employer field is required">
+      <input nz-input nzSize="large" nzBorderless formControlName="employer" type="text" id="employer" placeholder="Employer">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Employer URL field is required">
+      <input nz-input nzSize="large" nzBorderless formControlName="employerUrl" type="text" id="employerUrl" placeholder="Employer Url">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Employer Image URL field is invalid">
+      <input nz-input nzBorderless formControlName="employerImageUrl" type="imageUrl" id="employerImageUrl" placeholder="Employer Image URL">
+      <label for="employerImageUrl" *ngIf="jobForm.controls['employerImageUrl'].value" class="image">
+        <app-image [src]="jobForm.controls['employerImageUrl'].value"></app-image>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Position field is required">
+      <input nz-input nzBorderless formControlName="position" id="position" placeholder="Position">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Start Date field is required">
+      <nz-date-picker formControlName="startDate" id="startDate"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Active field is required">
+      <label nz-checkbox formControlName="active" id="active">Present</label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="!jobForm.controls['active'].value">
+    <nz-form-control nzErrorTip="End Date field is required">
+      <nz-date-picker formControlName="endDate" id="endDate"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+</form>

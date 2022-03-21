@@ -6,7 +6,7 @@ public interface IArticleService
 {
     List<Article> GetArticles();
     List<Article> GetArticlesByTag(Tag tag);
-    List<Article> QueryArticles(String q);
+    List<Article> QueryArticles(string q);
     Article GetArticle(ArticleId id);
     Article AddArticle(Article article);
     Article UpdateArticle(ArticleId id, Article article);

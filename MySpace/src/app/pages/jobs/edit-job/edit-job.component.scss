@@ -1,0 +1,18 @@
+@import "src/app/styles/mixins";
+
+nz-alert {
+  margin-bottom: 50px;
+}
+
+form {
+  margin-bottom: 50px;
+
+  .meta {
+    @include row();
+    justify-content: space-between;
+
+    .page-title {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  }
+}

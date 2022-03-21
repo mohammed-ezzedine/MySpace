@@ -1,0 +1,28 @@
+<div class="job">
+  <app-image [src]="job.employerImageUrl"></app-image>
+  <div class="details">
+    <h3><a [href]="job.employerUrl">{{job.employer}}</a></h3>
+    <h4>{{job.position}}</h4>
+
+    <div class="dates">
+      <span>{{getDateString(job.startDate)}}</span>
+      <span class="dot">·</span>
+      <span *ngIf="job.active; else endDate">Present</span>
+      <ng-template #endDate>{{getDateString(job.endDate)}}</ng-template>
+    </div>
+  </div>
+  <div class="actions">
+    <button nz-button nzType="default" nzShape="round"
+            nz-popconfirm="true" nzDanger
+            nzPopconfirmTitle="Are you sure delete this job?"
+            nzOkText="Delete" [nzOkDanger]="true"
+            (nzOnConfirm)="deleteJob()"
+            nzPopconfirmPlacement="topLeft">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+    </button>
+    <a routerLink="/admin/jobs/edit-job/{{job.id}}" nz-button nzType="link" nzShape="round">
+      <i nz-icon nzType="edit" nzTheme="outline"></i>
+    </a>
+  </div>
+</div>
+<nz-divider></nz-divider>

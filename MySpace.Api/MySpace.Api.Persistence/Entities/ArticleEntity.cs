@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Nodes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MySpace.Api.Domain.Models;
 
