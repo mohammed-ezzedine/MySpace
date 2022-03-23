@@ -1,0 +1,44 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build_and_publish:
+    name: Build and Publish Docker Images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: maezzedine
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+            
+      - name: Build API Docker image
+        run: docker build ./MySpace.Api -t maezzedine/myspace.api:latest -t maezzedine/myspace.api:${{ github.run_number }}
+
+      - name: Publish API Image to Docker Hub
+        run: docker push maezzedine/myspace.api --all-tags
+
+      - name: Build Authentication Docker image
+        run: docker build ./MySpace.Authentication -t maezzedine/myspace.authentication:latest -t maezzedine/myspace.authentication:${{ github.run_number }}
+
+      - name: Publish Authentication Image Docker Hub
+        run: docker push maezzedine/myspace.authentication --all-tags
+
+      - name: Build UI Docker image
+        run: docker build ./MySpace -t maezzedine/myspace:latest -t maezzedine/myspace:${{ github.run_number }}
+
+      - name: Publish UI Image Docker Hub
+        run: docker push maezzedine/myspace --all-tags
+
+      - name: Build Gateway Docker image
+        run: docker build ./MySpace.Gateway -t maezzedine/myspace.gateway:latest -t maezzedine/myspace.gateway:${{ github.run_number }}
+
+      - name: Publish UI Gateway Docker Hub
+        run: docker push maezzedine/myspace.gateway --all-tags
