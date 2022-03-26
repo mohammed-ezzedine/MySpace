@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ArticleService} from "../../services/article.service";
 import {Article} from "../../models/article";
+import {DateUtils} from "../../utils/date.utils";
 
 @Component({
   selector: 'app-article',
@@ -29,6 +30,7 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArticle(this.id).subscribe({
         next: article => {
           this.article = article;
+          console.log(this.article)
         },
         error: error => {
           this.errorMessage = error.message;
@@ -44,7 +46,7 @@ export class ArticleComponent implements OnInit {
   }
 
   getDateString(date: any) : string {
-    return new Date(date).toDateString();
+    return DateUtils.getDateString(date);
   }
 
   getSectionCodeLanguage(section: any) {

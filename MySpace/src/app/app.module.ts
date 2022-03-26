@@ -84,6 +84,12 @@ import { JobsComponent } from './pages/jobs/jobs.component';
 import { JobThumbnailComponent } from './components/job-thumbnail/job-thumbnail.component';
 import { AddJobComponent } from './pages/jobs/add-job/add-job.component';
 import { EditJobComponent } from './pages/jobs/edit-job/edit-job.component';
+import { ProjectThumbnailComponent } from './components/project-thumbnail/project-thumbnail.component';
+import { ProjectComponent } from './pages/projects/project/project.component';
+import { PageEditorComponent } from './components/page-editor/page-editor.component';
+import { AddProjectComponent } from './pages/projects/add-project/add-project.component';
+import {NzSpaceModule} from "ng-zorro-antd/space";
+import { EditProjectComponent } from './pages/projects/edit-project/edit-project.component';
 
 
 registerLocaleData(en);
@@ -113,31 +119,37 @@ registerLocaleData(en);
     JobsComponent,
     JobThumbnailComponent,
     AddJobComponent,
-    EditJobComponent,],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    NzTagModule,
-    NzImageModule,
-    NzSkeletonModule,
-    NzDividerModule,
-    NzInputModule,
-    NzIconModule,
-    NzTypographyModule,
-    NzAlertModule,
-    NzFormModule,
-    NzButtonModule,
-    NzMessageModule,
-    NzSelectModule,
-    NzPopconfirmModule,
-    NzToolTipModule,
-    NzCheckboxModule,
-    NzDatePickerModule
-  ],
+    EditJobComponent,
+    ProjectThumbnailComponent,
+    ProjectComponent,
+    PageEditorComponent,
+    AddProjectComponent,
+    EditProjectComponent,],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        NzTagModule,
+        NzImageModule,
+        NzSkeletonModule,
+        NzDividerModule,
+        NzInputModule,
+        NzIconModule,
+        NzTypographyModule,
+        NzAlertModule,
+        NzFormModule,
+        NzButtonModule,
+        NzMessageModule,
+        NzSelectModule,
+        NzPopconfirmModule,
+        NzToolTipModule,
+        NzCheckboxModule,
+        NzDatePickerModule,
+        NzSpaceModule
+    ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })

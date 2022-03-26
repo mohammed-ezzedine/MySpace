@@ -1,0 +1,52 @@
+@import "src/app/styles/mixins";
+
+nz-alert {
+  margin-bottom: 50px;
+}
+
+form {
+  margin-bottom: 50px;
+
+  .meta {
+    @include row();
+    justify-content: space-between;
+  }
+
+  input, textarea {
+    outline: none !important;
+    border: none;
+    border-radius: 0;
+    resize: none;
+
+    &:focus-within {
+      border-left: 2px solid lightgray;
+    }
+
+    &#title {
+      font-size: xx-large;
+    }
+
+    &#url {
+      color: grey;
+      text-decoration: underline;
+    }
+  }
+
+  label.image {
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 500px;
+      max-height: 500px;
+    }
+  }
+
+  textarea {
+    border-left: 1px solid lightgray;
+  }
+
+  .tags {
+    margin-top: 20px;
+  }
+}

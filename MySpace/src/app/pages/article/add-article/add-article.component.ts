@@ -15,11 +15,12 @@ export class AddArticleComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private tagService: TagService,
-              private articleService: ArticleService) { }
+              private articleService: ArticleService) {
+  }
 
   articleForm!: FormGroup;
   contentControls: Array<{ id: number; controlInstance: string }> = [];
-  availableTags : string[] | undefined;
+  availableTags: string[] | undefined;
 
   successMessage: string | undefined;
   errorMessage: string | undefined;
@@ -58,7 +59,7 @@ export class AddArticleComponent implements OnInit {
       };
       this.articleService.addArticle(form).subscribe({
         next: _ => this.successMessage = 'Article created successfully!',
-        error: err =>  this.errorMessage = 'ERROR: ' + err.message
+        error: err => this.errorMessage = 'ERROR: ' + err.message
       });
 
     } else {
@@ -66,33 +67,9 @@ export class AddArticleComponent implements OnInit {
         if (control.invalid) {
           console.log(control)
           control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
+          control.updateValueAndValidity({onlySelf: true});
         }
       });
     }
-  }
-
-  getElementType(element: any) : string{
-    return ArticleUtils.getElementType(element);
-  }
-
-  updateArticleControl(languageEvent: ArticleAdditionEvent) {
-    this.articleForm.controls[languageEvent.id].setValue(languageEvent.content);
-  }
-
-  addParagraph($event: MouseEvent) {
-    ArticleUtils.addParagraph(this.articleForm, this.contentControls, $event);
-  }
-
-  addCode($event: MouseEvent) {
-    ArticleUtils.addCode(this.articleForm, this.contentControls, $event);
-  }
-
-  addImage($event: MouseEvent) {
-    ArticleUtils.addCode(this.articleForm, this.contentControls, $event);
-  }
-
-  deleteSection(element: { id: number; controlInstance: string }) {
-    ArticleUtils.deleteSection(this.articleForm, this.contentControls, element);
   }
 }

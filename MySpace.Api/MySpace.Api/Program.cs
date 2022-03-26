@@ -11,6 +11,8 @@ using MySpace.Api.Presentation.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
+configuration.AddEnvironmentVariables(prefix: "MySpace_");
+
 builder.Services.AddControllers().AddApplicationPart(typeof(ArticleController).Assembly);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

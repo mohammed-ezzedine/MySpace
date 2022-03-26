@@ -3,7 +3,6 @@
 
 .article {
   margin: 40px 0;
-  font-family: Arial, sans-serif;
 
   .title {
     font-weight: bold;
@@ -41,10 +40,11 @@
       text-align: justify;
     }
 
-    app-image {
+    .thumbnail-img {
       @include justified-col();
       max-width: 200px;
       max-height: 200px;
+      margin-left: auto !important;
     }
   }
 

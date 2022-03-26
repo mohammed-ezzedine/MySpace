@@ -1,0 +1,39 @@
+<nz-alert *ngIf="successMessage" nzType="success" [nzDescription]="successMessage" nzShowIcon nzCloseable></nz-alert>
+<nz-alert *ngIf="errorMessage" nzType="error" [nzDescription]="errorMessage" nzShowIcon nzCloseable></nz-alert>
+
+<form *ngIf="project; else projectUndefined" nz-form [formGroup]="projectForm" (ngSubmit)="submitForm()">
+  <div class="meta">
+    <h1 class="page-title">Edit Project</h1>
+    <button class="submit" nz-button nzShape="round" [nzType]="'primary'" nzSize="large">Submit</button>
+  </div>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Title field is required">
+      <input nz-input nzSize="large" nzBorderless formControlName="title" id="title" placeholder="Title">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Description field is required">
+      <input nz-input nzSize="large" nzBorderless formControlName="description" id="description" placeholder="Description">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Date field is required">
+      <nz-date-picker formControlName="createdDate" id="date"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="URL field is invalid">
+      <input nz-input nzBorderless formControlName="url" type="url" id="url" placeholder="URL">
+    </nz-form-control>
+  </nz-form-item>
+
+  <app-page-editor [form]="projectForm" [contentControls]="contentControls"></app-page-editor>
+</form>
+
+<ng-template #projectUndefined>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

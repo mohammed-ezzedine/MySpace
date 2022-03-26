@@ -21,6 +21,9 @@ export class CodeSnippetComponent implements AfterViewInit {
   @Input("language")
   language! : string;
 
+  @Input("id")
+  id!: number;
+
 
   ngAfterViewInit(): void {
     if (!this.code || !this.language) {
@@ -36,7 +39,7 @@ export class CodeSnippetComponent implements AfterViewInit {
     }
     html += '</pre>'
 
-    document.getElementById("code-content")!.innerHTML = html;
+    document.getElementById("code-content-" + this.id)!.innerHTML = html;
   }
 
   copyCode() {

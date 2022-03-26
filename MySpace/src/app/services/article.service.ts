@@ -10,8 +10,8 @@ import {environment} from "../../environments/environment";
 })
 export class ArticleService {
 
-  static ENDPOINT = environment.apiUrl + '/Article'
-  static HTTP_OPTIONS = {
+  private static readonly ENDPOINT = environment.apiUrl + '/Article'
+  private static readonly HTTP_OPTIONS = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
     })

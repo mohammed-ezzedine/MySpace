@@ -1,2 +1,2 @@
 <button class="copy-btn" nzSize="small" nz-button nzType="text" (click)="copyCode()"><i nz-icon nzType="copy" nzTheme="twotone"></i></button>
-<div id="code-content"></div>
+<div [id]="'code-content-' + id"></div>

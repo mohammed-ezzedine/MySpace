@@ -1,0 +1,21 @@
+@import "src/app/styles/mixins";
+
+a {
+  color: unset;
+}
+
+.date {
+  color: grey;
+}
+
+.project {
+  @include row();
+
+  .project-info {
+    flex: 1;
+  }
+
+  button {
+    border: none;
+  }
+}

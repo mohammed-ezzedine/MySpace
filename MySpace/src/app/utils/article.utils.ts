@@ -1,5 +1,6 @@
 ﻿import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {readingTime} from "reading-time-estimator";
+import {Content} from "@angular/compiler/src/render3/r3_ast";
 
 export class ArticleUtils {
   static getArticleContent(contentControls: any, articleForm: FormGroup) {
@@ -96,8 +97,104 @@ export class ArticleUtils {
   }
 
   static deleteSection(articleForm: FormGroup, contentControls: { id: number; controlInstance: string }[], element: any) {
-    contentControls = contentControls.filter(c => c.id != element.id);
+    let index = contentControls.findIndex(c => c.id == element.id);
+    let numberOfElementsToPop = contentControls.length - index - 1;
+    let controls = this.popControlsAfterTarget(numberOfElementsToPop, contentControls);
+    this.popTargetControl(contentControls);
+    this.pushPoppedControls(controls, contentControls);
+
     articleForm.removeControl(element.controlInstance)
+  }
+
+  static initializeContentControls(form: FormGroup, contentControls: { id: number; controlInstance: string }[], content: any[]) {
+    for (let section of content) {
+      const id = contentControls.length > 0 ? contentControls[contentControls.length - 1].id + 1 : 0;
+
+      this.addExistingContentSection(form, contentControls, section, id);
+    }
+  }
+
+  private static addExistingContentSection(form: FormGroup, contentControls: { id: number; controlInstance: string }[], section: any, id: number) {
+    switch (section.type) {
+      case 'code':
+        this.addExistingCodeSection(form, contentControls, id, section);
+        break;
+      case 'paragraph':
+        this.addExistingParagraphSection(form, contentControls, id, section);
+        break;
+      case 'image':
+        this.addExistingImageSection(form, contentControls, id, section);
+        break;
+      default:
+        break;
+    }
+  }
+
+  private static addExistingImageSection(form: FormGroup, contentControls: { id: number; controlInstance: string }[], id: number, section: any) {
+    const control = {
+      id,
+      controlInstance: `image-${id}`
+    };
+
+    const index = contentControls.push(control);
+    form.addControl(
+      contentControls[index - 1].controlInstance,
+      new FormControl(section.imageUrl, Validators.required)
+    );
+  }
+
+  private static addExistingParagraphSection(form: FormGroup, contentControls: { id: number; controlInstance: string }[], id: number, section: any) {
+    const control = {
+      id,
+      controlInstance: `paragraph-${id}`
+    };
+
+    const index = contentControls.push(control);
+    form.addControl(
+      contentControls[index - 1].controlInstance,
+      new FormControl(section.content, Validators.required)
+    );
+  }
+
+  private static addExistingCodeSection(form: FormGroup, contentControls: { id: number; controlInstance: string }[], id: number, section: any) {
+    const control = {
+      id,
+      controlInstance: `code-${id}`
+    };
+
+    const languageControl = {
+      id: id,
+      controlInstance: `codelanguage-${id}`
+    };
+
+    const index = contentControls.push(control);
+    form.addControl(
+      contentControls[index - 1].controlInstance,
+      new FormControl(section.content, Validators.required)
+    );
+
+    form.addControl(
+      languageControl.controlInstance,
+      new FormControl(section.language, Validators.required)
+    );
+  }
+
+  private static pushPoppedControls(controls: { id: number; controlInstance: string }[], contentControls: { id: number; controlInstance: string }[]) {
+    while (controls.length != 0) {
+      contentControls.push(controls.pop()!)
+    }
+  }
+
+  private static popTargetControl(contentControls: { id: number; controlInstance: string }[]) {
+    contentControls.pop();
+  }
+
+  private static popControlsAfterTarget(numberOfElementsToPop: number, contentControls: { id: number; controlInstance: string }[]) {
+    let controls: { id: number; controlInstance: string }[] = [];
+    for (let i = 0; i < numberOfElementsToPop; i++) {
+      controls.push(contentControls.pop()!);
+    }
+    return controls;
   }
 
   private static strip(text: string) : string {

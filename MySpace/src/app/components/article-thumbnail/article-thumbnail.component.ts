@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Article} from "../../models/article";
 import {ArticleUtils} from "../../utils/article.utils";
+import {DateUtils} from "../../utils/date.utils";
 
 @Component({
   selector: 'app-article-thumbnail',
@@ -18,6 +19,6 @@ export class ArticleThumbnailComponent implements OnInit {
   }
 
   getDateString(date: any) : string {
-    return new Date(date).toDateString();
+    return DateUtils.getDateString(date);
   }
 }

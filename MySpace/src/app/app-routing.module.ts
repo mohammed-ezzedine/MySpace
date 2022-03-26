@@ -9,6 +9,9 @@ import {ProjectsComponent} from "./pages/projects/projects.component";
 import {JobsComponent} from "./pages/jobs/jobs.component";
 import {AddJobComponent} from "./pages/jobs/add-job/add-job.component";
 import {EditJobComponent} from "./pages/jobs/edit-job/edit-job.component";
+import {ProjectComponent} from "./pages/projects/project/project.component";
+import {AddProjectComponent} from "./pages/projects/add-project/add-project.component";
+import {EditProjectComponent} from "./pages/projects/edit-project/edit-project.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,6 +22,9 @@ const routes: Routes = [
   { path: 'admin/jobs/add-job', component: AddJobComponent },
   { path: 'admin/jobs/edit-job/:id', component: EditJobComponent },
   { path: 'projects', component: ProjectsComponent },
+  { path: 'projects/:id', component: ProjectComponent },
+  { path: 'admin/projects/add-project', component: AddProjectComponent },
+  { path: 'admin/projects/edit-project/:id', component: EditProjectComponent },
   { path: 'admin/login', component: LoginComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

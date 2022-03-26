@@ -10,7 +10,7 @@ export class TagService {
   constructor(private http: HttpClient) {
   }
 
-  static ENDPOINT = environment.apiUrl + '/tag'
+  private static readonly ENDPOINT = environment.apiUrl + '/tag'
 
   getRecommendedTags(): Observable<string[]> {
     return this.http.get<string[]>(TagService.ENDPOINT)

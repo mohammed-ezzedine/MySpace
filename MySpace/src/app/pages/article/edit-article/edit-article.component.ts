@@ -6,6 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ArticleAdditionEvent} from "../../../events/article-addition.event";
 import {ArticleUtils} from "../../../utils/article.utils";
 import {readingTime} from "reading-time-estimator";
+import {TagService} from "../../../services/tag.service";
 
 @Component({
   selector: 'app-edit-article',
@@ -16,6 +17,7 @@ export class EditArticleComponent implements OnInit {
 
   id: string | undefined;
   article: Article | undefined;
+  availableTags: string[] | undefined;
 
   errorMessage: string | undefined;
   successMessage: string | undefined;
@@ -25,11 +27,13 @@ export class EditArticleComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
+              private tagService: TagService,
               private articleService: ArticleService) { }
 
   ngOnInit(): void {
     this.getArticleIdFromRoute();
     this.getArticle();
+    this.getAvailableTags();
   }
 
   submitForm() {
@@ -58,6 +62,14 @@ export class EditArticleComponent implements OnInit {
     }
   }
 
+  private getAvailableTags() {
+    this.tagService.getAllTags().subscribe({
+      next: tags => {
+        this.availableTags = tags
+      }
+    })
+  }
+
   private initializeForm() {
     this.articleForm = this.fb.group({
       title: [this.article?.title, [Validators.required]],
@@ -74,76 +86,7 @@ export class EditArticleComponent implements OnInit {
       return;
     }
 
-    for (let section of this.article.content) {
-      const id = this.contentControls.length > 0 ? this.contentControls[this.contentControls.length - 1].id + 1 : 0;
-
-      this.addExistingContentSection(section, id);
-    }
-  }
-
-  private addExistingContentSection(section: any, id: number) {
-    switch (section.type) {
-      case 'code':
-        this.addExistingCodeSection(id, section);
-        break;
-      case 'paragraph':
-        this.addExistingParagraphSection(id, section);
-        break;
-      case 'image':
-        this.addExistingImageSection(id, section);
-        break;
-      default:
-        break;
-    }
-  }
-
-  private addExistingImageSection(id: number, section: any) {
-    const control = {
-      id,
-      controlInstance: `image-${id}`
-    };
-
-    const index = this.contentControls.push(control);
-    this.articleForm!.addControl(
-      this.contentControls[index - 1].controlInstance,
-      new FormControl(section.imageUrl, Validators.required)
-    );
-  }
-
-  private addExistingParagraphSection(id: number, section: any) {
-    const control = {
-      id,
-      controlInstance: `paragraph-${id}`
-    };
-
-    const index = this.contentControls.push(control);
-    this.articleForm!.addControl(
-      this.contentControls[index - 1].controlInstance,
-      new FormControl(section.content, Validators.required)
-    );
-  }
-
-  private addExistingCodeSection(id: number, section: any) {
-    const control = {
-      id,
-      controlInstance: `code-${id}`
-    };
-
-    const languageControl = {
-      id: id,
-      controlInstance: `codelanguage-${id}`
-    };
-
-    const index = this.contentControls.push(control);
-    this.articleForm!.addControl(
-      this.contentControls[index - 1].controlInstance,
-      new FormControl(section.content, Validators.required)
-    );
-
-    this.articleForm!.addControl(
-      languageControl.controlInstance,
-      new FormControl(section.language, Validators.required)
-    );
+    ArticleUtils.initializeContentControls(this.articleForm!, this.contentControls, this.article.content);
   }
 
   private getArticleIdFromRoute() {
@@ -164,39 +107,5 @@ export class EditArticleComponent implements OnInit {
         }
       })
     }
-  }
-
-  updateArticleControl(languageEvent: ArticleAdditionEvent) {
-    this.articleForm!.controls[languageEvent.id].setValue(languageEvent.content);
-  }
-
-  // TODO
-  // deleteSection(element: any) {
-  //   this.contentControls = this.contentControls.filter(c => c.id != element.id);
-  //   this.articleForm!.removeControl(element.controlInstance)
-  // }
-
-  deleteSection(element: { id: number; controlInstance: string }) {
-    ArticleUtils.deleteSection(this.articleForm!, this.contentControls, element);
-  }
-
-  getElementType(element: any) : string{
-    return element.controlInstance.split('-')[0];
-  }
-
-  getControlValue(controlInstance: string) : string {
-    return this.articleForm?.controls[controlInstance].value;
-  }
-
-  addParagraph($event: MouseEvent) {
-    ArticleUtils.addParagraph(this.articleForm!, this.contentControls, $event);
-  }
-
-  addCode($event: MouseEvent) {
-    ArticleUtils.addCode(this.articleForm!, this.contentControls, $event);
-  }
-
-  addImage($event: MouseEvent) {
-    ArticleUtils.addCode(this.articleForm!, this.contentControls, $event);
   }
 }

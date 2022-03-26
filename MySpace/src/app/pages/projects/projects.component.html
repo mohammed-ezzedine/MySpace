@@ -1,0 +1,19 @@
+<div class="meta-data">
+  <h1>Projects</h1>
+  <!-- TODO add authorization-->
+  <a class="button-link" routerLink="/admin/projects/add-project/" nz-button nzType="link" nzShape="round">Add Project</a>
+</div>
+
+<nz-alert *ngIf="errorMessage" nzType="error" nzShowIcon nzCloseable [nzMessage]="errorMessage"></nz-alert>
+<nz-alert *ngIf="successMessage" nzType="success" nzShowIcon nzCloseable [nzMessage]="successMessage"></nz-alert>
+
+<div *ngIf="projects; else projectsUndefined">
+  <app-project-thumbnail *ngFor="let project of projects"
+                         [project]="project"
+                         (projectDeletion)="projectDeletion($event)"
+  ></app-project-thumbnail>
+</div>
+
+<ng-template #projectsUndefined>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

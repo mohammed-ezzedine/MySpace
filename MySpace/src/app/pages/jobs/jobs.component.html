@@ -7,7 +7,6 @@
 <nz-alert *ngIf="errorMessage" nzType="error" nzShowIcon nzCloseable [nzMessage]="errorMessage"></nz-alert>
 <nz-alert *ngIf="successMessage" nzType="success" nzShowIcon nzCloseable [nzMessage]="successMessage"></nz-alert>
 
-
 <div *ngIf="jobs; else jobsUndefined">
   <app-job-thumbnail *ngFor="let job of jobs" [job]="job" (jobDeletion)="jobDeletion($event)"></app-job-thumbnail>
 </div>

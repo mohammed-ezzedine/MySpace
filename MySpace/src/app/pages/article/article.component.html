@@ -8,9 +8,9 @@
 
 <div class="article" *ngIf="article else articleUndefined">
   <div class="metadata">
-    <span>{{getDateString(article.createdDate)}}</span>
+    <small>{{getDateString(article.createdDate)}}</small>
     <span class="dot">·</span>
-    <span>{{article.estimatedReadingTime}}</span>
+    <small>{{article.estimatedReadingTime}}</small>
     <a routerLink="/admin/article/edit-article/{{article.id}}" nz-button nzType="link" nzShape="round">Edit</a>
     <button nz-button nzType="default" nzShape="round"
             nz-popconfirm="true" nzDanger
@@ -22,11 +22,15 @@
   <h1 class="title">{{article.title}}</h1>
 
   <p class="description">{{article.description}}</p>
-  <app-image *ngIf="article.imageUrl" [src]="article.imageUrl"></app-image>
+  <app-image class="article-image" *ngIf="article.imageUrl" [src]="article.imageUrl"></app-image>
 
-  <div *ngFor="let section of article.content" class="content">
-    <app-code-snippet *ngIf="section.type == 'code'" [code]="section.content" [language]="section.language"></app-code-snippet>
-    <app-image *ngIf="section.type == 'image'" [src]="section.imageUrl"></app-image>
+  <div *ngFor="let section of article.content; let i = index" class="content">
+    <app-code-snippet *ngIf="section.type == 'code'"
+                      [id]="i"
+                      [code]="section.content"
+                      [language]="section.language"
+    ></app-code-snippet>
+    <app-image *ngIf="section.type == 'image'" [src]="section.imageUrl" class="article-image"></app-image>
     <app-section [html]="section.content!" *ngIf="section.type == 'paragraph'"></app-section>
   </div>
 

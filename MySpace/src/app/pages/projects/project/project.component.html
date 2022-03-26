@@ -1,0 +1,20 @@
+<nz-alert *ngIf="errorMessage" nzType="error" nzShowIcon nzCloseable [nzMessage]="errorMessage"></nz-alert>
+
+<div class="project" *ngIf="project; else projectUndefined">
+  <a [href]="project.url" target="_blank"><h1>{{project.title}}</h1></a>
+  <div class="date">{{getDateString(project.createdDate)}}</div>
+
+  <p style="margin-bottom: 50px">{{project.description}}</p>
+
+  <div *ngFor="let section of project.content" class="content">
+    <app-code-snippet *ngIf="section.type == 'code'" [code]="section.content" [language]="section.language"></app-code-snippet>
+    <app-image *ngIf="section.type == 'image'" [src]="section.imageUrl"></app-image>
+    <app-section [html]="section.content!" *ngIf="section.type == 'paragraph'"></app-section>
+  </div>
+
+</div>
+
+
+<ng-template #projectUndefined>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

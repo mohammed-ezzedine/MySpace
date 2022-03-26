@@ -1,0 +1,23 @@
+<div class="project">
+  <a [routerLink]="project.id" class="project-info">
+    <h3>{{project.title}}</h3>
+    <p>{{project.description}}</p>
+    <span class="date">{{getDateString(project.createdDate)}}</span>
+  </a>
+
+  <div class="actions">
+    <!-- TODO authorize -->
+    <button nz-button nzType="default" nzShape="round"
+            nz-popconfirm="true" nzDanger
+            nzPopconfirmTitle="Are you sure delete this project?"
+            nzOkText="Delete" [nzOkDanger]="true"
+            (nzOnConfirm)="deleteProject()"
+            nzPopconfirmPlacement="topLeft">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+    </button>
+    <a routerLink="/admin/projects/edit-project/{{project.id}}" nz-button nzType="link" nzShape="round">
+      <i nz-icon nzType="edit" nzTheme="outline"></i>
+    </a>
+  </div>
+</div>
+<nz-divider></nz-divider>
