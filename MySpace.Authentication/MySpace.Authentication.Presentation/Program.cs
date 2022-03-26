@@ -1,10 +1,8 @@
-using System.Security.Authentication;
 using System.Text;
 using AspNetCore.Identity.Mongo;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using MongoDB.Driver;
 using MySpace.Authentication.Application.Services;
 using MySpace.Authentication.Domain.Configurations;
 using MySpace.Authentication.Domain.Models;
@@ -12,6 +10,8 @@ using MySpace.Authentication.Presentation.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+
+configuration.AddEnvironmentVariables(prefix: "MySpace_");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
