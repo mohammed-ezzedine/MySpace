@@ -21,12 +21,22 @@ jobs:
             
       - name: Build API Docker image
         run: docker build ./MySpace.Api -t maezzedine/myspace.api:latest -t maezzedine/myspace.api:${{ github.run_number }}
+        env:
+          MySpace_PersistenceConfiguration__ConnectionString: ${{ secrets.CONNECTION_STRING }}
+          MySpace_IdentityConfiguration__Issuer: ${{ secrets.IDENTITY_ISSUER }}
+          MySpace_IdentityConfiguration__Secret: ${{ secrets.IDENTITY_SALT }}
 
       - name: Publish API Image to Docker Hub
         run: docker push maezzedine/myspace.api --all-tags
 
       - name: Build Authentication Docker image
         run: docker build ./MySpace.Authentication -t maezzedine/myspace.authentication:latest -t maezzedine/myspace.authentication:${{ github.run_number }}
+        env:
+          MySpace_PersistenceConfiguration__ConnectionString: ${{ secrets.CONNECTION_STRING }}
+          MySpace_IdentityConfiguration__Issuer: ${{ secrets.IDENTITY_ISSUER }}
+          MySpace_IdentityConfiguration__Secret: ${{ secrets.IDENTITY_SALT }}
+          MySpace_AdminConfiguration__Username: ${{ secrets.ADMIN_USERNAME }}
+          MySpace_AdminConfiguration__Password: ${{ secrets.ADMIN_PASSWORD }}
 
       - name: Publish Authentication Image Docker Hub
         run: docker push maezzedine/myspace.authentication --all-tags
