@@ -1,5 +1,7 @@
+using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using MySpace.Api.Application.Configurations;
 using MySpace.Api.Application.Persistence;
@@ -12,6 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 configuration.AddEnvironmentVariables(prefix: "MySpace_");
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.All;
+    options.KnownProxies.Add(IPAddress.Parse("157.245.46.30"));
+});
 
 builder.Services.AddControllers().AddApplicationPart(typeof(ArticleController).Assembly);
 builder.Services.AddEndpointsApiExplorer();
@@ -65,6 +73,9 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod()));
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
+app.UsePathBase("/");
 
 // if (app.Environment.IsDevelopment())
 // {

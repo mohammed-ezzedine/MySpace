@@ -63,6 +63,7 @@ export class AddArticleComponent implements OnInit {
       });
 
     } else {
+      console.log(this.articleForm)
       Object.values(this.articleForm.controls).forEach(control => {
         if (control.invalid) {
           console.log(control)

@@ -6,3 +6,5 @@ riderModule.iml
 .idea/
 .vs/
 **/*.Production.json
+.aspnet/
+cert/

@@ -1,24 +1,12 @@
 version: '3.9'
 
 services:
-  gateway:
-    build: MySpace.Gateway
-    hostname: gateway
-    container_name: gateway
-    ports:
-      - "8000:80"
-    networks:
-      - gateway-internal
-      - client-gateway
-
   mongo:
     image: mongo:5.0
     hostname: mongo
     container_name: mongo
     volumes:
       - ~/apps/mongo:/data/db
-    ports:
-      - "27017:27017"
     networks:
       - db-service
 
@@ -28,6 +16,12 @@ services:
     container_name: api
     depends_on:
       - mongo
+    volumes:
+      - ./cert/nginx/letsencrypt/live/mohammed.ezzedine.me:/https/
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/fullchain.pem
+      - ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/https/privkey.pem
     networks:
       - gateway-internal
       - db-service
@@ -38,6 +32,12 @@ services:
     container_name: authentication-service
     depends_on:
       - mongo
+    volumes:
+      - ./cert/nginx/letsencrypt/live/mohammed.ezzedine.me:/https/
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/fullchain.pem
+      - ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/https/privkey.pem
     networks:
       - gateway-internal
       - db-service
@@ -49,8 +49,24 @@ services:
     volumes:
       - ./MySpace:/app
       - /MySpace/node_modules
+      - ./cert/nginx/letsencrypt:/etc/letsencrypt
+      - ./cert/nginx/dhparam.pem:/etc/ssl/certs/dhparam.pem
     networks:
       - client-gateway
+      
+  proxy:
+    build: MySpace.Proxy
+    hostname: proxy
+    container_name: proxy
+    networks:
+      - gateway-internal
+      - client-gateway
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./cert/nginx/letsencrypt:/etc/letsencrypt
+      - ./cert/nginx/dhparam.pem:/etc/ssl/certs/dhparam.pem
         
 networks:
   client-gateway:

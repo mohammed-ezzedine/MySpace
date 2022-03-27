@@ -42,7 +42,7 @@ export class PageEditorComponent implements OnInit {
   }
 
   addImage($event: MouseEvent) {
-    ArticleUtils.addCode(this.form, this.contentControls, $event);
+    ArticleUtils.addImage(this.form, this.contentControls, $event);
   }
 
   deleteSection(element: { id: number; controlInstance: string }) {

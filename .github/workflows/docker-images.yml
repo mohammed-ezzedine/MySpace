@@ -47,8 +47,8 @@ jobs:
       - name: Publish UI Image Docker Hub
         run: docker push maezzedine/myspace --all-tags
 
-      - name: Build Gateway Docker image
-        run: docker build ./MySpace.Gateway -t maezzedine/myspace.gateway:latest -t maezzedine/myspace.gateway:${{ github.run_number }}
+      - name: Build Proxy Docker image
+        run: docker build ./MySpace.Proxy -t maezzedine/myspace.proxy:latest -t maezzedine/myspace.proxy:${{ github.run_number }}
 
-      - name: Publish UI Gateway Docker Hub
-        run: docker push maezzedine/myspace.gateway --all-tags
+      - name: Publish Proxy Docker Hub
+        run: docker push maezzedine/myspace.proxy --all-tags

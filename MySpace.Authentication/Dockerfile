@@ -19,4 +19,6 @@ RUN dotnet publish "MySpace.Authentication.Presentation.csproj" -c Release -o /a
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+EXPOSE 80
+EXPOSE 443
 ENTRYPOINT ["dotnet", "MySpace.Authentication.Presentation.dll"]
