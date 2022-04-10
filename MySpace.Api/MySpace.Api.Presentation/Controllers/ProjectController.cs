@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySpace.Api.Application.Services;
 using MySpace.Api.Domain.Models;
@@ -40,6 +41,7 @@ public class ProjectController : ControllerBase
         return Ok(project);
     }
     
+    [Authorize]
     [HttpPost]
     [ProducesResponseType((int) HttpStatusCode.Created, Type = typeof(ProjectResponse))]
     public ActionResult<ProjectResponse> AddProject(ProjectRequest request)
@@ -49,6 +51,7 @@ public class ProjectController : ControllerBase
         return Created(project.Id.ToString(), project);
     }
 
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ProjectNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
@@ -59,6 +62,7 @@ public class ProjectController : ControllerBase
         return Ok(project);
     }
    
+    [Authorize]
     [HttpDelete("{id:guid}")]
     [ProjectNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]

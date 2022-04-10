@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Article} from "../../models/article";
 import {ArticleService} from "../../services/article.service";
 import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-articles',
@@ -17,10 +18,15 @@ export class ArticlesComponent implements OnInit {
   q : string | undefined;
 
   constructor(private route: ActivatedRoute,
-              private articleService: ArticleService) { }
+              private articleService: ArticleService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.checkRouteForTag();
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated()
   }
 
   private checkRouteForTag() {

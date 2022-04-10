@@ -22,7 +22,7 @@ public class IdentityController : ControllerBase
         _mapper = mapper;
     }
 
-    [Authorize]
+    // [Authorize]
     [HttpGet]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(List<UserResponse>))]
     public ActionResult<List<UserResponse>> GetUsers()
@@ -52,10 +52,10 @@ public class IdentityController : ControllerBase
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.BadRequest)]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(string))]
-    public async Task<ActionResult<string>> Login(LoginRequest request)
+    public async Task<ActionResult<TokenResponse>> Login(LoginRequest request)
     {
         var token = await _authenticationService.Login(request.Username, request.Password);
-        return Ok(token);
+        return Ok(new TokenResponse { Token = token });
     }
 
     [Authorize]

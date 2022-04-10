@@ -11,7 +11,7 @@
       <ng-template #endDate>{{getDateString(job.endDate)}}</ng-template>
     </div>
   </div>
-  <div class="actions">
+  <div *ngIf="isAuthenticated()" class="actions">
     <button nz-button nzType="default" nzShape="round"
             nz-popconfirm="true" nzDanger
             nzPopconfirmTitle="Are you sure delete this job?"

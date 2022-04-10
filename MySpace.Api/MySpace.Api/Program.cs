@@ -53,12 +53,12 @@ builder.Services.AddAuthentication(options =>
     .AddJwtBearer(options =>
     {
         options.SaveToken = true;
-        options.RequireHttpsMetadata = false;
+        options.RequireHttpsMetadata = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
             ValidateAudience = false,
             ValidIssuer = identityConfiguration.Issuer,
+            ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(identityConfiguration.Secret))
         };
     });
@@ -67,7 +67,6 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy",
         corsPolicyBuilder =>
             corsPolicyBuilder
-                // .WithOrigins(configuration["CorsConfiguration:AllowedOrigins"])
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod()));

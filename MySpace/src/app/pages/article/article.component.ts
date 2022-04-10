@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ArticleService} from "../../services/article.service";
 import {Article} from "../../models/article";
 import {DateUtils} from "../../utils/date.utils";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-article',
@@ -14,7 +15,8 @@ export class ArticleComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private articleService: ArticleService) { }
+              private articleService: ArticleService,
+              private authService: AuthService) { }
 
   id: string | undefined;
   article: Article | undefined;
@@ -23,6 +25,10 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.getArticleIdFromRoute();
     this.getArticle();
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated()
   }
 
   private getArticle() {

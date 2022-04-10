@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {JobModel} from "../../models/job.model";
 import {JobService} from "../../services/job.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-job-thumbnail',
@@ -9,7 +10,8 @@ import {JobService} from "../../services/job.service";
 })
 export class JobThumbnailComponent implements OnInit {
 
-  constructor(private jobService: JobService) { }
+  constructor(private jobService: JobService,
+              private authService: AuthService) { }
 
   @Input("job")
   job!: JobModel;
@@ -29,5 +31,9 @@ export class JobThumbnailComponent implements OnInit {
       next: _ => this.jobDeletion.emit({ id: this.job.id, success: true}),
       error: err => this.jobDeletion.emit({ id: this.job.id, success: false, error: err}),
     })
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated()
   }
 }

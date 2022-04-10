@@ -1,7 +1,21 @@
 <nz-alert *ngIf="errorMessage" nzType="error" nzShowIcon nzCloseable [nzMessage]="errorMessage"></nz-alert>
 
 <div class="project" *ngIf="project; else projectUndefined">
-  <a [href]="project.url" target="_blank"><h1>{{project.title}}</h1></a>
+  <div *ngIf="isAuthenticated()" class="actions">
+    <button nz-button nzType="default" nzShape="round"
+            nz-popconfirm="true" nzDanger
+            nzPopconfirmTitle="Are you sure delete this project?"
+            nzOkText="Delete" [nzOkDanger]="true"
+            (nzOnConfirm)="deleteProject()"
+            nzPopconfirmPlacement="topLeft">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+    </button>
+    <a routerLink="/admin/projects/edit-project/{{project.id}}" nz-button nzType="link" nzShape="round">
+      <i nz-icon nzType="edit" nzTheme="outline"></i>
+    </a>
+  </div>
+  <a [href]="project.url" target="_blank" class="title"><h1>{{project.title}}</h1></a>
+
   <div class="date">{{getDateString(project.createdDate)}}</div>
 
   <p style="margin-bottom: 50px">{{project.description}}</p>

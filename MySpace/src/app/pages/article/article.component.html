@@ -11,10 +11,10 @@
     <small>{{getDateString(article.createdDate)}}</small>
     <span class="dot">·</span>
     <small>{{article.estimatedReadingTime}}</small>
-    <a routerLink="/admin/article/edit-article/{{article.id}}" nz-button nzType="link" nzShape="round">Edit</a>
-    <button nz-button nzType="default" nzShape="round"
+    <a *ngIf="isAuthenticated()" routerLink="/admin/article/edit-article/{{article.id}}" nz-button nzType="link" nzShape="round">Edit</a>
+    <button *ngIf="isAuthenticated()" nz-button nzType="default" nzShape="round"
             nz-popconfirm="true" nzDanger
-            nzPopconfirmTitle="Are you sure delete this article?"
+            nzPopconfirmTitle="Are you sure you want to delete this article?"
             nzOkText="Delete" [nzOkDanger]="true"
             (nzOnConfirm)="deleteArticle()"
             nzPopconfirmPlacement="topLeft">Delete</button>

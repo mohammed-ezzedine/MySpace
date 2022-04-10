@@ -41,12 +41,12 @@ builder.Services.AddAuthentication(options =>
     .AddJwtBearer(options =>
     {
         options.SaveToken = true;
-        options.RequireHttpsMetadata = false;
+        options.RequireHttpsMetadata = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
             ValidateAudience = false,
             ValidIssuer = identityConfiguration.Issuer,
+            ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(identityConfiguration.Secret))
         };
     });
@@ -56,9 +56,9 @@ builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddCors(options =>
-    options.AddDefaultPolicy(corsPolicyBuilder =>
+    options.AddPolicy("CorsPolicy", corsPolicyBuilder =>
         corsPolicyBuilder
-            .WithOrigins(configuration["CorsConfiguration:AllowedOrigins"])
+            .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod()));
 
@@ -72,12 +72,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.UseCors(corsPolicyBuilder => 
-    corsPolicyBuilder
-        .WithOrigins(configuration["CorsConfiguration:AllowedOrigins"])
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials());
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

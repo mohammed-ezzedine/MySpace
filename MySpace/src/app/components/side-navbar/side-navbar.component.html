@@ -1,4 +1,5 @@
 <nav class="app-side-navbar">
+
   <a nz-button nzType="link" nzSize="large" routerLink="/home"
      nzTooltipTitle="Home" nzTooltipPlacement="right" nz-tooltip="true" [nzTooltipMouseEnterDelay]="0.5"
   ><i nz-icon nzType="home" nzTheme="outline"></i></a>
@@ -17,4 +18,13 @@
   <a nz-button nzType="link" nzSize="large" routerLink="/projects"
      nzTooltipTitle="Projects" nzTooltipPlacement="right" nz-tooltip="true" [nzTooltipMouseEnterDelay]="0.5"
   ><i nz-icon nzType="project" nzTheme="outline"></i></a>
+
+
+  <nz-badge *ngIf="isAuthenticated()" nzStatus="processing">
+    <button nz-button nzType="default" nzShape="round"
+            nz-popconfirm="true" nzDanger nzSize="small"
+            nzPopconfirmTitle="Are you sure you want to logout?"
+            nzOkText="Logout" [nzOkDanger]="true" (nzOnConfirm)="logout()"
+            nzPopconfirmPlacement="topLeft">Logout</button>
+  </nz-badge>
 </nav>

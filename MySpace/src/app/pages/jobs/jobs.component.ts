@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {JobModel} from "../../models/job.model";
 import {JobService} from "../../services/job.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-jobs',
@@ -9,7 +10,8 @@ import {JobService} from "../../services/job.service";
 })
 export class JobsComponent implements OnInit {
 
-  constructor(private jobService: JobService) { }
+  constructor(private jobService: JobService,
+              private authService: AuthService) { }
 
   successMessage: string | null = null;
   errorMessage: string | null = null;
@@ -27,6 +29,10 @@ export class JobsComponent implements OnInit {
     } else {
       this.errorMessage = `Failed to delete job of ID ${$event.id}: ${$event.error}`;
     }
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated()
   }
 
   private getJobs() {

@@ -1,7 +1,6 @@
 <div class="meta-data">
   <h1>Projects</h1>
-  <!-- TODO add authorization-->
-  <a class="button-link" routerLink="/admin/projects/add-project/" nz-button nzType="link" nzShape="round">Add Project</a>
+  <a *ngIf="isAuthenticated()" class="button-link" routerLink="/admin/projects/add-project/" nz-button nzType="link" nzShape="round">Add Project</a>
 </div>
 
 <nz-alert *ngIf="errorMessage" nzType="error" nzShowIcon nzCloseable [nzMessage]="errorMessage"></nz-alert>

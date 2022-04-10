@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySpace.Api.Application.Services;
 using MySpace.Api.Domain.Models;
@@ -48,6 +49,7 @@ public class JobController : ControllerBase
         return Ok(job);
     }
 
+    [Authorize]
     [HttpPost]
     [ProducesResponseType((int) HttpStatusCode.Created, Type = typeof(JobResponse))]
     public ActionResult<List<JobResponse>> AddJob(JobRequest request)
@@ -57,6 +59,7 @@ public class JobController : ControllerBase
         return Created(job.Id.ToString(), job);
     }
     
+    [Authorize]
     [HttpPut("{id:guid}")]
     [JobNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
@@ -68,6 +71,7 @@ public class JobController : ControllerBase
         return Ok(job);
     }
 
+    [Authorize]
     [HttpDelete("{id:guid}")]
     [JobNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]

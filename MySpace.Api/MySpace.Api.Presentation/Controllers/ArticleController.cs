@@ -47,7 +47,7 @@ public class ArticleController : ControllerBase
         return Ok(_mapper.Map<ArticleResponse>(article));
     }
 
-    // [Authorize]
+    [Authorize]
     [HttpPost]
     [EnableCors]
     [ProducesResponseType((int) HttpStatusCode.Created, Type = typeof(ArticleResponse))]
@@ -57,7 +57,7 @@ public class ArticleController : ControllerBase
         return Created(result.Id.ToString(), _mapper.Map<ArticleResponse>(result));
     }
 
-    // [Authorize]
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ArticleResponse))]
     public ActionResult<ArticleResponse> UpdateArticle(Guid id, ArticleRequest article)
@@ -66,7 +66,7 @@ public class ArticleController : ControllerBase
         return Ok(_mapper.Map<ArticleResponse>(result));
     }
 
-    // [Authorize]
+    [Authorize]
     [HttpDelete("{id:guid}")]
     [ArticleNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]

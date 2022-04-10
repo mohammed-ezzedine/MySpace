@@ -5,8 +5,7 @@
     <span class="date">{{getDateString(project.createdDate)}}</span>
   </a>
 
-  <div class="actions">
-    <!-- TODO authorize -->
+  <div *ngIf="isAuthenticated()" class="actions">
     <button nz-button nzType="default" nzShape="round"
             nz-popconfirm="true" nzDanger
             nzPopconfirmTitle="Are you sure delete this project?"

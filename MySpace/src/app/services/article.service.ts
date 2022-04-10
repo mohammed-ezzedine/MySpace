@@ -4,6 +4,7 @@ import {Article} from "../models/article";
 import {Injectable} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {environment} from "../../environments/environment";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +12,9 @@ import {environment} from "../../environments/environment";
 export class ArticleService {
 
   private static readonly ENDPOINT = environment.apiUrl + '/Article'
-  private static readonly HTTP_OPTIONS = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json"
-    })
-  }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private authService: AuthService) {
   }
 
   getArticles(q?: string, tag? : string) : Observable<Article[]> {
@@ -34,14 +31,36 @@ export class ArticleService {
   }
 
   addArticle(form: any) : Observable<Article> {
-    return this.http.post<Article>(ArticleService.ENDPOINT, JSON.stringify(form), ArticleService.HTTP_OPTIONS);
+       return this.http.post<Article>(ArticleService.ENDPOINT, JSON.stringify(form), this.getHeadersWithToken());
   }
 
   updateArticle(id: string, form: any) : Observable<Article> {
-    return this.http.put<Article>(ArticleService.ENDPOINT + "/" + id, JSON.stringify(form), ArticleService.HTTP_OPTIONS);
+    return this.http.put<Article>(ArticleService.ENDPOINT + "/" + id, JSON.stringify(form), this.getHeadersWithToken());
   }
 
   deleteArticle(id: string) : Observable<Article> {
-    return this.http.delete<Article>(ArticleService.ENDPOINT + "/" + id);
+    return this.http.delete<Article>(ArticleService.ENDPOINT + "/" + id, this.getHeadersWithToken());
+  }
+
+  private getHeaders() {
+    return {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })
+    }
+  }
+
+  private getHeadersWithToken() {
+    let token = this.authService.getToken();
+    if (token == null) {
+      throw new Error("Unauthorized.")
+    }
+
+    return {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      })
+    }
   }
 }

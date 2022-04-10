@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProjectModel} from "../../models/project.model";
 import {ProjectService} from "../../services/project.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-projects',
@@ -9,7 +10,8 @@ import {ProjectService} from "../../services/project.service";
 })
 export class ProjectsComponent implements OnInit {
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService,
+              private authService: AuthService) { }
 
   projects: ProjectModel[] | undefined;
   errorMessage: string | null = null;
@@ -36,5 +38,9 @@ export class ProjectsComponent implements OnInit {
     } else {
       this.errorMessage = `Failed to delete project of ID ${$event.id}: ${$event.error}`;
     }
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated()
   }
 }

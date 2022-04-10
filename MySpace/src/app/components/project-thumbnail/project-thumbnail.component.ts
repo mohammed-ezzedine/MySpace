@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProjectModel} from "../../models/project.model";
 import {DateUtils} from "../../utils/date.utils";
 import {ProjectService} from "../../services/project.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-project-thumbnail',
@@ -10,7 +11,8 @@ import {ProjectService} from "../../services/project.service";
 })
 export class ProjectThumbnailComponent implements OnInit {
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService,
+              private authService: AuthService) { }
 
   @Input("project")
   project!: ProjectModel;
@@ -31,5 +33,9 @@ export class ProjectThumbnailComponent implements OnInit {
       next: _ => this.projectDeletion.emit({ id: this.project.id, success: true}),
       error: err => this.projectDeletion.emit({ id: this.project.id, success: false, error: err}),
     });
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated()
   }
 }

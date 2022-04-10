@@ -35,6 +35,27 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { AddCodeSnippetComponent } from './components/add-code-snippet/add-code-snippet.component';
+import { AddImageComponent } from './components/add-image/add-image.component';
+import { EditorComponent } from './components/editor/editor.component';
+import { TagsComponent } from './components/tags/tags.component';
+import { EditArticleComponent } from './pages/article/edit-article/edit-article.component';
+import { SectionComponent } from './components/section/section.component';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { ProjectsComponent } from './pages/projects/projects.component';
+import { JobsComponent } from './pages/jobs/jobs.component';
+import { JobThumbnailComponent } from './components/job-thumbnail/job-thumbnail.component';
+import { AddJobComponent } from './pages/jobs/add-job/add-job.component';
+import { EditJobComponent } from './pages/jobs/edit-job/edit-job.component';
+import { ProjectThumbnailComponent } from './components/project-thumbnail/project-thumbnail.component';
+import { ProjectComponent } from './pages/projects/project/project.component';
+import { PageEditorComponent } from './components/page-editor/page-editor.component';
+import { AddProjectComponent } from './pages/projects/add-project/add-project.component';
+import {NzSpaceModule} from "ng-zorro-antd/space";
+import { EditProjectComponent } from './pages/projects/edit-project/edit-project.component';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 import 'prismjs/components/prism-aspnet';
 import 'prismjs/components/prism-bash';
@@ -71,25 +92,8 @@ import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-sql';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-yaml';
-import { AddCodeSnippetComponent } from './components/add-code-snippet/add-code-snippet.component';
-import { AddImageComponent } from './components/add-image/add-image.component';
-import { EditorComponent } from './components/editor/editor.component';
-import { TagsComponent } from './components/tags/tags.component';
-import { EditArticleComponent } from './pages/article/edit-article/edit-article.component';
-import { SectionComponent } from './components/section/section.component';
-import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { ProjectsComponent } from './pages/projects/projects.component';
-import { JobsComponent } from './pages/jobs/jobs.component';
-import { JobThumbnailComponent } from './components/job-thumbnail/job-thumbnail.component';
-import { AddJobComponent } from './pages/jobs/add-job/add-job.component';
-import { EditJobComponent } from './pages/jobs/edit-job/edit-job.component';
-import { ProjectThumbnailComponent } from './components/project-thumbnail/project-thumbnail.component';
-import { ProjectComponent } from './pages/projects/project/project.component';
-import { PageEditorComponent } from './components/page-editor/page-editor.component';
-import { AddProjectComponent } from './pages/projects/add-project/add-project.component';
-import {NzSpaceModule} from "ng-zorro-antd/space";
-import { EditProjectComponent } from './pages/projects/edit-project/edit-project.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 
 
 registerLocaleData(en);
@@ -124,31 +128,35 @@ registerLocaleData(en);
     ProjectComponent,
     PageEditorComponent,
     AddProjectComponent,
-    EditProjectComponent,],
+    EditProjectComponent,
+    NotFoundComponent,
+    UnauthorizedComponent,],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        NzTagModule,
-        NzImageModule,
-        NzSkeletonModule,
-        NzDividerModule,
-        NzInputModule,
-        NzIconModule,
-        NzTypographyModule,
-        NzAlertModule,
-        NzFormModule,
-        NzButtonModule,
-        NzMessageModule,
-        NzSelectModule,
-        NzPopconfirmModule,
-        NzToolTipModule,
-        NzCheckboxModule,
-        NzDatePickerModule,
-        NzSpaceModule
+      BrowserModule,
+      AppRoutingModule,
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+      NzTagModule,
+      NzImageModule,
+      NzSkeletonModule,
+      NzDividerModule,
+      NzInputModule,
+      NzIconModule,
+      NzTypographyModule,
+      NzAlertModule,
+      NzFormModule,
+      NzButtonModule,
+      NzMessageModule,
+      NzSelectModule,
+      NzPopconfirmModule,
+      NzToolTipModule,
+      NzCheckboxModule,
+      NzDatePickerModule,
+      NzSpaceModule,
+      NzCardModule,
+      NzBadgeModule
     ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

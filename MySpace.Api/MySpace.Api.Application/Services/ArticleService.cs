@@ -47,8 +47,9 @@ public class ArticleService : IArticleService
     {
         ThrowExceptionIfArticleNotFound(id);
         PersistArticleTags(article);
-        article.Update(article);
-        return _articleRepository.UpdateArticle(id, article);
+        var originalArticle = GetArticle(id);
+        originalArticle.Update(article);
+        return _articleRepository.UpdateArticle(id, originalArticle);
     }
 
     public void DeleteArticle(ArticleId id)

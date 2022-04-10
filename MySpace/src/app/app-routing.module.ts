@@ -12,21 +12,26 @@ import {EditJobComponent} from "./pages/jobs/edit-job/edit-job.component";
 import {ProjectComponent} from "./pages/projects/project/project.component";
 import {AddProjectComponent} from "./pages/projects/add-project/add-project.component";
 import {EditProjectComponent} from "./pages/projects/edit-project/edit-project.component";
+import {AuthGuardService} from "./services/auth-guard.service";
+import {NotFoundComponent} from "./pages/not-found/not-found.component";
+import {UnauthorizedComponent} from "./pages/unauthorized/unauthorized.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'article/:id', component: ArticleComponent },
-  { path: 'admin/article/add-article', component: AddArticleComponent },
-  { path: 'admin/article/edit-article/:id', component: EditArticleComponent },
+  { path: 'admin/article/add-article', component: AddArticleComponent, canActivate: [ AuthGuardService ] },
+  { path: 'admin/article/edit-article/:id', component: EditArticleComponent, canActivate: [ AuthGuardService ], },
   { path: 'jobs', component: JobsComponent },
-  { path: 'admin/jobs/add-job', component: AddJobComponent },
-  { path: 'admin/jobs/edit-job/:id', component: EditJobComponent },
+  { path: 'admin/jobs/add-job', component: AddJobComponent, canActivate: [ AuthGuardService ] },
+  { path: 'admin/jobs/edit-job/:id', component: EditJobComponent, canActivate: [ AuthGuardService ] },
   { path: 'projects', component: ProjectsComponent },
   { path: 'projects/:id', component: ProjectComponent },
-  { path: 'admin/projects/add-project', component: AddProjectComponent },
-  { path: 'admin/projects/edit-project/:id', component: EditProjectComponent },
+  { path: 'admin/projects/add-project', component: AddProjectComponent, canActivate: [ AuthGuardService ] },
+  { path: 'admin/projects/edit-project/:id', component: EditProjectComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/login', component: LoginComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

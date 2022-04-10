@@ -1,5 +1,4 @@
-<!-- TODO add authorization-->
-<a class="button-link" routerLink="/admin/article/add-article/" nz-button nzType="link" nzShape="round">Add Article</a>
+<a *ngIf="isAuthenticated()" class="button-link" routerLink="/admin/article/add-article/" nz-button nzType="link" nzShape="round">Add Article</a>
 
 <nz-alert
   *ngIf="errorMessage"
