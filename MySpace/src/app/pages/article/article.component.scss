@@ -1,8 +1,16 @@
 @import "src/app/styles/mixins";
+@import "src/app/styles/variables";
 
 .article {
   @include col();
   margin: 50px 0;
+
+  @media (max-width: $small-screen-max-width) {
+    width: 90%;
+    margin: 20px auto;
+    display: block;
+    position: relative;
+  }
 
   .metadata {
     color: grey;
@@ -23,13 +31,18 @@
   }
 
   .description {
-    font-size: medium;
+    //font-size: medium;
+    font-weight: 500;
   }
 
   .article-image {
     margin: 20px auto;
     max-width: 500px;
     max-height: 500px;
+
+    @media (max-width: $small-screen-max-width) {
+      max-width: 100%;
+    }
   }
 
   .tags {
@@ -44,6 +57,7 @@
     }
 
     app-section {
+      margin: 10px auto;
 
       p {
         img {

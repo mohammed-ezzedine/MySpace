@@ -2,6 +2,8 @@
   height: 100%;
 
   .articles {
-    padding: 50px;
+    @media (min-width: 701px) {
+      padding: 50px;
+    }
   }
 }

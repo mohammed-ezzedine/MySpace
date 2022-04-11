@@ -13,6 +13,10 @@ html {
   body {
     height: 100% !important;
     margin: 0;
+
+    @media (min-width: $big-screen-min-width) {
+      font-size: 0.8vw !important;
+    }
   }
 }
 

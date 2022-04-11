@@ -8,6 +8,7 @@
   margin: auto;
 
   .side-navbar {
+    @include hide-on-medium-screens();
     flex: 1 !important;
     max-width: 200px;
   }
@@ -18,7 +19,12 @@
   }
 
   .side-bar {
+    @include hide-on-medium-screens();
     flex: 1 !important;
     max-width: 300px;
+  }
+
+  .bottom-navbar {
+    @include hide-on-big-screens();
   }
 }

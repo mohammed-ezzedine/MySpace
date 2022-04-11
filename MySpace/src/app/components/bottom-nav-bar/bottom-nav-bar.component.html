@@ -1,0 +1,9 @@
+<div class="bottom-navbar">
+  <nz-tabset nzTabPosition="bottom" nzCentered>
+    <nz-tab *ngFor="let tab of tabs">
+      <a *nzTabLink nz-tab-link [routerLink]="[tab.link]">
+        <i nz-icon [nzType]="tab.icon" nzTheme="outline"></i>
+      </a>
+    </nz-tab>
+  </nz-tabset>
+</div>

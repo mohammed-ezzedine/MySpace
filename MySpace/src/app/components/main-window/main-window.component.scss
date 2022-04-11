@@ -1,4 +1,10 @@
+@import "src/app/styles/variables";
+
 .main-window {
   height: 100%;
   padding: 30px 50px;
+
+  @media (max-width: $small-screen-max-width) {
+    padding: 10px 20px;
+  }
 }

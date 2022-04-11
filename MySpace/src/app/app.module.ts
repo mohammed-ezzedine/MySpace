@@ -94,6 +94,11 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-yaml';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { SearchComponent } from './pages/search/search.component';
+import { RecommendedTagsComponent } from './components/recommended-tags/recommended-tags.component';
 
 
 registerLocaleData(en);
@@ -130,7 +135,11 @@ registerLocaleData(en);
     AddProjectComponent,
     EditProjectComponent,
     NotFoundComponent,
-    UnauthorizedComponent,],
+    UnauthorizedComponent,
+    SearchBarComponent,
+    BottomNavBarComponent,
+    SearchComponent,
+    RecommendedTagsComponent,],
     imports: [
       BrowserModule,
       AppRoutingModule,
@@ -156,7 +165,8 @@ registerLocaleData(en);
       NzDatePickerModule,
       NzSpaceModule,
       NzCardModule,
-      NzBadgeModule
+      NzBadgeModule,
+      NzTabsModule
     ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

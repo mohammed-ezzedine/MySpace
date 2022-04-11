@@ -1,4 +1,6 @@
-﻿@mixin row() {
+﻿@import "variables";
+
+@mixin row() {
   display: flex;
   flex-direction: row;
 }
@@ -11,4 +13,22 @@
 @mixin justified-col() {
   @include col();
   justify-content: center;
+}
+
+@mixin hide-on-small-screens() {
+  @media (max-width: $small-screen-max-width) {
+    display: none;
+  }
+}
+
+@mixin hide-on-medium-screens() {
+  @media (max-width: $medium-screen-max-width) {
+    display: none;
+  }
+}
+
+@mixin hide-on-big-screens() {
+  @media (min-width: $big-screen-min-width) {
+    display: none;
+  }
 }

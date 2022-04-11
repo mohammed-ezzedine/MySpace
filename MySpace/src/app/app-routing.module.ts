@@ -15,9 +15,12 @@ import {EditProjectComponent} from "./pages/projects/edit-project/edit-project.c
 import {AuthGuardService} from "./services/auth-guard.service";
 import {NotFoundComponent} from "./pages/not-found/not-found.component";
 import {UnauthorizedComponent} from "./pages/unauthorized/unauthorized.component";
+import {SearchComponent} from "./pages/search/search.component";
+import {SmallScreenGuardService} from "./services/small-screen-guard.service";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'search', component: SearchComponent, canActivate: [ SmallScreenGuardService ] },
   { path: 'article/:id', component: ArticleComponent },
   { path: 'admin/article/add-article', component: AddArticleComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/article/edit-article/:id', component: EditArticleComponent, canActivate: [ AuthGuardService ], },
@@ -30,8 +33,8 @@ const routes: Routes = [
   { path: 'admin/projects/edit-project/:id', component: EditProjectComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/login', component: LoginComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
-  // { path: '', redirectTo: 'home', pathMatch: 'full' },
-  // { path: '**', component: NotFoundComponent }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

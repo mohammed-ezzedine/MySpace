@@ -1,10 +1,15 @@
 @import "src/app/styles/mixins";
+@import "src/app/styles/variables";
 
 .job {
   @include row();
 
   app-image {
     width: 15em !important;
+
+    @media (max-width: $small-screen-max-width) {
+      max-width: 6em !important;
+    }
   }
 
   .details {

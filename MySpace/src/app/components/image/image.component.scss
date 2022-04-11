@@ -2,4 +2,8 @@ img {
   display: block;
   position: relative;
   max-width: inherit;
+
+  //@media (max-width: 700px) {
+  //  width: inherit;
+  //}
 }

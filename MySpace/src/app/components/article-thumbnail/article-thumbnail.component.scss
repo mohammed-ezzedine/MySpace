@@ -6,6 +6,9 @@
 
   .title {
     font-weight: bold;
+    @media (max-width: $small-screen-max-width) {
+      font-size: 1.2em;
+    }
 
     a {
       color: unset;
@@ -35,7 +38,7 @@
     justify-content: space-between;
 
     .thumbnail-description {
-      margin-bottom: 30px;
+      @include hide-on-small-screens();
       margin-right: 50px;
       text-align: justify;
     }
@@ -45,6 +48,10 @@
       max-width: 200px;
       max-height: 200px;
       margin-left: auto !important;
+
+      @media (max-width: $small-screen-max-width) {
+        max-width: 80px;
+      }
     }
   }
 
