@@ -1,0 +1,22 @@
+@import "src/app/styles/mixins";
+@import "src/app/styles/variables";
+
+.unauthorized {
+  @include justified-col();
+  text-align: center;
+  height: 100%;
+  color: #1890ff;
+  font-size: 1.5em;
+
+  h1 {
+    color: #1374ce;
+  }
+
+  p {
+
+    @media (max-width: $medium-screen-max-width) {
+      font-size: 1.5em;
+    }
+
+  }
+}

@@ -1,0 +1,33 @@
+@import "src/app/styles/mixins";
+@import "src/app/styles/variables";
+
+.not-found {
+  @include justified-col();
+  text-align: center;
+  height: 100%;
+
+  .error-code {
+    @include row();
+    font-size: 10em;
+    margin: 0 auto;
+    color: #1890ff;
+
+    @media (max-width: $medium-screen-max-width) {
+      font-size: 8em;
+    }
+
+    i {
+      margin: auto 0;
+    }
+  }
+
+  p {
+    font-size: 2em;
+    color: #1374ce;
+
+    @media (max-width: $medium-screen-max-width) {
+      font-size: 1.5em;
+    }
+
+  }
+}
