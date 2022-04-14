@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../../../services/project.service";
 import {ProjectModel} from "../../../models/project.model";
 import {DateUtils} from "../../../utils/date.utils";
 import {AuthService} from "../../../services/auth.service";
+import {SeoService} from "../../../services/seo.service";
+import {SeoShareDataModel} from "../../../models/seo-share-data.model";
 
 @Component({
   selector: 'app-project',
@@ -14,6 +16,7 @@ export class ProjectComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private seoService: SeoService,
               private projectService: ProjectService,
               private authService: AuthService) { }
 
@@ -51,8 +54,15 @@ export class ProjectComponent implements OnInit {
 
   private getProject() {
     this.projectService.getProject(this.id!).subscribe({
-      next: value => this.project = value,
+      next: project => {
+        this.project = project;
+        this.setSeoShareData();
+      },
       error: err => this.errorMessage = err.message
     })
+  }
+
+  private setSeoShareData() {
+    this.seoService.setData(new SeoShareDataModel(this.project!.title, this.project!.description));
   }
 }

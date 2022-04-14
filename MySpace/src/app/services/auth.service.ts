@@ -1,12 +1,11 @@
-﻿import {Injectable} from "@angular/core";
+﻿import {Inject, Injectable, PLATFORM_ID} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {catchError} from "rxjs/operators";
-import {throwError} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import jwt_decode from "jwt-decode";
 import {DateService} from "./date.service";
-import {Router} from "@angular/router";
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Injectable({
   providedIn: "root"
@@ -22,7 +21,8 @@ export class AuthService {
   }
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              @Inject(PLATFORM_ID) private platformId: Object) {
   }
 
 
@@ -33,40 +33,46 @@ export class AuthService {
   }
 
   writeToken(token: string): void {
-    localStorage.setItem(AuthService.TOKEN, token);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(AuthService.TOKEN, token);
+    }
   }
 
   getToken(): string | null {
-    let token = AuthService.readToken();
+    let token = this.readToken();
 
     if (AuthService.isTokenValid(token)) {
       return token;
     } else {
-      AuthService.readToken()
+      this.readToken()
     }
 
     return null;
   }
 
   isAuthenticated(): boolean {
-    let token = AuthService.readToken();
+    let token = this.readToken();
     return AuthService.isTokenValid(token)
   }
 
   logout() {
-    AuthService.removeToken();
+    this.removeToken();
   }
 
-  private static removeToken() {
-    localStorage.removeItem(AuthService.TOKEN);
+  private removeToken() {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(AuthService.TOKEN);
+    }
   }
 
   private static isTokenValid(token: string | null) : boolean {
     return token != null && AuthService.getTokenExpiryDate(token).valueOf() > Date.now().valueOf();
   }
 
-  private static readToken(): string | null {
-    return localStorage.getItem(AuthService.TOKEN);
+  private readToken(): string | null {
+    return isPlatformBrowser(this.platformId)
+      ? localStorage.getItem(AuthService.TOKEN)
+      : null;
   }
 
   private static getTokenExpiryDate(token: string): Date {

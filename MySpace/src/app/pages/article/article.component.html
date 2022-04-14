@@ -34,6 +34,7 @@
     <app-section [html]="section.content!" *ngIf="section.type == 'paragraph'"></app-section>
   </div>
 
+  <button class="share" nz-button nzType="default" (click)="copyArticleUrl()"><i nz-icon nzType="share-alt" nzTheme="outline"></i></button>
   <app-tags class="tags" [tags]="article.tags"></app-tags>
 
 </div>

@@ -1,9 +1,9 @@
-<form nz-form [formControl]="searchText" (ngSubmit)="searchArticles()">
-  <nz-form-control>
-    <nz-input-group [nzPrefix]="inputClearTpl" [nzSuffix]="suffixIconSearch">
-      <input type="text" nz-input [formControl]="searchText" placeholder="search"/>
-    </nz-input-group>
-  </nz-form-control>
+<form nz-form (ngSubmit)="searchArticles()">
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="inputClearTpl" [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input [formControl]="searchText" placeholder="search"/>
+      </nz-input-group>
+    </nz-form-control>
 </form>
 
 <ng-template #suffixIconSearch>

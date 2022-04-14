@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {JobModel} from "../../models/job.model";
 import {JobService} from "../../services/job.service";
 import {AuthService} from "../../services/auth.service";

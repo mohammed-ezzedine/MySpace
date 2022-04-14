@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SeoService} from "../../services/seo.service";
+import {SeoShareDataModel} from "../../models/seo-share-data.model";
 
 @Component({
   selector: 'app-not-found',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotFoundComponent implements OnInit {
 
-  constructor() { }
+  constructor(private seoService: SeoService) { }
 
   ngOnInit(): void {
+    this.seoService.setData(new SeoShareDataModel("404 - Not Found"));
   }
 
 }
