@@ -6,9 +6,9 @@ public abstract class Document
 
     public string? Content { get; set; }
 
-    public DateTime CreatedDate { get; } = DateTime.Now;
+    public DateTime CreatedDate { get; set; }
     
-    public DateTime ModifiedDate { get; private set; } = DateTime.Now;
+    public DateTime ModifiedDate { get; set; }
 
     protected void UpdateModifiedDate()
     {

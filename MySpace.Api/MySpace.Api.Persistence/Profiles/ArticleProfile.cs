@@ -24,6 +24,8 @@ public class ArticleProfile : Profile
         CreateMap<ArticleEntity, Article>()
             .ForMember(dest => dest.Id,
                 option => option.MapFrom(src => new ArticleId(src.Id)))
+            .ForMember(dest => dest.CreatedDate,
+                option => option.MapFrom(src => src.CreatedDate))
             .ForMember(dest => dest.Content,
                 option => option.MapFrom(
                     src => JsonArray.Parse(src.Content.ToString(), null, default)));

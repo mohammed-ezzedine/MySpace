@@ -141,7 +141,7 @@ registerLocaleData(en);
     SearchComponent,
     RecommendedTagsComponent,],
     imports: [
-      BrowserModule,
+      BrowserModule.withServerTransition({ appId: 'serverApp' }),
       AppRoutingModule,
       HttpClientModule,
       FormsModule,

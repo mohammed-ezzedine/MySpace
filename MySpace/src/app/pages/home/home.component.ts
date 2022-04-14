@@ -3,6 +3,8 @@ import {ArticleService} from "../../services/article.service";
 import {Article} from "../../models/article";
 import {JobModel} from "../../models/job.model";
 import {JobService} from "../../services/job.service";
+import {Title} from "@angular/platform-browser";
+import {SeoService} from "../../services/seo.service";
 
 @Component({
   selector: 'app-home',

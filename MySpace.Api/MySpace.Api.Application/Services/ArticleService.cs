@@ -55,7 +55,24 @@ public class ArticleService : IArticleService
     public void DeleteArticle(ArticleId id)
     {
         ThrowExceptionIfArticleNotFound(id);
+
+        var article = GetArticle(id);
+
         _articleRepository.DeleteArticle(id);
+        
+        DeleteUnusedTags(article.Tags);
+    }
+
+    private void DeleteUnusedTags(List<Tag>? tags)
+    {
+        var task = new Task(
+            () => tags?.ForEach(t =>
+            {
+                if (GetArticlesByTag(t).Any()) _tagService.DeleteTag(t);
+            })
+        );
+        
+        task.Start();
     }
 
     private void ThrowExceptionIfArticleNotFound(ArticleId id)

@@ -64,6 +64,8 @@ public class MongoDbArticleRepository : ArticleRepository
 
     public Article AddArticle(Article article)
     {
+        article.CreatedDate = DateTime.Now;
+        article.ModifiedDate = DateTime.Now;
         var articleEntity = _mapper.Map<ArticleEntity>(article);
         _articleCollection.InsertOne(articleEntity);
         return article;

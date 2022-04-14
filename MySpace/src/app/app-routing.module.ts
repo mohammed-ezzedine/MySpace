@@ -17,17 +17,27 @@ import {NotFoundComponent} from "./pages/not-found/not-found.component";
 import {UnauthorizedComponent} from "./pages/unauthorized/unauthorized.component";
 import {SearchComponent} from "./pages/search/search.component";
 import {SmallScreenGuardService} from "./services/small-screen-guard.service";
+import {Observable} from "rxjs";
+import { of } from 'rxjs';
+
+const default_data = {
+  seo: {
+    title: "Mohammed EZZEDINE's Space",
+    description: "Documented with ♥ by Mohammed Ezzedine - Software Engineer",
+    image: "/assets/avatar.png"
+  }
+}
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'search', component: SearchComponent, canActivate: [ SmallScreenGuardService ] },
+  { path: 'home', component: HomeComponent, data: default_data },
+  { path: 'search', component: SearchComponent, canActivate: [ SmallScreenGuardService ], data: default_data  },
   { path: 'article/:id', component: ArticleComponent },
   { path: 'admin/article/add-article', component: AddArticleComponent, canActivate: [ AuthGuardService ] },
-  { path: 'admin/article/edit-article/:id', component: EditArticleComponent, canActivate: [ AuthGuardService ], },
-  { path: 'jobs', component: JobsComponent },
+  { path: 'admin/article/edit-article/:id', component: EditArticleComponent, canActivate: [ AuthGuardService ] },
+  { path: 'jobs', component: JobsComponent, data: default_data  },
   { path: 'admin/jobs/add-job', component: AddJobComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/jobs/edit-job/:id', component: EditJobComponent, canActivate: [ AuthGuardService ] },
-  { path: 'projects', component: ProjectsComponent },
+  { path: 'projects', component: ProjectsComponent, data: default_data  },
   { path: 'projects/:id', component: ProjectComponent },
   { path: 'admin/projects/add-project', component: AddProjectComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/projects/edit-project/:id', component: EditProjectComponent, canActivate: [ AuthGuardService ] },
@@ -38,7 +48,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabledBlocking'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

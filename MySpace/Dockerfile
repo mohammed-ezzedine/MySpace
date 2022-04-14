@@ -7,13 +7,13 @@ COPY package*.json /app/
 RUN npm install
 
 COPY . /app/
-RUN npm run build
+RUN npm run build:ssr && npm run prerender
 
 FROM nginx:alpine
 
 RUN rm -rf /usr/share/nginx/html/* && rm -rf /etc/nginx/conf.d/default.conf
 
 COPY ./default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/my-space /usr/share/nginx/html
+COPY --from=build /app/dist/MySpace/browser /usr/share/nginx/html
 
 EXPOSE 80

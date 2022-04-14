@@ -31,26 +31,18 @@ export class ArticleService {
   }
 
   addArticle(form: any) : Observable<Article> {
-       return this.http.post<Article>(ArticleService.ENDPOINT, JSON.stringify(form), this.getHeadersWithToken());
+       return this.http.post<Article>(ArticleService.ENDPOINT, JSON.stringify(form), this.getHttpOptions());
   }
 
   updateArticle(id: string, form: any) : Observable<Article> {
-    return this.http.put<Article>(ArticleService.ENDPOINT + "/" + id, JSON.stringify(form), this.getHeadersWithToken());
+    return this.http.put<Article>(ArticleService.ENDPOINT + "/" + id, JSON.stringify(form), this.getHttpOptions());
   }
 
   deleteArticle(id: string) : Observable<Article> {
-    return this.http.delete<Article>(ArticleService.ENDPOINT + "/" + id, this.getHeadersWithToken());
+    return this.http.delete<Article>(ArticleService.ENDPOINT + "/" + id, this.getHttpOptions());
   }
 
-  private getHeaders() {
-    return {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })
-    }
-  }
-
-  private getHeadersWithToken() {
+  private getHttpOptions() {
     let token = this.authService.getToken();
     if (token == null) {
       throw new Error("Unauthorized.")
