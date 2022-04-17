@@ -46,7 +46,12 @@ export class ArticleComponent implements OnInit {
           this.setSeoShareData();
         },
         error: error => {
-          this.errorMessage = error.message;
+          if (error.status == 404) {
+            this.router.navigateByUrl('/not-found');
+          }
+          else {
+            this.errorMessage = error.message;
+          }
         }
       })
     }

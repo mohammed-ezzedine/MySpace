@@ -58,7 +58,13 @@ export class ProjectComponent implements OnInit {
         this.project = project;
         this.setSeoShareData();
       },
-      error: err => this.errorMessage = err.message
+      error: err => {
+        if (err.status == 404) {
+          this.router.navigateByUrl('/not-found');
+        } else {
+          this.errorMessage = err.message
+        }
+      }
     })
   }
 
