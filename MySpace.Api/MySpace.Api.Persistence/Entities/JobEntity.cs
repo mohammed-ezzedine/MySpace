@@ -1,11 +1,13 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MySpace.Api.Persistence.Entities;
 
 public class JobEntity
 {
     [BsonId]
-    public Guid Id { get; set; }
+    [BsonRepresentation(BsonType.Int32)]
+    public int Id { get; set; }
 
     public string Employer { get; set; } = null!;
 

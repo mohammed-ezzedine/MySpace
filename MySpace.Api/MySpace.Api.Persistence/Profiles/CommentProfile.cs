@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MongoDB.Bson;
 using MySpace.Api.Domain.Models;
 using MySpace.Api.Persistence.Entities;
 
@@ -9,11 +10,8 @@ public class CommentProfile : Profile
     public CommentProfile()
     {
         CreateMap<Comment, CommentEntity>()
-            .ForMember(dest => dest.Id, 
-                option => option.MapFrom(src => src.Id.Value));
-
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => ObjectId.Parse(src.Id)));
         CreateMap<CommentEntity, Comment>()
-            .ForMember(dest => dest.Id, 
-                option => option.MapFrom(src => new CommentId(src.Id)));
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
     }
 }

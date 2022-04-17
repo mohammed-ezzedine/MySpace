@@ -22,56 +22,56 @@ public class CommentController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet("{articleId:guid}/{commentId:guid}")]
+    [HttpGet("{articleId:int}/{commentId}")]
     [CommentNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(CommentResponse))]
-    public ActionResult<CommentResponse> GetComment(Guid articleId, Guid commentId)
+    public ActionResult<CommentResponse> GetComment(int articleId, string commentId)
     {
-        var comment = _commentService.GetComment(new ArticleId(articleId), new CommentId(commentId));
+        var comment = _commentService.GetComment(articleId, commentId);
         return Ok(_mapper.Map<CommentResponse>(comment));
     }
 
-    [HttpPost("{articleId:guid}")]
+    [HttpPost("{articleId:int}")]
     [ArticleNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.Created, Type = typeof(CommentResponse))]
-    public ActionResult<CommentResponse> PostCommentOnArticle(Guid articleId, CommentRequest comment)
+    public ActionResult<CommentResponse> PostCommentOnArticle(int articleId, CommentRequest comment)
     {
-        var addedComment = _commentService.AddCommentToArticle(new ArticleId(articleId), _mapper.Map<Comment>(comment));
-        return Created(addedComment.Id.ToString(), _mapper.Map<CommentResponse>(addedComment));
+        var addedComment = _commentService.AddCommentToArticle(articleId, _mapper.Map<Comment>(comment));
+        return Created(addedComment.Id, _mapper.Map<CommentResponse>(addedComment));
     }
     
-    [HttpPost("{articleId:guid}/{commentId:guid}")]
+    [HttpPost("{articleId:int}/{commentId}")]
     [ArticleNotFoundExceptionFilter]
     [CommentNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.Created, Type = typeof(CommentResponse))]
-    public ActionResult<CommentResponse> PostReplyOnComment(Guid articleId, Guid commentId, CommentRequest comment)
+    public ActionResult<CommentResponse> PostReplyOnComment(int articleId, string commentId, CommentRequest comment)
     {
-        var addedComment = _commentService.AddReplyToComment(new ArticleId(articleId), new CommentId(commentId), _mapper.Map<Comment>(comment));
-        return Created(addedComment.Id.ToString(), _mapper.Map<CommentResponse>(addedComment));
+        var addedComment = _commentService.AddReplyToComment(articleId, commentId, _mapper.Map<Comment>(comment));
+        return Created(addedComment.Id, _mapper.Map<CommentResponse>(addedComment));
     }
     
-    [HttpPut("{articleId:guid}/{commentId:guid}")]
+    [HttpPut("{articleId:int}/{commentId}")]
     [ArticleNotFoundExceptionFilter]
     [CommentNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(CommentResponse))]
-    public ActionResult<CommentResponse> EditComment(Guid articleId, Guid commentId, CommentRequest comment)
+    public ActionResult<CommentResponse> EditComment(int articleId, string commentId, CommentRequest comment)
     {
-        var addedComment = _commentService.EditComment(new ArticleId(articleId), new CommentId(commentId), _mapper.Map<Comment>(comment));
+        var addedComment = _commentService.EditComment(articleId, commentId, _mapper.Map<Comment>(comment));
         return Ok(_mapper.Map<CommentResponse>(addedComment));
     }
     
-    [HttpDelete("{articleId:guid}/{commentId:guid}")]
+    [HttpDelete("{articleId:int}/{commentId}")]
     [ArticleNotFoundExceptionFilter]
     [CommentNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.NoContent)]
-    public ActionResult<CommentResponse> DeleteComment(Guid articleId, Guid commentId)
+    public ActionResult<CommentResponse> DeleteComment(int articleId, string commentId)
     {
-        _commentService.DeleteComment(new ArticleId(articleId), new CommentId(commentId));
+        _commentService.DeleteComment(articleId, commentId);
         return NoContent();
     }
 }

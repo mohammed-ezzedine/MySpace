@@ -18,7 +18,7 @@ public class ProjectService : IProjectService
         return _projectRepository.GetProjects();
     }
 
-    public Project GetProject(ProjectId id)
+    public Project GetProject(int id)
     {
         ThrowExceptionIfProjectNotFound(id);
         return _projectRepository.GetProject(id);
@@ -30,19 +30,19 @@ public class ProjectService : IProjectService
         return _projectRepository.AddProject(project);
     }
 
-    public Project EditProject(ProjectId id, Project project)
+    public Project EditProject(int id, Project project)
     {
         ThrowExceptionIfProjectNotFound(id);
         return _projectRepository.EditProject(id, project);
     }
 
-    public void DeleteProject(ProjectId id)
+    public void DeleteProject(int id)
     {
         ThrowExceptionIfProjectNotFound(id);
         _projectRepository.DeleteProject(id);
     }
 
-    private void ThrowExceptionIfProjectNotFound(ProjectId id)
+    private void ThrowExceptionIfProjectNotFound(int id)
     {
         if (!_projectRepository.ProjectExists(id))
         {

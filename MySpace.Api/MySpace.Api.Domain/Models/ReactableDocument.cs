@@ -34,12 +34,12 @@ public abstract class ReactableDocument : Document
         Comments.Add(comment);
     }
 
-    public Comment? GetCommentOrDefault(CommentId id)
+    public Comment? GetCommentOrDefault(string id)
     {
         return GetCommentRecursively(Comments, id).Result;
     }
 
-    private async Task<Comment?> GetCommentRecursively(List<Comment>? comments, CommentId id)
+    private async Task<Comment?> GetCommentRecursively(List<Comment>? comments, string id)
     {
         if (comments == null) return null;
         
@@ -61,12 +61,12 @@ public abstract class ReactableDocument : Document
         return persistedComment;
     }
 
-    public void RemoveComment(CommentId commentId)
+    public void RemoveComment(string commentId)
     {
         RemoveCommentRecursively(Comments, commentId).Wait();
     }
     
-    private async Task RemoveCommentRecursively(List<Comment>? comments, CommentId id)
+    private async Task RemoveCommentRecursively(List<Comment>? comments, string id)
     {
         if (comments == null) return;
 
@@ -78,7 +78,7 @@ public abstract class ReactableDocument : Document
         }
     }
 
-    public void DeleteComment(CommentId id)
+    public void DeleteComment(string id)
     {
         Comments?.RemoveAll(c => c.Id.Equals(id));
     }

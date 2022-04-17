@@ -8,10 +8,7 @@ public class JobProfile : Profile
 {
     public JobProfile()
     {
-        CreateMap<Job, JobEntity>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value));
-        
-        CreateMap<JobEntity, Job>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => new JobId(src.Id)));
+        CreateMap<Job, JobEntity>();
+        CreateMap<JobEntity, Job>();
     }
 }

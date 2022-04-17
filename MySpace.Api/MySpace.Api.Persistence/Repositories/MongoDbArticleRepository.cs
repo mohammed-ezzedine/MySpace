@@ -18,12 +18,14 @@ public class MongoDbArticleRepository : ArticleRepository
     private const double SIMILARITY_SCORE_THRESHOLD = 0.8;
     private readonly IMongoCollection<ArticleEntity> _articleCollection;
     private readonly IMapper _mapper;
+    private readonly CounterRepository _counterRepository;
     // private readonly NormalizedLevenshtein _similarityScoreGenerator;
 
-    public MongoDbArticleRepository(PersistenceConfiguration configuration, IMapper mapper, ILogger<PersistenceFactory> logger)
+    public MongoDbArticleRepository(PersistenceConfiguration configuration, IMapper mapper, ILogger<PersistenceFactory> logger, CounterRepository counterRepository)
     {
         _articleCollection = new PersistenceFactory(configuration, logger).GetCollection<ArticleEntity>("articles");
         _mapper = mapper;
+        _counterRepository = counterRepository;
         // _similarityScoreGenerator = new NormalizedLevenshtein();
     }
 
@@ -57,13 +59,14 @@ public class MongoDbArticleRepository : ArticleRepository
             .Select(_mapper.Map<Article>).ToList();
     }
 
-    public Article GetArticle(ArticleId id)
+    public Article GetArticle(int id)
     {
         return _mapper.Map<Article>(_articleCollection.Find(MatchArticleId(id)).First());
     }
 
     public Article AddArticle(Article article)
     {
+        article.Id = _counterRepository.GenerateArticleId();
         article.CreatedDate = DateTime.Now;
         article.ModifiedDate = DateTime.Now;
         var articleEntity = _mapper.Map<ArticleEntity>(article);
@@ -71,7 +74,7 @@ public class MongoDbArticleRepository : ArticleRepository
         return article;
     }
 
-    public Article UpdateArticle(ArticleId id, Article article)
+    public Article UpdateArticle(int id, Article article)
     {
         article.Id = id;
         var result = _articleCollection.ReplaceOne(MatchArticleId(id), _mapper.Map<ArticleEntity>(article));
@@ -83,18 +86,18 @@ public class MongoDbArticleRepository : ArticleRepository
         return article;
     }
 
-    public void DeleteArticle(ArticleId id)
+    public void DeleteArticle(int id)
     {
         _articleCollection.DeleteOne(MatchArticleId(id));
     }
 
-    public bool ArticleExists(ArticleId id)
+    public bool ArticleExists(int id)
     {
         return _articleCollection.CountDocuments(MatchArticleId(id)) > 0;
     }
 
-    private static Expression<Func<ArticleEntity, bool>> MatchArticleId(ArticleId id)
+    private static Expression<Func<ArticleEntity, bool>> MatchArticleId(int id)
     {
-        return a => a.Id == id.Value;
+        return a => a.Id == id;
     }
 }

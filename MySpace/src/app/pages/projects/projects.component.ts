@@ -26,7 +26,7 @@ export class ProjectsComponent implements OnInit {
       next: value => {
         this.projects = value;
       },
-      error: err => this.errorMessage = err
+      error: err => this.errorMessage = err.message
     });
   }
 

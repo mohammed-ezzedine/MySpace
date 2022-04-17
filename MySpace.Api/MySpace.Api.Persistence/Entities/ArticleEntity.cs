@@ -7,7 +7,8 @@ namespace MySpace.Api.Persistence.Entities;
 public class ArticleEntity
 {
     [BsonId]
-    public Guid Id { get; set; }
+    [BsonRepresentation(BsonType.Int32)]
+    public int Id { get; set; }
 
     public string Title { get; set; } = null!;
 

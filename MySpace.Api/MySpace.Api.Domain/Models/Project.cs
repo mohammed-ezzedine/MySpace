@@ -4,7 +4,7 @@ namespace MySpace.Api.Domain.Models;
 
 public class Project
 {
-    public ProjectId Id { get; set; }
+    public int? Id { get; set; }
 
     public string? Title { get; set; }
     

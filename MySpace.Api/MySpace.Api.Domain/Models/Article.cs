@@ -5,7 +5,7 @@ namespace MySpace.Api.Domain.Models;
 
 public class Article : ReactableDocument
 {
-    public ArticleId Id { get; set; }
+    public int? Id { get; set; }
     
     public string? Title { get; set; }
 

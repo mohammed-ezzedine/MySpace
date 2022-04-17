@@ -7,9 +7,9 @@ public interface ArticleRepository
     List<Article> GetArticles();
     List<Article> GetArticlesByTag(Tag tag);
     List<Article> QueryArticles(String q);
-    Article GetArticle(ArticleId id);
+    Article GetArticle(int id);
     Article AddArticle(Article article);
-    Article UpdateArticle(ArticleId id, Article article);
-    void DeleteArticle(ArticleId id);
-    bool ArticleExists(ArticleId id);
+    Article UpdateArticle(int id, Article article);
+    void DeleteArticle(int id);
+    bool ArticleExists(int id);
 }

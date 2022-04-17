@@ -31,13 +31,13 @@ public class ProjectController : ControllerBase
         return Ok(projects);
     }
  
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:int}")]
     [ProjectNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ProjectResponse))]
-    public ActionResult<ProjectResponse> GetProject(Guid id)
+    public ActionResult<ProjectResponse> GetProject(int id)
     {
-        var project = _mapper.Map<ProjectResponse>(_projectService.GetProject(new ProjectId(id)));
+        var project = _mapper.Map<ProjectResponse>(_projectService.GetProject(id));
         return Ok(project);
     }
     
@@ -52,24 +52,24 @@ public class ProjectController : ControllerBase
     }
 
     [Authorize]
-    [HttpPut("{id:guid}")]
+    [HttpPut("{id:int}")]
     [ProjectNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ProjectResponse))]
-    public ActionResult<ProjectResponse> EditProject(Guid id, ProjectRequest request)
+    public ActionResult<ProjectResponse> EditProject(int id, ProjectRequest request)
     {
-        var project = _mapper.Map<ProjectResponse>(_projectService.EditProject(new ProjectId(id), _mapper.Map<Project>(request)));
+        var project = _mapper.Map<ProjectResponse>(_projectService.EditProject(id, _mapper.Map<Project>(request)));
         return Ok(project);
     }
    
     [Authorize]
-    [HttpDelete("{id:guid}")]
+    [HttpDelete("{id:int}")]
     [ProjectNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.NoContent)]
-    public ActionResult<ProjectResponse> DeleteProject(Guid id)
+    public ActionResult<ProjectResponse> DeleteProject(int id)
     {
-        _projectService.DeleteProject(new ProjectId(id));
+        _projectService.DeleteProject(id);
         return NoContent();
     }
 }

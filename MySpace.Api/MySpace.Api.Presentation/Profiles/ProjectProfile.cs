@@ -9,9 +9,7 @@ public class ProjectProfile : Profile
 {
     public ProjectProfile()
     {
-        CreateMap<Project, ProjectResponse>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value));
-        
+        CreateMap<Project, ProjectResponse>();
         CreateMap<ProjectRequest, Project>();
     }    
 }

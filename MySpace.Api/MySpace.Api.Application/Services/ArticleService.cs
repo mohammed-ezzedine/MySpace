@@ -30,7 +30,7 @@ public class ArticleService : IArticleService
         return _articleRepository.QueryArticles(q);
     }
 
-    public Article GetArticle(ArticleId id)
+    public Article GetArticle(int id)
     {
         ThrowExceptionIfArticleNotFound(id);
         return _articleRepository.GetArticle(id);
@@ -39,11 +39,10 @@ public class ArticleService : IArticleService
     public Article AddArticle(Article article)
     {
         PersistArticleTags(article);
-        article.Id = ArticleId.GetNewId();
         return _articleRepository.AddArticle(article);
     }
 
-    public Article UpdateArticle(ArticleId id, Article article)
+    public Article UpdateArticle(int id, Article article)
     {
         ThrowExceptionIfArticleNotFound(id);
         PersistArticleTags(article);
@@ -52,7 +51,7 @@ public class ArticleService : IArticleService
         return _articleRepository.UpdateArticle(id, originalArticle);
     }
 
-    public void DeleteArticle(ArticleId id)
+    public void DeleteArticle(int id)
     {
         ThrowExceptionIfArticleNotFound(id);
 
@@ -75,7 +74,7 @@ public class ArticleService : IArticleService
         task.Start();
     }
 
-    private void ThrowExceptionIfArticleNotFound(ArticleId id)
+    private void ThrowExceptionIfArticleNotFound(int id)
     {
         if (!_articleRepository.ArticleExists(id))
         {

@@ -15,11 +15,13 @@ public class MongoDbJobRepository : JobRepository
 {
     private readonly IMongoCollection<JobEntity> _jobCollection;
     private readonly IMapper _mapper;
+    private readonly CounterRepository _counterRepository;
 
-    public MongoDbJobRepository(PersistenceConfiguration configuration, IMapper mapper, ILogger<PersistenceFactory> logger)
+    public MongoDbJobRepository(PersistenceConfiguration configuration, IMapper mapper, ILogger<PersistenceFactory> logger, CounterRepository counterRepository)
     {
         _jobCollection = new PersistenceFactory(configuration, logger).GetCollection<JobEntity>("jobs");
         _mapper = mapper;
+        _counterRepository = counterRepository;
     }
 
     public List<Job> GetJobs()
@@ -34,19 +36,19 @@ public class MongoDbJobRepository : JobRepository
         return _mapper.Map<Job>(_jobCollection.AsQueryable().FirstOrDefault(j => j.Active));
     }
 
-    public Job GetJob(JobId id)
+    public Job GetJob(int id)
     {
         return _mapper.Map<Job>(_jobCollection.AsQueryable().FirstOrDefault(MatchJobId(id)));
     }
 
     public Job AddJob(Job job)
     {
-        job.Id = JobId.GetNewId();
+        job.Id = _counterRepository.GenerateJobId();
         _jobCollection.InsertOne(_mapper.Map<JobEntity>(job));
         return job;
     }
 
-    public Job EditJob(JobId id, Job job)
+    public Job EditJob(int id, Job job)
     {
         var originalJob = GetJob(id);
         originalJob.Update(job);
@@ -54,18 +56,18 @@ public class MongoDbJobRepository : JobRepository
         return originalJob;
     }
 
-    public void DeleteJob(JobId id)
+    public void DeleteJob(int id)
     {
         _jobCollection.DeleteOne(MatchJobId(id));
     }
 
-    public bool JobExists(JobId id)
+    public bool JobExists(int id)
     {
         return _jobCollection.CountDocuments(MatchJobId(id)) > 0;
     }
     
-    private static Expression<Func<JobEntity, bool>> MatchJobId(JobId id)
+    private static Expression<Func<JobEntity, bool>> MatchJobId(int id)
     {
-        return j => j.Id == id.Value;
+        return j => j.Id == id;
     }
 }

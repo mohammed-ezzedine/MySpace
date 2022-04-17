@@ -2,7 +2,7 @@
 
 public class Job
 {
-    public JobId Id { get; set; }
+    public int? Id { get; set; }
 
     public string? Employer { get; set; }
     

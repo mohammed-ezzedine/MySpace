@@ -5,8 +5,8 @@ namespace MySpace.Api.Application.Services;
 public interface IProjectService
 {
     List<Project> GetProjects();
-    Project GetProject(ProjectId id);
+    Project GetProject(int id);
     Project AddProject(Project project);
-    Project EditProject(ProjectId id, Project project);
-    void DeleteProject(ProjectId id);
+    Project EditProject(int id, Project project);
+    void DeleteProject(int id);
 }

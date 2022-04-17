@@ -11,7 +11,6 @@ public class ArticleProfile : Profile
     public ArticleProfile()
     {
         CreateMap<Article, ArticleResponse>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value))
             .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags == null? Array.Empty<string>() : src.Tags.Select(t => t.Name)));
         
         CreateMap<ArticleRequest, Article>()

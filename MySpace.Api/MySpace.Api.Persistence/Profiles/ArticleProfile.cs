@@ -22,8 +22,6 @@ public class ArticleProfile : Profile
                     src => BsonSerializer.Deserialize<BsonArray>(src.Content.ToString(), null)));
 
         CreateMap<ArticleEntity, Article>()
-            .ForMember(dest => dest.Id,
-                option => option.MapFrom(src => new ArticleId(src.Id)))
             .ForMember(dest => dest.CreatedDate,
                 option => option.MapFrom(src => src.CreatedDate))
             .ForMember(dest => dest.Content,

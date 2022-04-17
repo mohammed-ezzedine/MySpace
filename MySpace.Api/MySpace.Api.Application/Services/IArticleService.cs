@@ -7,8 +7,8 @@ public interface IArticleService
     List<Article> GetArticles();
     List<Article> GetArticlesByTag(Tag tag);
     List<Article> QueryArticles(string q);
-    Article GetArticle(ArticleId id);
+    Article GetArticle(int id);
     Article AddArticle(Article article);
-    Article UpdateArticle(ArticleId id, Article article);
-    void DeleteArticle(ArticleId id);
+    Article UpdateArticle(int id, Article article);
+    void DeleteArticle(int id);
 }

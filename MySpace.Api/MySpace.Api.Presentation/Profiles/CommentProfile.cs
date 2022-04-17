@@ -9,9 +9,7 @@ public class CommentProfile : Profile
 {
     public CommentProfile()
     {
-        CreateMap<Comment, CommentResponse>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value));
-
+        CreateMap<Comment, CommentResponse>();
         CreateMap<CommentRequest, Comment>();
     }
 }

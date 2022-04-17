@@ -5,9 +5,9 @@ namespace MySpace.Api.Application.Persistence;
 public interface ProjectRepository
 {
     List<Project> GetProjects();
-    Project GetProject(ProjectId id);
+    Project GetProject(int id);
     Project AddProject(Project project);
-    Project EditProject(ProjectId id, Project project);
-    void DeleteProject(ProjectId id);
-    bool ProjectExists(ProjectId id);
+    Project EditProject(int id, Project project);
+    void DeleteProject(int id);
+    bool ProjectExists(int id);
 }

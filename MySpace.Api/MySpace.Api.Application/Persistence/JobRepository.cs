@@ -6,9 +6,9 @@ public interface JobRepository
 {
     List<Job> GetJobs();
     Job GetCurrentJob();
-    Job GetJob(JobId id);
+    Job GetJob(int id);
     Job AddJob(Job job);
-    Job EditJob(JobId id, Job job);
-    void DeleteJob(JobId id);
-    bool JobExists(JobId id);
+    Job EditJob(int id, Job job);
+    void DeleteJob(int id);
+    bool JobExists(int id);
 }

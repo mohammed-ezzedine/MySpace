@@ -2,7 +2,7 @@
 
 public class JobResponse
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
     public string Employer { get; set; } = null!;
     

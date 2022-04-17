@@ -4,9 +4,9 @@ namespace MySpace.Api.Application.Services;
 
 public interface ICommentService
 {
-    Comment GetComment(ArticleId articleId, CommentId commentId);
-    Comment AddCommentToArticle(ArticleId articleId, Comment comment);
-    Comment AddReplyToComment(ArticleId articleId, CommentId parentCommentId, Comment comment);
-    Comment EditComment(ArticleId articleId, CommentId id, Comment comment);
-    void DeleteComment(ArticleId articleId, CommentId id);
+    Comment GetComment(int articleId, string commentId);
+    Comment AddCommentToArticle(int articleId, Comment comment);
+    Comment AddReplyToComment(int articleId, string parentstring, Comment comment);
+    Comment EditComment(int articleId, string id, Comment comment);
+    void DeleteComment(int articleId, string id);
 }

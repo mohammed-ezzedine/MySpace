@@ -32,6 +32,7 @@ builder.Services.AddSingleton<TagRepository, MongoDbTagRepository>();
 builder.Services.AddSingleton<ArticleRepository, MongoDbArticleRepository>();
 builder.Services.AddSingleton<ProjectRepository, MongoDbProjectRepository>();
 builder.Services.AddSingleton<JobRepository, MongoDbJobRepository>();
+builder.Services.AddSingleton<CounterRepository, MongoDbCounterRepository>();
 
 builder.Services.AddSingleton<ITagService, TagService>();
 builder.Services.AddSingleton<IArticleService, ArticleService>();

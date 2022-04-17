@@ -37,13 +37,13 @@ public class ArticleController : ControllerBase
         return Ok(articleResponses);
     }
     
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:int}")]
     [ArticleNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ArticleResponse))]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
-    public ActionResult<ArticleResponse> GetArticle(Guid id)
+    public ActionResult<ArticleResponse> GetArticle(int id)
     {
-        var article = _articleService.GetArticle(new ArticleId(id));
+        var article = _articleService.GetArticle(id);
         return Ok(_mapper.Map<ArticleResponse>(article));
     }
 
@@ -58,22 +58,22 @@ public class ArticleController : ControllerBase
     }
 
     [Authorize]
-    [HttpPut("{id:guid}")]
+    [HttpPut("{id:int}")]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ArticleResponse))]
-    public ActionResult<ArticleResponse> UpdateArticle(Guid id, ArticleRequest article)
+    public ActionResult<ArticleResponse> UpdateArticle(int id, ArticleRequest article)
     {
-        var result = _articleService.UpdateArticle(new ArticleId(id), _mapper.Map<Article>(article));
+        var result = _articleService.UpdateArticle(id, _mapper.Map<Article>(article));
         return Ok(_mapper.Map<ArticleResponse>(result));
     }
 
     [Authorize]
-    [HttpDelete("{id:guid}")]
+    [HttpDelete("{id:int}")]
     [ArticleNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.NoContent)]
-    public IActionResult DeleteArticle(Guid id)
+    public IActionResult DeleteArticle(int id)
     {
-        _articleService.DeleteArticle(new ArticleId(id));
+        _articleService.DeleteArticle(id);
         return NoContent();
     }
 }

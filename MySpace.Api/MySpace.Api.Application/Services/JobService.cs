@@ -23,7 +23,7 @@ public class JobService : IJobService
         return _jobRepository.GetCurrentJob();
     }
 
-    public Job GetJob(JobId id)
+    public Job GetJob(int id)
     {
         ThrowExceptionIfJobNotFound(id);
         return _jobRepository.GetJob(id);
@@ -34,19 +34,19 @@ public class JobService : IJobService
         return _jobRepository.AddJob(job);
     }
 
-    public Job EditJob(JobId id, Job job)
+    public Job EditJob(int id, Job job)
     {
         ThrowExceptionIfJobNotFound(id);
         return _jobRepository.EditJob(id, job);
     }
 
-    public void DeleteJob(JobId id)
+    public void DeleteJob(int id)
     {
         ThrowExceptionIfJobNotFound(id);
         _jobRepository.DeleteJob(id);
     }
     
-    private void ThrowExceptionIfJobNotFound(JobId id)
+    private void ThrowExceptionIfJobNotFound(int id)
     {
         if (!_jobRepository.JobExists(id))
         {
