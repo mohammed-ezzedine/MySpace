@@ -5,7 +5,7 @@ namespace MySpace.Api.Presentation.Responses;
 
 public class ArticleResponse
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
 
     public string Title { get; set; } = null!;
 

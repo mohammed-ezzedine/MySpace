@@ -9,6 +9,7 @@ using MySpace.Api.Application.Services;
 using MySpace.Api.Configurations;
 using MySpace.Api.Persistence.Repositories;
 using MySpace.Api.Presentation.Controllers;
+using MySpace.Api.Presentation.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -43,6 +44,9 @@ builder.Services.AddSingleton<IJobService, JobService>();
 builder.Services.AddAutoMapper(
     typeof(ArticleController).Assembly, 
     typeof(MongoDbArticleRepository).Assembly);
+
+var hashIdConfiguration = configuration.GetSection(nameof(HashIdConfiguration)).Get<HashIdConfiguration>();
+builder.Services.AddSingleton(new HashIdUtil(hashIdConfiguration.Salt));
 
 var identityConfiguration = configuration.GetSection(nameof(IdentityConfiguration)).Get<IdentityConfiguration>();
 builder.Services.AddAuthentication(options =>

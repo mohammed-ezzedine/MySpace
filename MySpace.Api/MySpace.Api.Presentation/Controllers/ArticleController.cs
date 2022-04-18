@@ -8,6 +8,7 @@ using MySpace.Api.Domain.Models;
 using MySpace.Api.Presentation.Filters;
 using MySpace.Api.Presentation.Requests;
 using MySpace.Api.Presentation.Responses;
+using MySpace.Api.Presentation.Utils;
 
 namespace MySpace.Api.Presentation.Controllers;
 
@@ -17,11 +18,13 @@ public class ArticleController : ControllerBase
 {
     private readonly IArticleService _articleService;
     private readonly IMapper _mapper;
+    private readonly HashIdUtil _hashIdUtil;
 
-    public ArticleController(IArticleService articleService, IMapper mapper)
+    public ArticleController(IArticleService articleService, IMapper mapper, HashIdUtil hashIdUtil)
     {
         _articleService = articleService;
         _mapper = mapper;
+        _hashIdUtil = hashIdUtil;
     }
 
     [HttpGet]
@@ -33,18 +36,18 @@ public class ArticleController : ControllerBase
             : tag != null 
                 ? _articleService.GetArticlesByTag(new Tag(tag))
                 : _articleService.GetArticles();
-        var articleResponses = articles.Select(_mapper.Map<ArticleResponse>).ToList();
+        var articleResponses = articles.Select(MapToArticleResponse).ToList();
         return Ok(articleResponses);
     }
     
-    [HttpGet("{id:int}")]
+    [HttpGet("{id}")]
     [ArticleNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ArticleResponse))]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
-    public ActionResult<ArticleResponse> GetArticle(int id)
+    public ActionResult<ArticleResponse> GetArticle(string id)
     {
-        var article = _articleService.GetArticle(id);
-        return Ok(_mapper.Map<ArticleResponse>(article));
+        var article = _articleService.GetArticle(_hashIdUtil.DecodeId(id));
+        return Ok(MapToArticleResponse(article));
     }
 
     [Authorize]
@@ -54,26 +57,33 @@ public class ArticleController : ControllerBase
     public ActionResult<ArticleResponse> AddArticle(ArticleRequest article)
     {
         var result = _articleService.AddArticle(_mapper.Map<Article>(article));
-        return Created(result.Id.ToString(), _mapper.Map<ArticleResponse>(result));
+        return Created(_hashIdUtil.EncodeId(result.Id.Value), MapToArticleResponse(result));
     }
 
     [Authorize]
-    [HttpPut("{id:int}")]
+    [HttpPut("{id}")]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ArticleResponse))]
-    public ActionResult<ArticleResponse> UpdateArticle(int id, ArticleRequest article)
+    public ActionResult<ArticleResponse> UpdateArticle(string id, ArticleRequest article)
     {
-        var result = _articleService.UpdateArticle(id, _mapper.Map<Article>(article));
-        return Ok(_mapper.Map<ArticleResponse>(result));
+        var result = _articleService.UpdateArticle(_hashIdUtil.DecodeId(id), _mapper.Map<Article>(article));
+        return Ok(MapToArticleResponse(result));
     }
 
     [Authorize]
-    [HttpDelete("{id:int}")]
+    [HttpDelete("{id}")]
     [ArticleNotFoundExceptionFilter]
     [ProducesResponseType((int) HttpStatusCode.NotFound)]
     [ProducesResponseType((int) HttpStatusCode.NoContent)]
-    public IActionResult DeleteArticle(int id)
+    public IActionResult DeleteArticle(string id)
     {
-        _articleService.DeleteArticle(id);
+        _articleService.DeleteArticle(_hashIdUtil.DecodeId(id));
         return NoContent();
+    }
+
+    private ArticleResponse MapToArticleResponse(Article article)
+    {
+        var articleResponse = _mapper.Map<ArticleResponse>(article);
+        articleResponse.Id = _hashIdUtil.EncodeId(article.Id.Value);
+        return articleResponse;
     }
 }

@@ -3,6 +3,7 @@ using AutoMapper;
 using MySpace.Api.Domain.Models;
 using MySpace.Api.Presentation.Requests;
 using MySpace.Api.Presentation.Responses;
+using MySpace.Api.Presentation.Utils;
 
 namespace MySpace.Api.Presentation.Profiles;
 
