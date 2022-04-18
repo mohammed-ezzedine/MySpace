@@ -21,6 +21,6 @@ public class ArticleProfile : Profile
                     src => 
                         src.Tags == null 
                             ? new List<Tag>() 
-                            : src.Tags.Select(t => new Tag(t))));
+                            : src.Tags.Select(t => new Tag(t, 0))));
     }
 }

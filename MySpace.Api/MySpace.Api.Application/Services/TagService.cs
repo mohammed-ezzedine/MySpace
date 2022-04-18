@@ -34,6 +34,16 @@ public class TagService : ITagService
         return _tagRepository.TagExists(tag);
     }
 
+    public void IncrementTagArticlesCounter(string tagName)
+    {
+        _tagRepository.IncrementTagArticlesCounter(tagName);
+    }
+
+    public void DecrementTagArticlesCounter(string tagName)
+    {
+        _tagRepository.DecrementTagArticlesCounter(tagName);
+    }
+
     private void ThrowExceptionIfTagNotFound(Tag tag)
     {
         if (!TagExists(tag))

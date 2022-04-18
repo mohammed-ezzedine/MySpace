@@ -47,6 +47,8 @@ public class ArticleService : IArticleService
         ThrowExceptionIfArticleNotFound(id);
         PersistArticleTags(article);
         var originalArticle = GetArticle(id);
+        DecrementOldTagsArticlesCount(originalArticle.Tags);
+        
         originalArticle.Update(article);
         return _articleRepository.UpdateArticle(id, originalArticle);
     }
@@ -59,6 +61,7 @@ public class ArticleService : IArticleService
 
         _articleRepository.DeleteArticle(id);
         
+        DecrementOldTagsArticlesCount(article.Tags);
         DeleteUnusedTags(article.Tags);
     }
 
@@ -67,11 +70,20 @@ public class ArticleService : IArticleService
         var task = new Task(
             () => tags?.ForEach(t =>
             {
-                if (GetArticlesByTag(t).Any()) _tagService.DeleteTag(t);
+                if (!GetArticlesByTag(t).Any()) _tagService.DeleteTag(t);
             })
         );
         
         task.Start();
+    }
+
+    private void DecrementOldTagsArticlesCount(List<Tag>? tags)
+    {
+        tags?.ForEach(t =>
+        {
+            if (t.Name == null) return;
+            _tagService.DecrementTagArticlesCounter(t.Name);
+        });
     }
 
     private void ThrowExceptionIfArticleNotFound(int id)
@@ -84,6 +96,10 @@ public class ArticleService : IArticleService
 
     private void PersistArticleTags(Article article)
     {
-        article.Tags?.ForEach(t => _tagService.AddTag(t));
+        article.Tags?.ForEach(t =>
+        {
+            _tagService.AddTag(t);
+            _tagService.IncrementTagArticlesCounter(t.Name);
+        });
     }
 }

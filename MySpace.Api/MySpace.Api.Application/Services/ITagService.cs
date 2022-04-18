@@ -8,4 +8,6 @@ public interface ITagService
     Tag AddTag(Tag tag);
     void DeleteTag(Tag tag);
     bool TagExists(Tag tag);
+    void IncrementTagArticlesCounter(string tagName);
+    void DecrementTagArticlesCounter(string tagName);
 }
