@@ -8,6 +8,7 @@
   border: 1px solid lightgray;
   background-color: lighten(lightgrey, 16);
   padding: .5em 1em;
+  max-width: 80vw;
 
   @media (max-width: $small-screen-max-width) {
     margin: 2em 0;
