@@ -13,6 +13,12 @@
     padding-bottom: 150px;
   }
 
+  pre {
+    @media (max-width: $medium-screen-max-width) {
+      max-width: 80vw;
+    }
+  }
+
   .metadata {
     color: grey;
 
