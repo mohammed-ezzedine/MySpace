@@ -10,4 +10,8 @@
       <ProjectReference Include="..\MySpace.Api.Domain\MySpace.Api.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="F23.StringSimilarity" Version="5.0.0" />
+    </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Article} from "../../models/article";
+import {ArticleService} from "../../services/article.service";
 
 @Component({
   selector: 'app-search-bar',
@@ -9,29 +11,36 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class SearchBarComponent implements OnInit {
 
-  searchText!: FormControl;
+  searchText : string | null = null;
+  nzFilterOption = (): boolean => true;
+  suggestions = new Array<Article>();
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private articleService: ArticleService) { }
 
   ngOnInit(): void {
-    this.initSearchQuery();
-  }
-
-  private initSearchQuery() {
-    this.route.queryParams.subscribe({
-      next: params => {
-        this.searchText = this.fb.control((params['q']) ? params['q'] : '');
-      }
-    })
   }
 
   searchArticles() {
-    if (this.searchText.value == '') {
+    if (!this.searchText || this.searchText == '') {
       return;
     }
 
-    this.router.navigateByUrl('/home?q=' + this.searchText.value);
+    this.router.navigateByUrl('/home?q=' + this.searchText);
+  }
+
+  search(value: string): void {
+    if (value == '') {
+      return;
+    }
+
+    this.searchText = value;
+
+    this.articleService.getArticles(value)
+      .subscribe({
+        next: articles => this.suggestions = articles
+      })
   }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
-// using F23.StringSimilarity;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using MySpace.Api.Application.Configurations;
@@ -15,18 +14,15 @@ namespace MySpace.Api.Persistence.Repositories;
 
 public class MongoDbArticleRepository : ArticleRepository
 {
-    private const double SIMILARITY_SCORE_THRESHOLD = 0.8;
     private readonly IMongoCollection<ArticleEntity> _articleCollection;
     private readonly IMapper _mapper;
     private readonly CounterRepository _counterRepository;
-    // private readonly NormalizedLevenshtein _similarityScoreGenerator;
 
     public MongoDbArticleRepository(PersistenceConfiguration configuration, IMapper mapper, ILogger<PersistenceFactory> logger, CounterRepository counterRepository)
     {
         _articleCollection = new PersistenceFactory(configuration, logger).GetCollection<ArticleEntity>("articles");
         _mapper = mapper;
         _counterRepository = counterRepository;
-        // _similarityScoreGenerator = new NormalizedLevenshtein();
     }
 
     public List<Article> GetArticles()
@@ -42,18 +38,6 @@ public class MongoDbArticleRepository : ArticleRepository
     {
         return  _articleCollection.AsQueryable()
             .Where(a => a.Tags != null && a.Tags.Any(t => t.Name == tag.Name))
-            .OrderByDescending(a => a.CreatedDate)
-            .AsEnumerable()
-            .Select(_mapper.Map<Article>).ToList();
-    }
-
-    public List<Article> QueryArticles(string q)
-    {
-        return  _articleCollection.AsQueryable()
-            .Where(a => a.Title.ToLower().Contains(q.ToLower())
-                || a.Description.ToLower().Contains(q.ToLower()))
-                // || _similarityScoreGenerator.Distance(a.Title, q) > SIMILARITY_SCORE_THRESHOLD
-                // || _similarityScoreGenerator.Distance(a.Description, q) > SIMILARITY_SCORE_THRESHOLD)
             .OrderByDescending(a => a.CreatedDate)
             .AsEnumerable()
             .Select(_mapper.Map<Article>).ToList();

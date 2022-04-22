@@ -31,7 +31,6 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getArticleIdFromRoute();
-    this.getArticle();
   }
 
   isAuthenticated() {
@@ -64,6 +63,7 @@ export class ArticleComponent implements OnInit {
   private getArticleIdFromRoute() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+      this.getArticle();
     })
   }
 

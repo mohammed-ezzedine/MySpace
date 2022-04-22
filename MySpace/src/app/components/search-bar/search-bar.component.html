@@ -1,22 +1,32 @@
 <form nz-form (ngSubmit)="searchArticles()">
-    <nz-form-control>
-      <nz-input-group [nzPrefix]="inputClearTpl" [nzSuffix]="suffixIconSearch">
-        <input type="text" nz-input [formControl]="searchText" placeholder="search"/>
-      </nz-input-group>
-    </nz-form-control>
+
+  <nz-input-group [nzAddOnAfter]="searchIcon" nzSearch>
+    <nz-select
+      nzShowSearch
+      nzServerSearch
+      [nzAutoClearSearchValue]="true"
+      [nzShowArrow]="false"
+      nzPlaceHolder="search"
+      [nzFilterOption]="nzFilterOption"
+      (nzOnSearch)="search($event)"
+      [nzOptionHeightPx]="66"
+      nzNotFoundContent="Not Found"
+    >
+      <nz-option *ngFor="let o of suggestions" [nzCustomContent]="true" [nzLabel]="o.title" [nzValue]="o.id">
+        <a [routerLink]="'/article/' + o.id">
+          <div class="option-title">{{o.title}}</div>
+          <div nz-typography [nzContent]="o.description" nzEllipsis [nzEllipsisRows]="2"
+               class="option-description"></div>
+        </a>
+        <ng-content></ng-content>
+      </nz-option>
+    </nz-select>
+
+  </nz-input-group>
 </form>
 
-<ng-template #suffixIconSearch>
-  <i nz-icon nzType="search"></i>
-</ng-template>
-
-<ng-template #inputClearTpl>
-  <i
-    nz-icon
-    class="ant-input-clear-icon"
-    nzTheme="fill"
-    nzType="close-circle"
-    *ngIf="searchText.value != ''"
-    (click)="searchText.setValue('')"
-  ></i>
+<ng-template #searchIcon>
+  <button nz-button nzType="primary">
+    <i nz-icon nzType="search"></i>
+  </button>
 </ng-template>
