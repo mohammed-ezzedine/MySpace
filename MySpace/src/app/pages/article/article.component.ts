@@ -4,10 +4,8 @@ import {ArticleService} from "../../services/article.service";
 import {Article} from "../../models/article";
 import {DateUtils} from "../../utils/date.utils";
 import {AuthService} from "../../services/auth.service";
-import {NzMessageService} from "ng-zorro-antd/message";
 import {SeoService} from "../../services/seo.service";
 import {SeoShareDataModel} from "../../models/seo-share-data.model";
-import {isPlatformBrowser} from "@angular/common";
 
 @Component({
   selector: 'app-article',
@@ -20,7 +18,6 @@ export class ArticleComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private seoService: SeoService,
-              private message: NzMessageService,
               private articleService: ArticleService,
               private authService: AuthService,
               @Inject(PLATFORM_ID) private platformId: Object) { }
@@ -80,19 +77,5 @@ export class ArticleComponent implements OnInit {
       next: _ => this.router.navigateByUrl('/home'),
       error: err => this.errorMessage = err
     })
-  }
-
-  copyArticleUrl() {
-    navigator.clipboard.writeText(this.getArticleUrl())
-      .then(_ => {
-        this.message.info("Article address copied to clipboard.")
-      });
-  }
-
-  getArticleUrl() : string {
-    let path = this.router.parseUrl("/article/" + this.id).toString();
-    return isPlatformBrowser(this.platformId)
-      ? window.location.origin + path
-      : path;
   }
 }

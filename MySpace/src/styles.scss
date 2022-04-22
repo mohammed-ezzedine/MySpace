@@ -3,9 +3,11 @@
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 @import "~prismjs/themes/prism.css";
 
-
 @import '~medium-editor/dist/css/medium-editor.min.css';
 @import '~medium-editor/dist/css/themes/default.min.css';
+
+@import 'node_modules/ngx-sharebuttons/themes/modern';
+@import 'node_modules/ngx-sharebuttons/themes/circles';
 
 html {
   height: 100% !important;

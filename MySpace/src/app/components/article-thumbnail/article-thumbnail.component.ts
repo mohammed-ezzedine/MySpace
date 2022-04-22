@@ -4,6 +4,7 @@ import {DateUtils} from "../../utils/date.utils";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {Router} from "@angular/router";
 import {isPlatformBrowser} from '@angular/common';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-article-thumbnail',
@@ -14,6 +15,8 @@ export class ArticleThumbnailComponent implements OnInit {
 
   @Input("article")
   article!: Article;
+
+  faLink = faLink;
 
   constructor(private message: NzMessageService,
               private router: Router,

@@ -33,10 +33,14 @@
     <app-image *ngIf="section.type == 'image'" [src]="section.imageUrl" class="article-image"></app-image>
     <app-section [html]="section.content!" *ngIf="section.type == 'paragraph'"></app-section>
   </div>
-
-  <button class="share" nz-button nzType="default" (click)="copyArticleUrl()"><i nz-icon nzType="share-alt" nzTheme="outline"></i></button>
   <app-tags class="tags" [tags]="article.tags"></app-tags>
 
+  <share-buttons [theme]="'modern-light'"
+                 [include]="['facebook','twitter','linkedin','whatsapp','email','copy']"
+                 [show]="6"
+                 [showText]="false"
+                 [autoSetMeta]="false"
+  ></share-buttons>
 </div>
 
 <ng-template #articleUndefined>

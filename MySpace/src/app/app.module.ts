@@ -63,6 +63,9 @@ import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-ba
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { SearchComponent } from './pages/search/search.component';
 import { RecommendedTagsComponent } from './components/recommended-tags/recommended-tags.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import {ShareIconsModule} from "ngx-sharebuttons/icons";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 registerLocaleData(en);
@@ -130,7 +133,10 @@ registerLocaleData(en);
       NzSpaceModule,
       NzCardModule,
       NzBadgeModule,
-      NzTabsModule
+      NzTabsModule,
+      ShareButtonsModule,
+      ShareIconsModule,
+      FontAwesomeModule
     ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

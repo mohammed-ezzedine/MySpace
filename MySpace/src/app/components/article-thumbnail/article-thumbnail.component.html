@@ -21,7 +21,9 @@
     <span class="dot">·</span>
     <small>{{article.estimatedReadingTime}}</small>
 
-    <button class="share" nz-button nzType="default" (click)="copyArticleUrl()"><i nz-icon nzType="share-alt" nzTheme="outline"></i></button>
+    <button class="share" nz-button nzType="default" (click)="copyArticleUrl()">
+      <fa-icon [icon]="faLink"></fa-icon>
+    </button>
   </div>
 
   <div class="footer">
