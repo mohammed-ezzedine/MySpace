@@ -9,10 +9,9 @@ import {SeoShareDataModel} from "../../models/seo-share-data.model";
 })
 export class NotFoundComponent implements OnInit {
 
-  constructor(private seoService: SeoService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.seoService.setData(new SeoShareDataModel("404 - Not Found"));
   }
 
 }

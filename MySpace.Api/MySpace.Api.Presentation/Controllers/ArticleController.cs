@@ -49,6 +49,21 @@ public class ArticleController : ControllerBase
         var article = _articleService.GetArticle(_hashIdUtil.DecodeId(id));
         return Ok(MapToArticleResponse(article));
     }
+    
+    [HttpGet("meta/{id}")]
+    [ArticleNotFoundExceptionFilter]
+    [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ArticleResponse))]
+    [ProducesResponseType((int) HttpStatusCode.NotFound)]
+    public ActionResult GetArticleMeta(string id)
+    {
+        var article = _articleService.GetArticle(_hashIdUtil.DecodeId(id));
+        return Ok(new
+        {
+            title = article.Title,
+            description = article.Description,
+            image = article.ImageUrl
+        });
+    }
 
     [Authorize]
     [HttpPost]

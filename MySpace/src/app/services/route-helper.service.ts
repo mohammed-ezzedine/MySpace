@@ -2,6 +2,8 @@
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {SeoService} from "./seo.service";
 import {filter, map} from "rxjs";
+import {ArticleService} from "./article.service";
+import {SeoShareDataModel} from "../models/seo-share-data.model";
 
 @Injectable({
   providedIn: "root"

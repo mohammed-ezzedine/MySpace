@@ -27,6 +27,7 @@ export class ArticleComponent implements OnInit {
   errorMessage: string | null = null;
 
   ngOnInit(): void {
+    console.log(this.route.data)
     this.getArticleIdFromRoute();
   }
 
@@ -39,7 +40,6 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArticle(this.id).subscribe({
         next: article => {
           this.article = article;
-          this.setSeoShareData();
         },
         error: error => {
           if (error.status == 404) {
@@ -51,10 +51,6 @@ export class ArticleComponent implements OnInit {
         }
       })
     }
-  }
-
-  private setSeoShareData() {
-    this.seoService.setData(new SeoShareDataModel(this.article!.title, this.article!.description, this.article!.imageUrl));
   }
 
   private getArticleIdFromRoute() {

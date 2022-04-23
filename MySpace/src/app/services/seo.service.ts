@@ -23,14 +23,10 @@ export class SeoService {
     this.titleService.setTitle(title);
     if (title && title.length) {
       this.metaService.updateTag({name: 'twitter:title', content: title});
-      this.metaService.updateTag({name: 'twitter:image:alt', content: title});
-      this.metaService.updateTag({property: 'og:image:alt', content: title});
       this.metaService.updateTag({property: 'og:title', content: title});
       this.metaService.updateTag({name: 'title', content: title});
     } else {
       this.metaService.updateTag({name: 'twitter:title', content: SeoService.DEFAULT_TITLE});
-      this.metaService.updateTag({name: 'twitter:image:alt', content: SeoService.DEFAULT_TITLE});
-      this.metaService.updateTag({property: 'og:image:alt', content: SeoService.DEFAULT_TITLE});
       this.metaService.updateTag({property: 'og:title', content: SeoService.DEFAULT_TITLE});
       this.metaService.updateTag({name: 'title', content: SeoService.DEFAULT_TITLE});
     }
@@ -40,11 +36,11 @@ export class SeoService {
     if (description && description.length) {
       this.metaService.updateTag({name: 'twitter:description', content: description});
       this.metaService.updateTag({property: 'og:description', content: description});
-      this.metaService.updateTag({ name: "description", content: description });
+      this.metaService.updateTag({name: "description", content: description });
     } else {
       this.metaService.updateTag({name: 'twitter:description', content: SeoService.DEFAULT_DESCRIPTION});
       this.metaService.updateTag({property: 'og:description', content: SeoService.DEFAULT_DESCRIPTION});
-      this.metaService.updateTag({ name: "description", content: SeoService.DEFAULT_DESCRIPTION });
+      this.metaService.updateTag({name: "description", content: SeoService.DEFAULT_DESCRIPTION });
     }
   }
 
@@ -52,11 +48,11 @@ export class SeoService {
     if (imageUrl && imageUrl.length) {
       this.metaService.updateTag({name: 'twitter:image', content: imageUrl});
       this.metaService.updateTag({property: 'og:image', content: imageUrl});
-      this.metaService.updateTag({ name: "image", content: imageUrl });
+      this.metaService.updateTag({name: "image", content: imageUrl });
     } else {
       this.metaService.updateTag({name: 'twitter:image', content: SeoService.DEFAULT_IMAGE});
-      this.metaService.updateTag({property: 'og:image', content: SeoService.DEFAULT_IMAGE});
-      this.metaService.updateTag({ name: "image", content: SeoService.DEFAULT_IMAGE });
+      this.metaService.updateTag({name: 'image', property: 'og:image', content: SeoService.DEFAULT_IMAGE});
+      this.metaService.updateTag({name: "image", content: SeoService.DEFAULT_IMAGE });
     }
   }
 }

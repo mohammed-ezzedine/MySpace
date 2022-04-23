@@ -17,8 +17,7 @@ import {NotFoundComponent} from "./pages/not-found/not-found.component";
 import {UnauthorizedComponent} from "./pages/unauthorized/unauthorized.component";
 import {SearchComponent} from "./pages/search/search.component";
 import {SmallScreenGuardService} from "./services/small-screen-guard.service";
-import {Observable} from "rxjs";
-import { of } from 'rxjs';
+import {ArticleMetaGuardService} from "./services/article-meta-guard.service";
 
 const default_data = {
   seo: {
@@ -28,10 +27,22 @@ const default_data = {
   }
 }
 
+const unauthorized_data = {
+  seo: {
+    title: '401 - Unauthorized'
+  }
+}
+
+const notfound_data = {
+  seo: {
+    title: '404 - Not Found'
+  }
+}
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, data: default_data },
   { path: 'search', component: SearchComponent, canActivate: [ SmallScreenGuardService ], data: default_data  },
-  { path: 'article/:id', component: ArticleComponent },
+  { path: 'article/:id', component: ArticleComponent, canActivate: [ ArticleMetaGuardService ] },
   { path: 'admin/article/add-article', component: AddArticleComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/article/edit-article/:id', component: EditArticleComponent, canActivate: [ AuthGuardService ] },
   { path: 'jobs', component: JobsComponent, data: default_data  },
@@ -42,9 +53,9 @@ const routes: Routes = [
   { path: 'admin/projects/add-project', component: AddProjectComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/projects/edit-project/:id', component: EditProjectComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/login', component: LoginComponent },
-  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent, data: unauthorized_data },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', component: NotFoundComponent, data: notfound_data }
 ];
 
 @NgModule({

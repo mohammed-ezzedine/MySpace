@@ -1,6 +1,11 @@
 .home {
   height: 100%;
 
+  .intro {
+    margin-top: 20px;
+    color: grey;
+  }
+
   .articles {
     @media (min-width: 701px) {
       padding: 50px;

@@ -5,6 +5,7 @@ import {Injectable} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {environment} from "../../environments/environment";
 import {AuthService} from "./auth.service";
+import {SeoShareDataModel} from "../models/seo-share-data.model";
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,10 @@ export class ArticleService {
 
   getArticle(id: string) : Observable<Article> {
     return this.http.get<Article>(ArticleService.ENDPOINT + "/" + id);
+  }
+
+  getArticleMeta(id: string) : Observable<SeoShareDataModel> {
+    return this.http.get<SeoShareDataModel>(ArticleService.ENDPOINT + "/meta/" + id);
   }
 
   addArticle(form: any) : Observable<Article> {
