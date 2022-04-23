@@ -70,7 +70,7 @@
         img {
           display: block;
           margin: auto;
-          width: inherit;
+          max-height: 500px;
         }
       }
     }
@@ -84,5 +84,13 @@
 
   .tags {
     margin-bottom: 50px;
+  }
+
+  footer {
+    @include row();
+    justify-content: space-between;
+
+    margin-top: 50px;
+    color: grey;
   }
 }
