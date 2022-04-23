@@ -70,6 +70,7 @@
         img {
           display: block;
           margin: auto;
+          max-width: 100%;
           max-height: 500px;
         }
       }
@@ -87,8 +88,14 @@
   }
 
   footer {
-    @include row();
-    justify-content: space-between;
+    @media (min-width: $medium-screen-max-width) {
+      @include row();
+      justify-content: space-between;
+    }
+    @media (max-width: $medium-screen-max-width) {
+      @include col();
+      text-align: center;
+    }
 
     margin-top: 50px;
     color: grey;
