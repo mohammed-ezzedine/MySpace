@@ -71,6 +71,7 @@ export class EditProjectComponent implements OnInit {
         title: this.projectForm.controls['title'].value,
         description: this.projectForm.controls['description'].value,
         url: this.projectForm.controls['url'].value,
+        createdDate: this.projectForm.controls['createdDate'].value,
         content: ArticleUtils.getArticleContent(this.contentControls, this.projectForm),
       };
       this.projectService.updateProject(this.id!, form).subscribe({
