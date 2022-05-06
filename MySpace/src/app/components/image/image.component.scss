@@ -2,8 +2,10 @@ img {
   display: block;
   position: relative;
   max-width: inherit;
+  max-height: 500px;
+  margin: auto;
 
-  //@media (max-width: 700px) {
-  //  width: inherit;
-  //}
+  @media (max-width: 700px) {
+    max-width: 90%;
+  }
 }

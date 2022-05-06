@@ -1,3 +1,5 @@
+@import "src/app/styles/mixins";
+
 .date {
   margin-bottom: 20px;
   color: grey;
@@ -5,4 +7,86 @@
 
 .actions {
   float: right;
+}
+
+.project {
+  @include col();
+  margin: 50px 0;
+
+  @media (max-width: $small-screen-max-width) {
+    width: 90%;
+    margin: 20px auto;
+    display: block;
+    position: relative;
+    padding-bottom: 150px;
+  }
+
+  pre {
+    @media (max-width: $medium-screen-max-width) {
+      max-width: 80vw;
+    }
+  }
+
+  .metadata {
+    color: grey;
+
+    .dot {
+      margin: 0 5px;
+    }
+
+    a, button {
+      float: right;
+      border: 1px solid;
+      margin-left: 10px;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .description {
+    font-weight: 500;
+  }
+
+  .article-image {
+    margin: 20px auto;
+    max-width: 500px;
+    max-height: 500px;
+
+    @media (max-width: $small-screen-max-width) {
+      max-width: 100%;
+    }
+  }
+
+  .tags {
+    margin-top: 10px;
+    float: left;
+  }
+
+  .content {
+    display: flex;
+
+    p, app-code-snippet, app-section {
+      width: 100%;
+    }
+
+    app-section {
+      margin: 10px auto;
+
+      p {
+        img {
+          display: block;
+          margin: auto;
+          max-width: 100%;
+          max-height: 500px;
+        }
+      }
+    }
+  }
+
+  img {
+    display: block;
+    margin: auto;
+  }
 }

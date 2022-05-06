@@ -49,7 +49,7 @@ const routes: Routes = [
   { path: 'admin/jobs/add-job', component: AddJobComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/jobs/edit-job/:id', component: EditJobComponent, canActivate: [ AuthGuardService ] },
   { path: 'projects', component: ProjectsComponent, data: default_data  },
-  { path: 'projects/:id', component: ProjectComponent },
+  { path: 'projects/:id', component: ProjectComponent }, // TODO add guard service for meta data
   { path: 'admin/projects/add-project', component: AddProjectComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/projects/edit-project/:id', component: EditProjectComponent, canActivate: [ AuthGuardService ] },
   { path: 'admin/login', component: LoginComponent },
