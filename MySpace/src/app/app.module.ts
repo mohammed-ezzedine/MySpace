@@ -66,7 +66,8 @@ import { RecommendedTagsComponent } from './components/recommended-tags/recommen
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import {ShareIconsModule} from "ngx-sharebuttons/icons";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import {NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule} from 'ngx-google-analytics';
+import {environment} from "../environments/environment.prod";
 
 registerLocaleData(en);
 
@@ -109,6 +110,8 @@ registerLocaleData(en);
     RecommendedTagsComponent,],
     imports: [
       BrowserModule.withServerTransition({ appId: 'serverApp' }),
+      NgxGoogleAnalyticsModule.forRoot(environment.googleAnalytics),
+      NgxGoogleAnalyticsRouterModule,
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
