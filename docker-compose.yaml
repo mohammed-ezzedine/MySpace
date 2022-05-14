@@ -51,8 +51,6 @@ services:
     volumes:
       - ./MySpace:/app
       - /MySpace/node_modules
-      - ./cert/nginx/letsencrypt:/etc/letsencrypt
-      - ./cert/nginx/dhparam.pem:/etc/ssl/certs/dhparam.pem
     networks:
       - client-gateway
       
