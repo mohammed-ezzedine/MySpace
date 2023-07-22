@@ -42,4 +42,8 @@ export class ArticleThumbnailComponent implements OnInit {
       ? window.location.origin + path
       : path;
   }
+
+  getArticleTags() {
+    return this.article.tags.slice(0, 4)
+  }
 }

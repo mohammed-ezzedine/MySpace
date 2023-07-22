@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ArticleUtils} from "../../utils/article.utils";
+import {ArticleEstimatedReadingTimeCalculator} from "../../utils/articleEstimatedReadingTimeCalculator";
 import {ArticleAdditionEvent} from "../../events/article-addition.event";
-import {FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {PageContentSection} from "./page-content-section";
 
 @Component({
   selector: 'app-page-editor',
@@ -10,11 +11,11 @@ import {FormGroup} from "@angular/forms";
 })
 export class PageEditorComponent implements OnInit {
 
-  @Input("contentControls")
-  contentControls!: Array<{ id: number; controlInstance: string }>;
+  @Input()
+  controls: PageContentSection[] = [];
 
-  @Input("form")
-  form!: FormGroup;
+  @Output()
+  updatedControls = new EventEmitter<PageContentSection[]>();
 
   constructor() { }
 
@@ -22,30 +23,115 @@ export class PageEditorComponent implements OnInit {
   }
 
   getElementType(element: any) : string{
-    return ArticleUtils.getElementType(element);
+    return element.type;
   }
 
-  getControlValue(controlInstance: string) : string {
-    return this.form.controls[controlInstance].value;
+  updateSectionContent(index: number, languageEvent: ArticleAdditionEvent) {
+    this.controls[index].content.setValue(languageEvent.content)
   }
 
-  updateArticleControl(languageEvent: ArticleAdditionEvent) {
-    this.form.controls[languageEvent.id].setValue(languageEvent.content);
+
+  updateSectionMetadata(index: number, languageEvent: ArticleAdditionEvent) {
+    this.controls[index].metadata = languageEvent.content
   }
 
-  addParagraph($event: MouseEvent) {
-    ArticleUtils.addParagraph(this.form, this.contentControls, $event);
+  private controlsUpdated() {
+    console.log("controls updated", this.controls)
+    this.updatedControls.emit(this.controls);
   }
 
-  addCode($event: MouseEvent) {
-    ArticleUtils.addCode(this.form, this.contentControls, $event);
+  addParagraph(index: number) {
+    this.addSectionAtIndex(index, this.getNewParagraphSection());
   }
 
-  addImage($event: MouseEvent) {
-    ArticleUtils.addImage(this.form, this.contentControls, $event);
+  addCode(index: number) {
+    this.addSectionAtIndex(index, this.getNewCodeSection());
   }
 
-  deleteSection(element: { id: number; controlInstance: string }) {
-    ArticleUtils.deleteSection(this.form, this.contentControls, element);
+  addImage(index: number) {
+    this.addSectionAtIndex(index, this.getNewImageSection());
+  }
+
+  private addSectionAtIndex(index: number, newParagraphSection: PageContentSection) {
+    let copyOfControls = this.controls;
+    this.controls = []
+    for (let i = 0; i < copyOfControls.length; i++) {
+      if (i == index) {
+        this.controls.push(newParagraphSection)
+      }
+
+      this.controls.push(copyOfControls[i])
+    }
+    this.controlsUpdated();
+  }
+
+  private getNewParagraphSection() : PageContentSection {
+    return {type: 'paragraph', content: new FormControl('', Validators.required)};
+  }
+
+  private getNewCodeSection() {
+    return {type: 'code', content: new FormControl('', Validators.required)};
+  }
+
+  private getNewImageSection() {
+    return {type: 'image', content: new FormControl('', Validators.required)};
+  }
+
+  deleteSection(index: number) {
+    this.controls = this.controls.filter(c => c != this.controls[index])
+    this.controlsUpdated();
+  }
+
+  private dragSections(indexOfDraggedElement: number, indexOfTargetElement: number) {
+    if (indexOfDraggedElement > indexOfTargetElement) {
+      let target = this.controls[indexOfDraggedElement]
+      for (let i = indexOfTargetElement; i <= indexOfDraggedElement; i++) {
+        let temp = this.controls[i];
+        this.controls[i] = target;
+        target = temp
+      }
+    } else {
+      for (let i = indexOfDraggedElement; i < indexOfTargetElement; i++) {
+        let temp = this.controls[i];
+        this.controls[i] = this.controls[i + 1];
+        this.controls[i + 1] = temp;
+      }
+    }
+  }
+
+  onDrop($event: DragEvent) {
+    $event.preventDefault();
+
+    let indexOfDraggedElement= Number.parseInt($event.dataTransfer?.getData("text/plain")!);
+    let indexOfTargetElement = Number.parseInt(this.getHtmlElementId($event.target));
+
+    console.log("drop from", indexOfDraggedElement, "to", indexOfTargetElement)
+
+    this.dragSections(indexOfDraggedElement, indexOfTargetElement);
+  }
+
+  onDragStart($event: DragEvent) {
+    console.log("drag", this.getHtmlElementId($event.target))
+    $event.dataTransfer?.setData("text/plain", this.getHtmlElementId($event.target))
+  }
+
+  private getHtmlElementId(target: EventTarget | null) {
+    return (target as HTMLElement).id;
+  }
+
+  allowDrop($event: DragEvent) {
+    $event.preventDefault()
+  }
+
+  addParagraphAtEnd() {
+    this.controls.push(this.getNewParagraphSection())
+  }
+
+  addCodeAtEnd() {
+    this.controls.push(this.getNewCodeSection())
+  }
+
+  addImageAtEnd() {
+    this.controls.push(this.getNewImageSection())
   }
 }

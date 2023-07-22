@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProjectService} from "../../../services/project.service";
-import {ArticleUtils} from "../../../utils/article.utils";
+import {ArticleEstimatedReadingTimeCalculator} from "../../../utils/articleEstimatedReadingTimeCalculator";
+import {PageContentSection} from "../../../components/page-editor/page-content-section";
 
 @Component({
   selector: 'app-add-project',
@@ -14,7 +15,7 @@ export class AddProjectComponent implements OnInit {
               private projectService: ProjectService) { }
 
   projectForm!: FormGroup;
-  contentControls: Array<{ id: number; controlInstance: string }> = [];
+  controls: PageContentSection[] = [];
 
   successMessage: string | undefined;
   errorMessage: string | undefined;
@@ -33,13 +34,13 @@ export class AddProjectComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.projectForm.valid) {
+    if (this.projectForm.valid && this.areSectionsValid()) {
       let form = {
         title: this.projectForm.controls['title'].value,
         description: this.projectForm.controls['description'].value,
         url: this.projectForm.controls['url'].value,
         createdDate: this.projectForm.controls['createdDate'].value,
-        content: ArticleUtils.getArticleContent(this.contentControls, this.projectForm),
+        content: this.getContentSections(),
       };
       this.projectService.addProject(form).subscribe({
         next: _ => this.successMessage = "Project added successfully.",
@@ -54,5 +55,24 @@ export class AddProjectComponent implements OnInit {
         }
       });
     }
+  }
+
+  private getContentSections() {
+    return this.controls.map(c => {
+      switch (c.type) {
+        case 'code': return { type: 'code', language: c.metadata, content: c.content.value };
+        case 'image': return { type: 'image', imageUrl: c.content.value };
+        case 'paragraph': return { type: 'paragraph', content: c.content.value };
+        default: return null;
+      }
+    })
+  }
+
+  private areSectionsValid() {
+    return this.controls.map(c => c.content.valid).reduce((p, c) => p && c);
+  }
+
+  updateControls(updatedContent: PageContentSection[]) {
+    this.controls = updatedContent;
   }
 }

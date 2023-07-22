@@ -11,8 +11,8 @@ export class AddImageComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
-  @Input("id")
-  id! : number;
+  @Input("sectionId")
+  sectionId! : number;
 
   @Input("imageUrl")
   originalImageUrl : string | undefined;
@@ -27,6 +27,6 @@ export class AddImageComponent implements OnInit {
   }
 
   updateUrl() {
-    this.imageUrl.emit(new ArticleAdditionEvent(`image-${this.id}`, this.imageUrlControl.value));
+    this.imageUrl.emit(new ArticleAdditionEvent(`image-${this.sectionId}`, this.imageUrlControl.value));
   }
 }

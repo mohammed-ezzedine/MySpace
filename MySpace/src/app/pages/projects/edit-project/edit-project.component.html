@@ -31,7 +31,12 @@
     </nz-form-control>
   </nz-form-item>
 
-  <app-page-editor [form]="projectForm" [contentControls]="contentControls"></app-page-editor>
+  <app-page-editor [controls]="controls" (updatedControls)="updateControls($event)"></app-page-editor>
+
+  <div class="meta">
+    <h1 class="page-title">Edit Project</h1>
+    <button class="submit" nz-button nzShape="round" [nzType]="'primary'" nzSize="large">Submit</button>
+  </div>
 </form>
 
 <ng-template #projectUndefined>

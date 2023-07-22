@@ -28,7 +28,7 @@
     </nz-form-control>
   </nz-form-item>
 
-  <app-page-editor [form]="articleForm" [contentControls]="contentControls"></app-page-editor>
+  <app-page-editor [controls]="controls" (updatedControls)="updateControls($event)"></app-page-editor>
 
   <nz-form-item class="tags">
     <nz-form-control>
@@ -37,6 +37,11 @@
       </nz-select>
     </nz-form-control>
   </nz-form-item>
+
+  <div class="meta">
+    <h1 class="page-title">Edit Article</h1>
+    <button class="submit" nz-button nzShape="round" [nzType]="'primary'" nzSize="large">Submit</button>
+  </div>
 
 </form>
 

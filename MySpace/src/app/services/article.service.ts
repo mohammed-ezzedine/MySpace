@@ -36,6 +36,7 @@ export class ArticleService {
   }
 
   addArticle(form: any) : Observable<Article> {
+    console.log(JSON.stringify(form))
        return this.http.post<Article>(ArticleService.ENDPOINT, JSON.stringify(form), this.getHttpOptions());
   }
 

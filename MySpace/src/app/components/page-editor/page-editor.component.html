@@ -1,38 +1,68 @@
-<nz-form-item *ngFor="let element of contentControls; let i = index">
-  <nz-form-control nzErrorTip="Text is required" *ngIf="getElementType(element) != 'codelanguage'">
-    <app-add-code-snippet *ngIf="getElementType(element) == 'code'"
-                          [id]="element.id"
-                          [code]='getControlValue(element.controlInstance)'
-                          [language]='getControlValue("codelanguage-" + element.id)'
-                          (language)="updateArticleControl($event)"
-                          (code)="updateArticleControl($event)"
-    ></app-add-code-snippet>
-    <app-editor *ngIf="getElementType(element) == 'paragraph'"
-                [id]="element.id"
-                [content]="getControlValue(element.controlInstance)"
-                (content)="updateArticleControl($event)"
-    ></app-editor>
-    <app-add-image *ngIf="getElementType(element) == 'image'"
-                   [id]="element.id"
-                   [imageUrl]="getControlValue(element.controlInstance)"
-                   (imageUrl)="updateArticleControl($event)"
-    ></app-add-image>
-  </nz-form-control>
-  <button nz-button nzType="default" class="delete-button" (click)="deleteSection(element)">
-    <i nz-icon nzType="delete" nzTheme="twotone"></i>
-  </button>
-</nz-form-item>
+<div *ngFor="let element of controls; let i = index">
+  <nz-button-group nzSize="default" class="section-actions" >
+    <button nz-button nzType="dashed" class="add-button" (click)="addParagraph(i)">
+      <i nz-icon nzType="plus"></i>
+      Add paragraph
+    </button>
+    <button nz-button nzType="dashed" class="add-button" (click)="addCode(i)">
+      <i nz-icon nzType="plus"></i>
+      Add code
+    </button>
+    <button nz-button nzType="dashed" class="add-button" (click)="addImage(i)">
+      <i nz-icon nzType="plus"></i>
+      Add image
+    </button>
+  </nz-button-group>
 
-<nz-button-group nzSize="default">
-  <button nz-button nzType="dashed" class="add-button" (click)="addParagraph($event)">
+
+  <nz-form-item style="display: flex">
+    <div class="handle"
+         [id]="i"
+         (dragover)="allowDrop($event)"
+         (drop)="onDrop($event)"
+         [draggable]="true"
+         (dragstart)="onDragStart($event)"
+    ><span nz-icon nzType="holder" nzTheme="outline"></span></div>
+
+    <nz-form-control nzErrorTip="Text is required">
+      <app-add-code-snippet *ngIf="getElementType(element) == 'code'"
+                            [sectionId]="i"
+                            [code]='element.content.value'
+                            [language]='element.metadata'
+                            (language)="updateSectionMetadata(i, $event)"
+                            (code)="updateSectionContent(i, $event)"
+      ></app-add-code-snippet>
+      <app-editor *ngIf="getElementType(element) == 'paragraph'"
+                  [sectionId]="i"
+                  [content]="element.content.value"
+                  (content)="updateSectionContent(i, $event)"
+
+      ></app-editor>
+      <app-add-image *ngIf="getElementType(element) == 'image'"
+                     [sectionId]="i"
+                     [imageUrl]="element.content.value"
+                     (imageUrl)="updateSectionContent(i, $event)"
+      ></app-add-image>
+    </nz-form-control>
+    <button nz-button nzType="default" class="delete-button" (click)="deleteSection(i)">
+      <i nz-icon nzType="delete" nzTheme="twotone"></i>
+    </button>
+
+  </nz-form-item>
+
+</div>
+
+
+<nz-button-group nzSize="default" class="section-actions">
+  <button nz-button nzType="dashed" class="add-button" (click)="addParagraphAtEnd()">
     <i nz-icon nzType="plus"></i>
     Add paragraph
   </button>
-  <button nz-button nzType="dashed" class="add-button" (click)="addCode($event)">
+  <button nz-button nzType="dashed" class="add-button" (click)="addCodeAtEnd()">
     <i nz-icon nzType="plus"></i>
     Add code
   </button>
-  <button nz-button nzType="dashed" class="add-button" (click)="addImage($event)">
+  <button nz-button nzType="dashed" class="add-button" (click)="addImageAtEnd()">
     <i nz-icon nzType="plus"></i>
     Add image
   </button>
