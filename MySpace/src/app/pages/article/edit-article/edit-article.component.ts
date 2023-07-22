@@ -4,9 +4,10 @@ import {ArticleService} from "../../../services/article.service";
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ArticleAdditionEvent} from "../../../events/article-addition.event";
-import {ArticleUtils} from "../../../utils/article.utils";
+import {ArticleEstimatedReadingTimeCalculator} from "../../../utils/articleEstimatedReadingTimeCalculator";
 import {readingTime} from "reading-time-estimator";
 import {TagService} from "../../../services/tag.service";
+import {PageContentSection} from "../../../components/page-editor/page-content-section";
 
 @Component({
   selector: 'app-edit-article',
@@ -23,7 +24,7 @@ export class EditArticleComponent implements OnInit {
   successMessage: string | undefined;
 
   articleForm: FormGroup | undefined;
-  contentControls: Array<{ id: number; controlInstance: string }> = [];
+  controls : PageContentSection[] = [];
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
@@ -37,14 +38,14 @@ export class EditArticleComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.articleForm!.valid) {
+    if (this.articleForm!.valid && this.areSectionsValid()) {
       let form = {
         title: this.articleForm!.controls['title'].value,
         description: this.articleForm!.controls['description'].value,
         imageUrl: this.articleForm!.controls['imageUrl'].value,
         tags: this.articleForm!.controls['tags'].value,
-        content: ArticleUtils.getArticleContent(this.contentControls, this.articleForm!),
-        estimatedReadingTime: ArticleUtils.getArticleEstimatedReadingTime(this.contentControls, this.articleForm!)
+        content: this.getContentSections(),
+        estimatedReadingTime: ArticleEstimatedReadingTimeCalculator.calculate(this.controls)
       };
       this.articleService.updateArticle(this.id!, form).subscribe({
         next: _ => this.successMessage = 'Article updated successfully!',
@@ -60,6 +61,21 @@ export class EditArticleComponent implements OnInit {
         }
       });
     }
+  }
+
+  private areSectionsValid() {
+    return this.controls.map(c => c.content.valid).reduce((p, c) => p && c);
+  }
+
+  private getContentSections() {
+    return this.controls.map(c => {
+      switch (c.type) {
+        case 'code': return { type: 'code', language: c.metadata, content: c.content.value };
+        case 'image': return { type: 'image', imageUrl: c.content.value };
+        case 'paragraph': return { type: 'paragraph', content: c.content.value };
+        default: return null;
+      }
+    })
   }
 
   private getAvailableTags() {
@@ -86,7 +102,24 @@ export class EditArticleComponent implements OnInit {
       return;
     }
 
-    ArticleUtils.initializeContentControls(this.articleForm!, this.contentControls, this.article.content);
+    this.initializePageContent(this.article.content);
+
+  }
+
+  private initializePageContent(content: any[]) {
+    for (let section of content) {
+      if (section.type == 'paragraph') {
+        this.controls.push({type: 'paragraph', content: new FormControl(section.content, Validators.required)})
+      } else if (section.type == 'code') {
+        this.controls.push({
+          type: 'code',
+          metadata: section.language,
+          content: new FormControl(section.content, Validators.required)
+        })
+      } else {
+        this.controls.push({type: 'image', content: new FormControl(section.imageUrl, Validators.required)})
+      }
+    }
   }
 
   private getArticleIdFromRoute() {
@@ -107,5 +140,9 @@ export class EditArticleComponent implements OnInit {
         }
       })
     }
+  }
+
+  updateControls(updatedControls: PageContentSection[]) {
+    this.controls = updatedControls
   }
 }

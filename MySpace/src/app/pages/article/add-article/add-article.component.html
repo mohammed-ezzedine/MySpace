@@ -1,10 +1,10 @@
 <nz-alert *ngIf="successMessage" nzType="success" [nzDescription]="successMessage" nzShowIcon nzCloseable></nz-alert>
 <nz-alert *ngIf="errorMessage" nzType="error" [nzDescription]="errorMessage" nzShowIcon nzCloseable></nz-alert>
 
-<form nz-form [formGroup]="articleForm" (ngSubmit)="submitForm()">
+<form nz-form [formGroup]="articleForm">
   <div class="meta">
     <h1 class="page-title">New Article</h1>
-    <button class="submit" nz-button nzShape="round" [nzType]="'primary'" nzSize="large">Submit</button>
+    <button class="submit" nz-button nzShape="round" [nzType]="'primary'" nzSize="large" (click)="submitForm()">Submit</button>
   </div>
 
   <nz-form-item>
@@ -28,7 +28,7 @@
     </nz-form-control>
   </nz-form-item>
 
-  <app-page-editor [form]="articleForm" [contentControls]="contentControls"></app-page-editor>
+  <app-page-editor [controls]="controls" (updatedControls)="updateControls($event)"></app-page-editor>
 
   <nz-form-item class="tags">
     <nz-form-control>
@@ -38,4 +38,8 @@
     </nz-form-control>
   </nz-form-item>
 
+  <div class="meta">
+    <h1 class="page-title">New Article</h1>
+    <button class="submit" nz-button nzShape="round" [nzType]="'primary'" nzSize="large" (click)="submitForm()">Submit</button>
+  </div>
 </form>

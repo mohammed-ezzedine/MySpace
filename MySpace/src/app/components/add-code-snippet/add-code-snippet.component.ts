@@ -49,8 +49,8 @@ export class AddCodeSnippetComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
-  @Input("id")
-  id! : number;
+  @Input("sectionId")
+  sectionId! : number;
 
   @Input("language")
   originalLanguage: string | undefined;
@@ -113,11 +113,11 @@ export class AddCodeSnippetComponent implements OnInit {
   }
 
   updateLanguage() {
-    this.language.emit(new ArticleAdditionEvent(`codelanguage-${this.id}`, this.languageSelect));
+    this.language.emit(new ArticleAdditionEvent(`codelanguage-${this.sectionId}`, this.languageSelect));
   }
 
   updateCode() {
-    this.code.emit(new ArticleAdditionEvent(`code-${this.id}`, this.codeControl.value))
+    this.code.emit(new ArticleAdditionEvent(`code-${this.sectionId}`, this.codeControl.value))
   }
 
 }

@@ -3,7 +3,8 @@ import {ProjectModel} from "../../../models/project.model";
 import {ActivatedRoute} from "@angular/router";
 import {ProjectService} from "../../../services/project.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ArticleUtils} from "../../../utils/article.utils";
+import {ArticleEstimatedReadingTimeCalculator} from "../../../utils/articleEstimatedReadingTimeCalculator";
+import {PageContentSection} from "../../../components/page-editor/page-content-section";
 
 @Component({
   selector: 'app-edit-project',
@@ -22,7 +23,7 @@ export class EditProjectComponent implements OnInit {
   errorMessage: string | null = null;
 
   projectForm!: FormGroup;
-  contentControls: Array<{ id: number; controlInstance: string }> = [];
+  controls : PageContentSection[] = [];
 
   ngOnInit(): void {
     this.initializeProjectFromRoute();
@@ -62,20 +63,38 @@ export class EditProjectComponent implements OnInit {
       return;
     }
 
-    ArticleUtils.initializeContentControls(this.projectForm!, this.contentControls, this.project.content);
+    this.initializePageContent(this.project.content);
+    // ArticleUtils.initializeContentControls(this.projectForm!, this.contentControls, this.project.content);
+  }
+
+  private initializePageContent(content: any[]) {
+    for (let section of content) {
+      if (section.type == 'paragraph') {
+        this.controls.push({type: 'paragraph', content: new FormControl(section.content, Validators.required)})
+      } else if (section.type == 'code') {
+        this.controls.push({
+          type: 'code',
+          metadata: section.language,
+          content: new FormControl(section.content, Validators.required)
+        })
+      } else {
+        this.controls.push({type: 'image', content: new FormControl(section.imageUrl, Validators.required)})
+      }
+    }
   }
 
   submitForm(): void {
-    if (this.projectForm.valid) {
+    if (this.projectForm.valid && this.areSectionsValid()) {
       let form = {
         title: this.projectForm.controls['title'].value,
         description: this.projectForm.controls['description'].value,
         url: this.projectForm.controls['url'].value,
         createdDate: this.projectForm.controls['createdDate'].value,
-        content: ArticleUtils.getArticleContent(this.contentControls, this.projectForm),
+        // content: ArticleUtils.getArticleContent(this.contentControls, this.projectForm),
+        content: this.getContentSections(),
       };
       this.projectService.updateProject(this.id!, form).subscribe({
-        next: _ => this.successMessage = "Project added successfully.",
+        next: _ => this.successMessage = "Project updated successfully.",
         error: err => this.errorMessage = "Failed to add project: " + err.message
       })
     } else {
@@ -87,5 +106,24 @@ export class EditProjectComponent implements OnInit {
         }
       });
     }
+  }
+
+  private areSectionsValid() {
+    return this.controls.map(c => c.content.valid).reduce((p, c) => p && c);
+  }
+
+  private getContentSections() {
+    return this.controls.map(c => {
+      switch (c.type) {
+        case 'code': return { type: 'code', language: c.metadata, content: c.content.value };
+        case 'image': return { type: 'image', imageUrl: c.content.value };
+        case 'paragraph': return { type: 'paragraph', content: c.content.value };
+        default: return null;
+      }
+    })
+  }
+
+  updateControls(updatedControls: PageContentSection[]) {
+    this.controls = updatedControls
   }
 }

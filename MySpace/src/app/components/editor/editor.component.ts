@@ -17,8 +17,8 @@ export class EditorComponent implements AfterViewInit, OnInit  {
   @ViewChild('editable', { static: true })
   editable!: ElementRef;
 
-  @Input("id")
-  id! : number;
+  @Input("sectionId")
+  sectionId! : number; // TODO check if needed
 
   @Input("content")
   originalContent: string | undefined;
@@ -86,7 +86,7 @@ export class EditorComponent implements AfterViewInit, OnInit  {
     this.editor = new MediumEditor(this.editable.nativeElement, EditorComponent.mediumOptions);
 
     this.editor.subscribe('editableInput', (event: any, editable: any) => {
-      this.content.emit(new ArticleAdditionEvent(`paragraph-${this.id}`, editable.innerHTML))
+      this.content.emit(new ArticleAdditionEvent(`paragraph-${this.sectionId}`, editable.innerHTML))
     });
   }
 

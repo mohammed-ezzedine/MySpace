@@ -3,8 +3,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ArticleAdditionEvent} from "../../../events/article-addition.event";
 import {TagService} from "../../../services/tag.service";
 import {ArticleService} from "../../../services/article.service";
-import {ArticleUtils} from "../../../utils/article.utils";
+import {ArticleEstimatedReadingTimeCalculator} from "../../../utils/articleEstimatedReadingTimeCalculator";
 import {readingTime} from "reading-time-estimator";
+import {PageContentSection} from "../../../components/page-editor/page-content-section";
 
 @Component({
   selector: 'app-add-article',
@@ -19,7 +20,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   articleForm!: FormGroup;
-  contentControls: Array<{ id: number; controlInstance: string }> = [];
+  controls : PageContentSection[] = [];
   availableTags: string[] | undefined;
 
   successMessage: string | undefined;
@@ -48,29 +49,51 @@ export class AddArticleComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.articleForm.valid) {
+    if (this.articleForm.valid && this.areSectionsValid()) {
       let form = {
         title: this.articleForm.controls['title'].value,
         description: this.articleForm.controls['description'].value,
         imageUrl: this.articleForm.controls['imageUrl'].value,
         tags: this.articleForm.controls['tags'].value,
-        content: ArticleUtils.getArticleContent(this.contentControls, this.articleForm),
-        estimatedReadingTime: ArticleUtils.getArticleEstimatedReadingTime(this.contentControls, this.articleForm!)
+        content: this.getContentSections(),
+        estimatedReadingTime: ArticleEstimatedReadingTimeCalculator.calculate(this.controls)
       };
+
       this.articleService.addArticle(form).subscribe({
         next: _ => this.successMessage = 'Article created successfully!',
         error: err => this.errorMessage = 'ERROR: ' + err.message
       });
 
     } else {
-      console.log(this.articleForm)
-      Object.values(this.articleForm.controls).forEach(control => {
-        if (control.invalid) {
-          console.log(control)
-          control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
-        }
-      });
+      this.displayFormDirtyControls();
     }
+  }
+
+  private displayFormDirtyControls() {
+    Object.values(this.articleForm.controls).forEach(control => {
+      if (control.invalid) {
+        control.markAsDirty();
+        control.updateValueAndValidity({onlySelf: true});
+      }
+    });
+  }
+
+  private getContentSections() {
+    return this.controls.map(c => {
+      switch (c.type) {
+        case 'code': return { type: 'code', language: c.metadata, content: c.content.value };
+        case 'image': return { type: 'image', imageUrl: c.content.value };
+        case 'paragraph': return { type: 'paragraph', content: c.content.value };
+        default: return null;
+      }
+    })
+  }
+
+  private areSectionsValid() {
+    return this.controls.map(c => c.content.valid).reduce((p, c) => p && c);
+  }
+
+  updateControls(updatedContent: PageContentSection[]) {
+    this.controls = updatedContent;
   }
 }
