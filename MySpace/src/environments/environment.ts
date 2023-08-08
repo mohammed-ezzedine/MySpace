@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  // apiUrl: 'https://mohammed.ezzedine.me/api',
   apiUrl: 'https://localhost:7091',
   authUrl: 'https://localhost:7038',
 };
