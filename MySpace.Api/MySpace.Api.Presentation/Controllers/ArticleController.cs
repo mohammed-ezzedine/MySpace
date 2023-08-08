@@ -28,15 +28,21 @@ public class ArticleController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(List<ArticleResponse>))]
-    public ActionResult<List<ArticleResponse>> GetArticles(string? q, string? tag)
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<ArticleResponse>))]
+    public ActionResult<Page<ArticleResponse>> GetArticles(string? q, string? tag, int p = 1)
     {
         var articles = q != null
-            ? _articleService.QueryArticles(q)
+            ? _articleService.QueryArticles(q, p)
             : tag != null 
-                ? _articleService.GetArticlesByTag(new Tag(tag))
-                : _articleService.GetArticles();
-        var articleResponses = articles.Select(MapToArticleResponse).ToList();
+                ? _articleService.GetArticlesByTag(new Tag(tag), p)
+                : _articleService.GetArticles(p);
+        
+        var articleResponses = new Page<ArticleResponse>
+        {
+            Items = articles.Items.Select(MapToArticleResponse).ToList(),
+            PageNumber = articles.PageNumber,
+            TotalNumberOfPages = articles.TotalNumberOfPages
+        };
         return Ok(articleResponses);
     }
     

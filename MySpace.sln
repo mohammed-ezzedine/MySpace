@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionAssets", "SolutionA
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		docker-compose.yaml = docker-compose.yaml
+		.github\workflows\docker-images.yml = .github\workflows\docker-images.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySpace.Api.Application", "MySpace.Api\MySpace.Api.Application\MySpace.Api.Application.csproj", "{E5F6E7AA-CFA1-4976-A4AA-1D4F5C084927}"
