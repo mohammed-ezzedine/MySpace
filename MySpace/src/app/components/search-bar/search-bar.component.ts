@@ -38,9 +38,9 @@ export class SearchBarComponent implements OnInit {
 
     this.searchText = value;
 
-    this.articleService.getArticles(value)
+    this.articleService.getArticles(1, value)
       .subscribe({
-        next: articles => this.suggestions = articles
+        next: articles => this.suggestions = articles.items
       })
   }
 }
