@@ -13,9 +13,12 @@ export class ArticlesComponent implements OnInit {
 
   articles: Article[] | undefined;
   errorMessage: string = '';
+  pageSize: number = 5;
 
   tag : string | undefined;
   q : string | undefined;
+  currentPage: number = 1;
+  totalNumberOfPages: number = 1;
 
   constructor(private route: ActivatedRoute,
               private articleService: ArticleService,
@@ -40,9 +43,10 @@ export class ArticlesComponent implements OnInit {
   }
 
   private getArticles() {
-    this.articleService.getArticles(this.q, this.tag).subscribe({
+    this.articleService.getArticles(this.currentPage, this.q, this.tag).subscribe({
       next: articles => {
-        this.articles = articles;
+        this.articles = articles.items;
+        this.totalNumberOfPages = articles.totalNumberOfPages;
       },
       error: error => {
         this.errorMessage = error.message;
@@ -50,4 +54,12 @@ export class ArticlesComponent implements OnInit {
     });
   }
 
+  getTotalNumberOfPotentialArticles() {
+    return this.pageSize * this.totalNumberOfPages;
+  }
+
+  jumpToPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.getArticles();
+  }
 }
