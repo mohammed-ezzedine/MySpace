@@ -19,36 +19,36 @@ jobs:
           username: maezzedine
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
             
-      - name: Build API Docker image
-        run: docker build ./MySpace.Api -t maezzedine/myspace.api:latest -t maezzedine/myspace.api:${{ github.run_number }}
-        env:
-          MySpace_PersistenceConfiguration__ConnectionString: ${{ secrets.CONNECTION_STRING }}
-          MySpace_IdentityConfiguration__Issuer: ${{ secrets.IDENTITY_ISSUER }}
-          MySpace_IdentityConfiguration__Secret: ${{ secrets.IDENTITY_SALT }}
-
-      - name: Publish API Image to Docker Hub
-        run: docker push maezzedine/myspace.api --all-tags
-
-      - name: Build Authentication Docker image
-        run: docker build ./MySpace.Authentication -t maezzedine/myspace.authentication:latest -t maezzedine/myspace.authentication:${{ github.run_number }}
-        env:
-          MySpace_PersistenceConfiguration__ConnectionString: ${{ secrets.CONNECTION_STRING }}
-          MySpace_IdentityConfiguration__Issuer: ${{ secrets.IDENTITY_ISSUER }}
-          MySpace_IdentityConfiguration__Secret: ${{ secrets.IDENTITY_SALT }}
-          MySpace_AdminConfiguration__Username: ${{ secrets.ADMIN_USERNAME }}
-          MySpace_AdminConfiguration__Password: ${{ secrets.ADMIN_PASSWORD }}
-
-      - name: Publish Authentication Image Docker Hub
-        run: docker push maezzedine/myspace.authentication --all-tags
+#      - name: Build API Docker image
+#        run: docker build ./MySpace.Api -t maezzedine/myspace.api:latest -t maezzedine/myspace.api:${{ github.run_number }}
+#        env:
+#          MySpace_PersistenceConfiguration__ConnectionString: ${{ secrets.CONNECTION_STRING }}
+#          MySpace_IdentityConfiguration__Issuer: ${{ secrets.IDENTITY_ISSUER }}
+#          MySpace_IdentityConfiguration__Secret: ${{ secrets.IDENTITY_SALT }}
+#
+#      - name: Publish API Image to Docker Hub
+#        run: docker push maezzedine/myspace.api --all-tags
+#
+#      - name: Build Authentication Docker image
+#        run: docker build ./MySpace.Authentication -t maezzedine/myspace.authentication:latest -t maezzedine/myspace.authentication:${{ github.run_number }}
+#        env:
+#          MySpace_PersistenceConfiguration__ConnectionString: ${{ secrets.CONNECTION_STRING }}
+#          MySpace_IdentityConfiguration__Issuer: ${{ secrets.IDENTITY_ISSUER }}
+#          MySpace_IdentityConfiguration__Secret: ${{ secrets.IDENTITY_SALT }}
+#          MySpace_AdminConfiguration__Username: ${{ secrets.ADMIN_USERNAME }}
+#          MySpace_AdminConfiguration__Password: ${{ secrets.ADMIN_PASSWORD }}
+#
+#      - name: Publish Authentication Image Docker Hub
+#        run: docker push maezzedine/myspace.authentication --all-tags
 
       - name: Build UI Docker image
-        run: docker build ./MySpace -t maezzedine/myspace:latest -t maezzedine/myspace:${{ github.run_number }}
+        run: docker build ./MySpace -t maezzedine/myspace:ssr
 
       - name: Publish UI Image Docker Hub
         run: docker push maezzedine/myspace --all-tags
 
-      - name: Build Proxy Docker image
-        run: docker build ./MySpace.Proxy -t maezzedine/myspace.proxy:latest -t maezzedine/myspace.proxy:${{ github.run_number }}
-
-      - name: Publish Proxy Docker Hub
-        run: docker push maezzedine/myspace.proxy --all-tags
+#      - name: Build Proxy Docker image
+#        run: docker build ./MySpace.Proxy -t maezzedine/myspace.proxy:latest -t maezzedine/myspace.proxy:${{ github.run_number }}
+#
+#      - name: Publish Proxy Docker Hub
+#        run: docker push maezzedine/myspace.proxy --all-tags

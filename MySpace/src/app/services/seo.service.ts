@@ -15,8 +15,8 @@ export class SeoService {
 
   setData(data: SeoShareDataModel) {
     this.setTitle(data?.title);
-    this.setDescription(data?.description);
-    this.setImage(data?.image);
+    this.updateDescription(data?.description);
+    this.updateImage(data?.image);
   }
 
   private setTitle(title: string = '') {
@@ -32,27 +32,31 @@ export class SeoService {
     }
   }
 
-  private setDescription(description: string = '') {
+  private updateDescription(description: string = '') {
     if (description && description.length) {
-      this.metaService.updateTag({name: 'twitter:description', content: description});
-      this.metaService.updateTag({property: 'og:description', content: description});
-      this.metaService.updateTag({name: "description", content: description });
+      this.setDescription(description);
     } else {
-      this.metaService.updateTag({name: 'twitter:description', content: SeoService.DEFAULT_DESCRIPTION});
-      this.metaService.updateTag({property: 'og:description', content: SeoService.DEFAULT_DESCRIPTION});
-      this.metaService.updateTag({name: "description", content: SeoService.DEFAULT_DESCRIPTION });
+      this.setDescription(SeoService.DEFAULT_DESCRIPTION);
     }
   }
 
-  private setImage(imageUrl: string = '') {
+  private updateImage(imageUrl: string = '') {
     if (imageUrl && imageUrl.length) {
-      this.metaService.updateTag({name: 'twitter:image', content: imageUrl});
-      this.metaService.updateTag({property: 'og:image', content: imageUrl});
-      this.metaService.updateTag({name: "image", content: imageUrl });
+      this.setImage(imageUrl);
     } else {
-      this.metaService.updateTag({name: 'twitter:image', content: SeoService.DEFAULT_IMAGE});
-      this.metaService.updateTag({name: 'image', property: 'og:image', content: SeoService.DEFAULT_IMAGE});
-      this.metaService.updateTag({name: "image", content: SeoService.DEFAULT_IMAGE });
+      this.setImage(SeoService.DEFAULT_IMAGE);
     }
+  }
+
+  private setDescription(description: string) {
+    this.metaService.addTag({ 'name': 'description', 'property':'og:description', 'content': description})
+    this.metaService.addTag({ 'name': 'twitter:description', 'property':'twitter:description', 'content': description})
+    this.metaService.addTag({ 'name': 'og:description', 'property':'og:description', 'content': description})
+  }
+
+  private setImage(imageUrl: string) {
+    this.metaService.addTag({ 'name': 'image', 'property':'og:image', 'content': imageUrl})
+    this.metaService.addTag({ 'name': 'twitter:image', 'property':'twitter:image', 'content': imageUrl})
+    this.metaService.addTag({ 'name': 'og:image', 'property':'og:image', 'content': imageUrl})
   }
 }
